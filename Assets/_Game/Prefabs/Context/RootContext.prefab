@@ -49,6 +49,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  mainSettings: {fileID: 11400000, guid: 7512b79a9207c66468e2ef92810ef64c, type: 2}
   eventSystem: {fileID: 2046953369130593895}
 --- !u!1 &6264620435042799989
 GameObject:
