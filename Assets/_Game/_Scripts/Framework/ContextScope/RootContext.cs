@@ -1,7 +1,7 @@
-
-
 using System;
+using _Game._Scripts.Framework.Helpers.Attributes;
 using _Game._Scripts.Framework.Input;
+using _Game._Scripts.Framework.Managers.JCamera;
 using _Game._Scripts.Framework.Managers.Settings;
 using _Game._Scripts.Framework.Providers.AssetProvider;
 using UnityEngine;
@@ -14,8 +14,8 @@ namespace _Game._Scripts.Framework.ContextScope
 {
     public class RootContext : LifetimeScope
     {
-        [SerializeField] private MainSettings mainSettings;
-        [SerializeField] private EventSystem eventSystem;
+        [RequiredField, SerializeField] private MainSettings mainSettings;
+        [RequiredField, SerializeField] private EventSystem eventSystem;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -27,7 +27,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(input).AsSelf();
             builder.RegisterComponent(eventSystem).AsSelf();
             builder.RegisterComponent(mainSettings).AsSelf();
-            builder.Register<AssetProvider>(Lifetime.Singleton).As<IAssetProvider>();
+            builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
             builder.Register<ISettingsManager, SettingsManager>(Lifetime.Singleton);
         }
 

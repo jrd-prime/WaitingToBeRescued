@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Bootstrap;
+using _Game._Scripts.Framework.Helpers.Attributes;
 using _Game._Scripts.UI.Bootstrap;
 using UnityEngine;
 using VContainer;
@@ -8,7 +9,7 @@ namespace _Game._Scripts.Framework.ContextScope
 {
     public class BoostrapContext : LifetimeScope
     {
-        [SerializeField] private LoadingScreenView loadingScreenView;
+        [RequiredField, SerializeField] private LoadingScreenView loadingScreenView;
 
         protected override void Configure(IContainerBuilder builder)
         {

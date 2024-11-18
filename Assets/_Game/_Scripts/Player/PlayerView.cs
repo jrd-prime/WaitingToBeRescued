@@ -84,7 +84,7 @@ namespace _Game._Scripts.Player
                         _moveDirection = newDirection;
                         if (newDirection != Vector3.zero) SetAnimatorBool(AnimConst.IsMoving, true);
 
-                        _animator.SetFloat(AnimConst.MoveValue, newDirection.magnitude);
+                        // _animator.SetFloat(AnimConst.MoveValue, newDirection.magnitude);
                     }
                 })
                 .AddTo(_disposables);

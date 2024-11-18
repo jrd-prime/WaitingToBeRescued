@@ -1,11 +1,12 @@
-﻿using TMPro;
+﻿using _Game._Scripts.Framework.Helpers.Attributes;
+using TMPro;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Helpers.Debug
 {
     public class FPSDisplay : MonoBehaviour
     {
-        public TMP_Text fpsText;
+        [RequiredField] public TMP_Text fpsText;
         private float _deltaTime;
 
         private void Update()
