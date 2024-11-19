@@ -1,13 +1,13 @@
 ﻿using _Game._Scripts.UI.Base;
 using _Game._Scripts.UI.Interfaces;
 
-namespace _Game._Scripts.UI.Pause
+namespace _Game._Scripts.UI.Menus.Pause
 {
     public class PauseUIModel : UIModelBase, IPauseUIModel
     {
         public void ContinueButtonClicked()
         {
-            StateMachine.ChangeStateTo(StateType.Game);
+            StateMachine.ChangeStateTo(GameStateType.Gameplay);
         }
 
         public void SettingsButtonClicked()
@@ -18,7 +18,7 @@ namespace _Game._Scripts.UI.Pause
 
         public void ToMainMenuButtonClicked()
         {
-            StateMachine.ChangeStateTo(StateType.Menu);
+            StateMachine.ChangeStateTo(GameStateType.Menu);
         }
 
         public override void Initialize()

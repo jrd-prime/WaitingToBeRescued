@@ -1,7 +1,7 @@
 ﻿using _Game._Scripts.UI.Base;
 using _Game._Scripts.UI.Interfaces;
 
-namespace _Game._Scripts.UI.Settings
+namespace _Game._Scripts.UI.Menus.Settings
 {
     public interface ISettingsUIModel : IUIModel
     {
@@ -26,7 +26,7 @@ namespace _Game._Scripts.UI.Settings
 
         public void MenuButtonClicked()
         {
-            StateMachine.ChangeStateTo(StateType.Menu);
+            StateMachine.ChangeStateTo(GameStateType.Menu);
         }
 
         public override void Initialize()

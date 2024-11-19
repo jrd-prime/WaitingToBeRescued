@@ -10,12 +10,12 @@ namespace _Game._Scripts.Framework.GameStateMachine.State
             Debug.LogWarning(" menu state enterm");
             if (GameManager.IsGameStarted.CurrentValue) GameManager.GameOver();
 
-            UIManager.ShowView(StateType.Menu);
+            UIController.ShowView(GameStateType.Menu);
         }
 
         public void Exit()
         {
-            UIManager.HideView(StateType.Menu);
+            UIController.HideView(GameStateType.Menu);
         }
     }
 }

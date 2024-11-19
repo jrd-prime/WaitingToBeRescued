@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Constants;
+using System.Reflection;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.SO;
 using UnityEngine;
-using UnityEngine.Assertions;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Managers.Settings
@@ -22,19 +22,24 @@ namespace _Game._Scripts.Framework.Managers.Settings
         {
             if (_mainSettings == null) throw new NullReferenceException("Main Settings is null");
 
-            CheckAndAddToCache(_mainSettings.character);
-            // CheckAndAddToCache(_mainSettings.enemies);
-            // CheckAndAddToCache(_mainSettings.enemyManager);
-            // CheckAndAddToCache(_mainSettings.weapon);
-            // CheckAndAddToCache(_mainSettings.movementControl);
-            // CheckAndAddToCache(_mainSettings.gameSettings);
+            AddSettingsToCache();
+
+            Debug.Log("Settings added to cache: " + ConfigsCache.Count);
         }
 
-        private void CheckAndAddToCache<T>(T settings) where T : SettingsSO
+        private void AddSettingsToCache()
         {
-            if (settings == null) throw new ArgumentNullException(nameof(settings));
-            if (!ConfigsCache.TryAdd(typeof(T), settings))
-                Debug.Log($"Error. When adding to cache {typeof(T)}");
+            var fields = typeof(MainSettings)
+                .GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+
+            foreach (var field in fields)
+            {
+                if (!typeof(SettingsSO).IsAssignableFrom(field.FieldType)) continue;
+                var settings = (SettingsSO)field.GetValue(_mainSettings);
+
+                if (!ConfigsCache.TryAdd(settings.GetType(), settings))
+                    throw new Exception($"Error. When adding to cache {settings.GetType()}");
+            }
         }
 
         public T GetConfig<T>() where T : SettingsSO => ConfigsCache[typeof(T)] as T;

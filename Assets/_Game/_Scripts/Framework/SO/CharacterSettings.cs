@@ -6,12 +6,12 @@ using UnityEngine.Assertions;
 namespace _Game._Scripts.Framework.SO
 {
     [CreateAssetMenu(
-        fileName = "CharacterConfiguration",
-        menuName = SOPathConst.ConfigPath + "Character Configuration",
+        fileName = "character-settings",
+        menuName = SOPathConst.CharacterPath + "character-settings",
         order = 100)]
     public class CharacterSettings : SettingsSO
     {
-        public override string Description => "Character settings";
+        public override string Description => "character settings";
 
         [Range(0.1f, 100f)] public float moveSpeed = 5f;
 

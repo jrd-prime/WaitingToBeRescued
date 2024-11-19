@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Bootstrap;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Attributes;
 using _Game._Scripts.UI.Bootstrap;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace _Game._Scripts.Framework.ContextScope
 
         protected override void Configure(IContainerBuilder builder)
         {
-            Debug.Log("<color=cyan>BOOSTRAP CONTEXT</color>");
+            Debug.Log("<color=cyan>Bootstrap context</color>");
 
             builder.Register<ILoadingScreenModel, LoadingScreenModel>(Lifetime.Singleton);
             builder.Register<ILoadingScreenViewModel, LoadingScreenViewModel>(Lifetime.Singleton);

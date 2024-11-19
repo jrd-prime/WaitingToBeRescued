@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Managers.Settings;
+using _Game._Scripts.Framework.SO;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;

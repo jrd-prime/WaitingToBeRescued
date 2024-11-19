@@ -1,10 +1,8 @@
-﻿using _Game._Scripts.Framework.Constants;
-using _Game._Scripts.UI.Base;
-using R3;
+﻿using _Game._Scripts.UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UI.MainMenu
+namespace _Game._Scripts.UI.Menus.MainMenu
 {
     public class MenuUIView : UIView<MenuUIViewModel>, IMenuUIView
     {

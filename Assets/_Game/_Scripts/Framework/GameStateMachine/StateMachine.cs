@@ -13,7 +13,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
 {
     public class StateMachine : IPostStartable, IDisposable
     {
-        private readonly Dictionary<StateType, IGameState> _states = new();
+        private readonly Dictionary<GameStateType, IGameState> _states = new();
 
         private IGameState _currentState = null;
         private IPlayerModel _playerModel;
@@ -24,11 +24,11 @@ namespace _Game._Scripts.Framework.GameStateMachine
         [Inject]
         private void Construct(IObjectResolver container)
         {
-            _states.Add(StateType.Menu, container.Resolve<MenuState>());
+            _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
             // _states.Add(StateType.GameOver, container.Resolve<GameOverState>());
-            _states.Add(StateType.Pause, container.Resolve<PauseState>());
-            _states.Add(StateType.Game, container.Resolve<GamePlayState>());
-            _states.Add(StateType.Settings, container.Resolve<SettingsState>());
+            _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
+            _states.Add(GameStateType.Gameplay, container.Resolve<GamePlayState>());
+            _states.Add(GameStateType.Settings, container.Resolve<SettingsState>());
             // _states.Add(StateType.Win, container.Resolve<WinState>());
 
             _playerModel = container.Resolve<IPlayerModel>();
@@ -39,7 +39,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
         {
             if (_currentState != null) return;
 
-            ChangeStateTo(StateType.Menu);
+            ChangeStateTo(GameStateType.Menu);
 
             _gameManager.IsGameStarted
                 .Subscribe(value => isGameStarted = value).AddTo(_disposables);
@@ -53,12 +53,12 @@ namespace _Game._Scripts.Framework.GameStateMachine
             //     .AddTo(_disposables);
         }
 
-        public void ChangeStateTo(StateType stateType)
+        public void ChangeStateTo(GameStateType gameStateType)
         {
-            if (!_states.TryGetValue(stateType, out IGameState state))
-                throw new KeyNotFoundException($"State: {stateType} not found!");
+            if (!_states.TryGetValue(gameStateType, out IGameState state))
+                throw new KeyNotFoundException($"State: {gameStateType} not found!");
             Debug.LogWarning(
-                $"- StateMachine - / Change state to: {stateType} / Current state: {_currentState?.GetType().Name}");
+                $"- StateMachine - / Change state to: {gameStateType} / Current state: {_currentState?.GetType().Name}");
 
 
             ChangeState(state);

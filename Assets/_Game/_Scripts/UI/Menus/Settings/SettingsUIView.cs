@@ -3,7 +3,7 @@ using _Game._Scripts.UI.Base;
 using R3;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UI.Settings
+namespace _Game._Scripts.UI.Menus.Settings
 {
     public class SettingsUIView : UIView<SettingsUIViewModel>
     {

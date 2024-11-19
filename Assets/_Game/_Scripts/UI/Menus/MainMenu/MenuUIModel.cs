@@ -3,7 +3,7 @@ using _Game._Scripts.UI.Interfaces;
 using UnityEditor;
 using UnityEngine;
 
-namespace _Game._Scripts.UI.MainMenu
+namespace _Game._Scripts.UI.Menus.MainMenu
 {
     public interface IMenuUIModel : IUIModel
     {
@@ -19,12 +19,12 @@ namespace _Game._Scripts.UI.MainMenu
 
         public void StartButtonClicked()
         {
-            StateMachine.ChangeStateTo(StateType.Game);
+            StateMachine.ChangeStateTo(GameStateType.Gameplay);
         }
 
         public void SettingsButtonClicked()
         {
-            StateMachine.ChangeStateTo(StateType.Settings);
+            StateMachine.ChangeStateTo(GameStateType.Settings);
         }
 
         public void ExitButtonClicked()

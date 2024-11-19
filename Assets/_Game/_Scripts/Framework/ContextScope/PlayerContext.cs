@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Game._Scripts.Framework.Helpers;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -8,7 +9,7 @@ namespace _Game._Scripts.Framework.ContextScope
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            Debug.Log("<color=cyan>PLAYER APP CONTEXT</color>");
+            Debug.Log("<color=cyan>Player context</color>");
         }
     }
 }

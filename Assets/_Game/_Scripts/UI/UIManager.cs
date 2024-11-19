@@ -6,6 +6,7 @@ using _Game._Scripts.UI.Base;
 using _Game._Scripts.UI.Interfaces;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game._Scripts.UI
 {
@@ -26,13 +27,13 @@ namespace _Game._Scripts.UI
 
         // [SerializeField] private GameplayUIView gameplayUIView;
 
-        private readonly Dictionary<StateType, UIViewBase> _views = new();
+        private readonly Dictionary<GameStateType, UIViewBase> _views = new();
         private CancellationTokenSource _cts;
 
         private void Awake()
         {
             var viewsCount = toolkitViews.Count;
-            var typesCount = Enum.GetNames(typeof(StateType)).Length;
+            var typesCount = Enum.GetNames(typeof(GameStateType)).Length;
             if (viewsCount != typesCount)
                 Debug.LogWarning($"Not all views are set! /// Set: {viewsCount} / Total: {typesCount}");
 
@@ -48,24 +49,24 @@ namespace _Game._Scripts.UI
             // InitializeView(StateType.Settings, settings);
             // InitializeView(StateType.Win, win);
 
-            foreach (var toolkitView in toolkitViews) InitializeView(toolkitView.viewForState, toolkitView.view);
+            // foreach (var toolkitView in toolkitViews) InitializeView(toolkitView.viewForState, toolkitView.view);
         }
 
-        public void ShowView(StateType menuForStateType)
+        public void ShowView(GameStateType menuForGameStateType)
         {
-            if (!_views.TryGetValue(menuForStateType, out var toolkitView))
-                throw new KeyNotFoundException($"View for state: {menuForStateType} not found!");
+            if (!_views.TryGetValue(menuForGameStateType, out var toolkitView))
+                throw new KeyNotFoundException($"View for state: {menuForGameStateType} not found!");
 
-            var a = ((IUIView)toolkitView).GetView();
+            // var a = ((IUIView)toolkitView).GetView();
 
-            Debug.LogWarning(a + $" /// {toolkitView.name}  /// " + menuForStateType);
+            // Debug.LogWarning(a + $" /// {toolkitView.name}  /// " + menuForStateType);
 
-            toolkitViewer.ShowView(a);
+            // toolkitViewer.ShowView(a);
         }
 
-        public void HideView(StateType menuForStateType)
+        public void HideView(GameStateType menuForGameStateType)
         {
-            var toolkitView = _views[menuForStateType];
+            var toolkitView = _views[menuForGameStateType];
             toolkitView.Unregister();
         }
 
@@ -93,18 +94,18 @@ namespace _Game._Scripts.UI
             _cts = null;
         }
 
-        private void InitializeView(StateType type, UIView<> uiView)
-        {
-            if (uiView == null) throw new NullReferenceException($"View of type {type} not set to UIManager prefab!");
-            // uiView.Hide();
-            _views.Add(type, uiView);
-        }
+        // private void InitializeView(StateType type, UIView<> uiView)
+        // {
+        //     if (uiView == null) throw new NullReferenceException($"View of type {type} not set to UIManager prefab!");
+        //     // uiView.Hide();
+        //     _views.Add(type, uiView);
+        // }
     }
 
     [Serializable]
     public struct ToolkitView
     {
-        public StateType viewForState;
-        public UIView<> view;
+        [FormerlySerializedAs("viewForState")] public GameStateType viewForGameState;
+        // public UIView<> view;
     }
 }

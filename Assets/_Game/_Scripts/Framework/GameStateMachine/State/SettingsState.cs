@@ -8,13 +8,13 @@ namespace _Game._Scripts.Framework.GameStateMachine.State
         public void Enter()
         {
             Debug.LogWarning("s ettings state enter");
-            UIManager.ShowView(StateType.Settings);
+            UIController.ShowView(GameStateType.Settings);
         }
 
         public void Exit()
         {
             Debug.LogWarning("settings state exit");
-            UIManager.HideView(StateType.Settings);
+            UIController.HideView(GameStateType.Settings);
         }
     }
 }

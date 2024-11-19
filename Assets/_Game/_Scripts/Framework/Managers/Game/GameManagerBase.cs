@@ -24,7 +24,7 @@ namespace _Game._Scripts.Framework.Managers.Game
         // protected IEnemiesManager EnemiesManager;
         protected IPlayerModel PlayerModel;
 
-        protected UIManager UIManager;
+        // protected UIManager UIManager;
 
         // protected IExperienceManager ExperienceManager;
         protected bool IsGamePaused;
@@ -44,7 +44,7 @@ namespace _Game._Scripts.Framework.Managers.Game
         {
             // EnemiesManager = ResolverHelp.ResolveAndCheck<IEnemiesManager>(_resolver);
             PlayerModel = ResolverHelp.ResolveAndCheck<IPlayerModel>(_resolver);
-            UIManager = ResolverHelp.ResolveAndCheck<UIManager>(_resolver);
+            // UIManager = ResolverHelp.ResolveAndCheck<UIManager>(_resolver);
             // ExperienceManager = ResolverHelp.ResolveAndCheck<IExperienceManager>(_resolver);
             _settingsManager = ResolverHelp.ResolveAndCheck<ISettingsManager>(_resolver);
 

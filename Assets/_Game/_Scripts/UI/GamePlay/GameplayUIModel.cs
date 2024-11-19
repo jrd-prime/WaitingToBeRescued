@@ -20,7 +20,7 @@ namespace _Game._Scripts.UI.GamePlay
         // public ReadOnlyReactiveProperty<int> Level => GameManager.Level;
 
 
-        public void MenuButtonClicked() => StateMachine.ChangeStateTo(StateType.Pause);
+        public void MenuButtonClicked() => StateMachine.ChangeStateTo(GameStateType.Pause);
 
         public ReactiveProperty<bool> IsTouchPositionVisible => _movementModel.IsTouchPositionVisible;
         public ReactiveProperty<Vector2> RingPosition => _movementModel.RingPosition;

@@ -6,7 +6,7 @@ namespace _Game._Scripts.Framework.GameStateMachine.State
     {
         public void Enter()
         {
-            UIManager.ShowView(StateType.Game);
+            UIController.ShowView(GameStateType.Gameplay);
             GameManager.StartNewGame();
             PlayerModel.SetGameStarted(true);
             
@@ -14,7 +14,7 @@ namespace _Game._Scripts.Framework.GameStateMachine.State
 
         public void Exit()
         {
-            UIManager.HideView(StateType.Game);
+            UIController.HideView(GameStateType.Gameplay);
             PlayerModel.SetGameStarted(false);
         }
     }

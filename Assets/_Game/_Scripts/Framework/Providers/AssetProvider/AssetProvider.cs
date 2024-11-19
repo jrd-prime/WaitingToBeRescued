@@ -12,7 +12,7 @@ namespace _Game._Scripts.Framework.Providers.AssetProvider
         public string Description => "Asset Provider";
 
         public void LoaderServiceInitialization() => Addressables.InitializeAsync();
-        
+
         public async UniTask<SceneInstance> LoadSceneAsync(string assetId, LoadSceneMode loadSceneMode)
         {
             return await Addressables.LoadSceneAsync(AssetsConst.GameScene, loadSceneMode).Task;
@@ -22,6 +22,11 @@ namespace _Game._Scripts.Framework.Providers.AssetProvider
         {
             var handle = Addressables.InstantiateAsync(assetId, parent);
             return await handle.Task;
+        }
+
+        public GameObject Instantiate(AssetReferenceGameObject assetId, Transform parent = null)
+        {
+            return Addressables.InstantiateAsync(assetId, parent).Result;
         }
     }
 }

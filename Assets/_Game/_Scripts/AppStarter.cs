@@ -1,8 +1,10 @@
 ﻿using System;
 using _Game._Scripts.Bootstrap;
-using _Game._Scripts.Framework.Const;
+using _Game._Scripts.Framework.Constants;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Managers.Settings;
 using _Game._Scripts.Framework.Providers.AssetProvider;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
@@ -34,17 +36,16 @@ namespace _Game._Scripts
             _loader.AddServiceForInitialization(_assetProvider);
             _loader.AddServiceForInitialization(_settingsManager);
 
-            Debug.Log("Starting services initialization...");
+            Debug.Log("Starting Services initialization...");
             await _loader.StartServicesInitializationAsync();
-            Debug.Log("Services initialization completed...");
+            Debug.Log("End Services initialization...");
 
             SceneInstance gameScene;
             try
             {
                 gameScene = await _assetProvider.LoadSceneAsync(AssetsConst.GameScene, LoadSceneMode.Additive);
             }
-            catch
-                (Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Failed to load game scene: {ex.Message}");
             }

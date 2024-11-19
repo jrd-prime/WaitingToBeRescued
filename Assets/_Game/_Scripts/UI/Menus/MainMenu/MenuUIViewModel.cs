@@ -1,7 +1,7 @@
 ﻿using _Game._Scripts.UI.Base;
 using R3;
 
-namespace _Game._Scripts.UI.MainMenu
+namespace _Game._Scripts.UI.Menus.MainMenu
 {
     public class MenuUIViewModel : UIViewModelCustom<IMenuUIModel>, IMenuUIViewModel
     {

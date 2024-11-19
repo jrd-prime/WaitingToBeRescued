@@ -9,14 +9,14 @@ namespace _Game._Scripts.Framework.GameStateMachine.State
         {
             Debug.LogWarning("win state enter");
 
-            UIManager.ShowView(StateType.Win);
+            UIController.ShowView(GameStateType.Win);
             GameManager.StopTheGame();
         }
 
         public void Exit()
         {
             Debug.LogWarning("win state exit");
-            UIManager.HideView(StateType.Win);
+            UIController.HideView(GameStateType.Win);
         }
     }
 }

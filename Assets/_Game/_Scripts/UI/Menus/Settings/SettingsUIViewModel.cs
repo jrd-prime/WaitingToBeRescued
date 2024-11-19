@@ -2,7 +2,7 @@
 using R3;
 using UnityEngine;
 
-namespace _Game._Scripts.UI.Settings
+namespace _Game._Scripts.UI.Menus.Settings
 {
     public class SettingsUIViewModel : UIViewModelCustom<ISettingsUIModel>
     {
