@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.Managers.Game;
+﻿using _Game._Scripts.Framework.Manager.Game;
+using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.NewUI;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI;
@@ -11,12 +12,12 @@ namespace _Game._Scripts.Framework.GameStateMachine
     public class GameStateBase : IInitializable
     {
         protected GameManager GameManager { get; private set; }
-        protected IUIController UIController { get; private set; }
+        protected IUIManager UIController { get; private set; }
         protected IPlayerModel PlayerModel { get; private set; }
 
         [Inject]
         private void Construct(GameManager gameManager,
-            IUIController uiController,
+            IUIManager uiController,
             IPlayerModel playerModel)
         {
             GameManager = gameManager;

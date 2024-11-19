@@ -1,10 +1,11 @@
 using System;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Helpers.Attributes;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Input;
-using _Game._Scripts.Framework.Managers.Settings;
+using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Providers.AssetProvider;
-using _Game._Scripts.Framework.SO;
+using _Game._Scripts.Framework.Systems;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -33,6 +34,7 @@ namespace _Game._Scripts.Framework.ContextScope
 
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
             builder.Register<ISettingsManager, SettingsManager>(Lifetime.Singleton);
+            builder.Register<ILocalizationSystem, LocalizationSystem>(Lifetime.Singleton);
         }
     }
 }

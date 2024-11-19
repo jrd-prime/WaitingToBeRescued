@@ -13,7 +13,7 @@ namespace _Game._Scripts.Framework.ContextScope
         {
             Debug.Log("<color=cyan>UI context</color>");
 
-            builder.Register<IMainMenuViewModel, MainMenuViewModel>(Lifetime.Singleton);
+            builder.Register<IMainMenu_ViewModel, MainUIViewModel>(Lifetime.Singleton);
         }
     }
 }

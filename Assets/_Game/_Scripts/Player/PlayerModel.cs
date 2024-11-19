@@ -1,7 +1,8 @@
 ﻿using System;
 using _Game._Scripts.Framework;
-using _Game._Scripts.Framework.Managers.Settings;
-using _Game._Scripts.Framework.SO;
+using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.MovementControl;

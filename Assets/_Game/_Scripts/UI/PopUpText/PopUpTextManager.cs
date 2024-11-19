@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using _Game._Scripts.Framework.Helpers.Attributes;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Providers.Pools;
 using UnityEngine;
 using UnityEngine.Serialization;

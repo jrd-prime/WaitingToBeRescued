@@ -46,3 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewForGameStateType: 0
   viewTemplate: {fileID: 9197481963319205126, guid: 8a3373506294f254aa33749b359fa461, type: 3}
+  headerNameId: main-menu-ttl
+  buttons:
+  - buttonNameId: play-btn
+    buttonActionData: 0
+  - buttonNameId: settings-btn
+    buttonActionData: 1
+  - buttonNameId: exit-btn
+    buttonActionData: 2

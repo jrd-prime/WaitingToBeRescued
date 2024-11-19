@@ -1,6 +1,6 @@
 ﻿using System;
-using _Game._Scripts.Framework.Helpers.Attributes;
-using _Game._Scripts.Framework.Managers.JCamera;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
+using _Game._Scripts.Framework.Manager.JCamera;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;

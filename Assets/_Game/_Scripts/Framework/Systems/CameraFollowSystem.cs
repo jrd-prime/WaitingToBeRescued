@@ -1,6 +1,6 @@
 ﻿using System;
-using _Game._Scripts.Framework.Managers;
-using _Game._Scripts.Framework.Managers.JCamera;
+using _Game._Scripts.Framework.Manager;
+using _Game._Scripts.Framework.Manager.JCamera;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Systems

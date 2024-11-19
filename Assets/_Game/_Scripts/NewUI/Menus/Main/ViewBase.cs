@@ -1,44 +1,88 @@
 ﻿using System;
-using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Helpers.Attributes;
+using System.Collections.Generic;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
+using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using VContainer;
 
 namespace _Game._Scripts.NewUI.Menus.Main
 {
-    public class ViewBase : MonoBehaviour
+    public abstract class ViewBase : MonoBehaviour
     {
         [SerializeField] public GameStateType viewForGameStateType = GameStateType.NotSet;
 
         [RequiredField, SerializeField] protected VisualTreeAsset viewTemplate;
-        private TemplateContainer template;
+        private TemplateContainer _template;
 
-        private void Awake()
+        private const string MainContentContainerId = "main-content-container";
+        private bool _isInitialized;
+        protected VisualElement _contentContainer;
+        protected ILocalizationSystem _localizationSystem;
+
+        protected readonly Dictionary<Button, EventCallback<ClickEvent>> CallbacksCache = new();
+
+        [Inject]
+        private void Construct(ILocalizationSystem localizationSystem)
+        {
+            Debug.LogWarning("construct ViewBase " + localizationSystem);
+            _localizationSystem = localizationSystem;
+        }
+
+        private void Start()
         {
             Debug.Log("Awake ViewBase");
             if (viewForGameStateType == GameStateType.NotSet)
                 throw new Exception("GameStateType for view is not set. " + name);
             if (viewTemplate == null) throw new NullReferenceException("ViewTemplate is null. " + name);
-            template = viewTemplate.Instantiate();
+            _template = viewTemplate.Instantiate();
+
+            if (_template == null) throw new NullReferenceException("Template is null. " + name);
+            _contentContainer = _template.Q<VisualElement>(MainContentContainerId) ??
+                                throw new NullReferenceException($"{MainContentContainerId} not found");
+            InitializeView();
+            InitializeCallbacks();
+            RegisterCallbacks();
+
+            _isInitialized = true;
         }
 
-        private void Start()
-        {
-            Debug.Log("Start ViewBase");
-        }
+        protected abstract void InitializeCallbacks();
+
+        protected abstract void RegisterCallbacks();
+
+
+        protected abstract void InitializeView();
 
         public TemplateContainer GetTemplateContainer()
         {
-            return template;
+            if (!_isInitialized)
+                throw new Exception("View is not initialized. " + name); //TODO mb call InitializeView??
+            return _template;
         }
     }
 
-    public class CustomView<T> : ViewBase where T : IUINewViewModel
+    [Serializable]
+    public struct ButtonData
     {
+        public string buttonNameId;
+        public ButtonActionData buttonActionData;
+    }
+
+    public enum ButtonActionData
+    {
+        Play,
+        Settings,
+        Exit
+    }
+
+    public abstract class CustomMenuView<T> : ViewBase where T : IUINewViewModel
+    {
+        [SerializeField] protected string headerNameId;
+        [SerializeField] protected ButtonData[] buttons;
         protected T ViewModel { get; private set; }
+
 
         [Inject]
         private void Construct(T viewModel)

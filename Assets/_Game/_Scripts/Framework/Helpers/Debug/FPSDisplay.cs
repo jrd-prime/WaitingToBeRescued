@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.Helpers.Attributes;
+﻿using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using TMPro;
 using UnityEngine;
 

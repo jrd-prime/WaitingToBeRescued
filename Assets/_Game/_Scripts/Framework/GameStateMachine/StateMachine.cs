@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game._Scripts.Framework.GameStateMachine.State;
-using _Game._Scripts.Framework.Managers.Game;
+using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI;
 using R3;

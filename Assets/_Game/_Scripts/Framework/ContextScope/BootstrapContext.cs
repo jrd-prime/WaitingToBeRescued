@@ -1,6 +1,6 @@
 ﻿using _Game._Scripts.Bootstrap;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Helpers.Attributes;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.UI.Bootstrap;
 using UnityEngine;
 using VContainer;

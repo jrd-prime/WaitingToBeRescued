@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.Constants;
+﻿using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.UI.Base;
 using R3;
 using UnityEngine.UIElements;

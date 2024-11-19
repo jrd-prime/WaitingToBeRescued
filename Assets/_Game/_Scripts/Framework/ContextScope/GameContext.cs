@@ -2,9 +2,10 @@
 using _Game._Scripts.Framework.GameStateMachine;
 using _Game._Scripts.Framework.GameStateMachine.State;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Helpers.Attributes;
-using _Game._Scripts.Framework.Managers.Game;
-using _Game._Scripts.Framework.Managers.JCamera;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
+using _Game._Scripts.Framework.Manager.Game;
+using _Game._Scripts.Framework.Manager.JCamera;
+using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.NewUI;
 using _Game._Scripts.Player;
@@ -13,6 +14,7 @@ using _Game._Scripts.UI.MovementControl;
 using _Game._Scripts.UI.MovementControl.FullScreen;
 using _Game._Scripts.UI.PopUpText;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 using IMovementControlModel = _Game._Scripts.UI.MovementControl.IMovementControlModel;
@@ -25,16 +27,16 @@ namespace _Game._Scripts.Framework.ContextScope
         [RequiredField, SerializeField] private GameManager gameManager;
         [RequiredField, SerializeField] private PopUpTextManager popUpTextManager;
 
-        [RequiredField, SerializeField] private UIControllerBase uiController;
+        [FormerlySerializedAs("uiController")] [RequiredField, SerializeField] private UIManagerBase uiManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("<color=cyan>Game context</color>");
 
 
-            if (uiController == null) throw new NullReferenceException("UIController is null");
+            if (uiManager == null) throw new NullReferenceException("UIController is null");
 
-            builder.RegisterComponent(uiController).As<IUIController>();
+            builder.RegisterComponent(uiManager).As<IUIManager>();
             // MonoBehaviour
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
 

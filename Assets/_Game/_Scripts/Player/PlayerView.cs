@@ -1,5 +1,5 @@
 ﻿using System;
-using _Game._Scripts.Framework.Constants;
+using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Player.Interfaces;
 using R3;

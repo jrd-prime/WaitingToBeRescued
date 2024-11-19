@@ -1,5 +1,5 @@
 ﻿using System;
-using _Game._Scripts.Framework.Helpers.Attributes;
+using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.UI.Interfaces;
 using UnityEngine;
 using UnityEngine.UIElements;
