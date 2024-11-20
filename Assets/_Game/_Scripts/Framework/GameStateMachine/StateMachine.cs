@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _Game._Scripts.Framework.GameStateMachine.State;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Player.Interfaces;
-using _Game._Scripts.UI;
+using _Game._Scripts.UIOLD;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -11,10 +11,14 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.GameStateMachine
 {
-    public class StateMachine : IPostStartable, IDisposable
+    public interface IStateMachine : IPostStartable, IDisposable
+    {
+        public void ChangeStateTo(GameStateType gameStateType);
+    }
+
+    public class StateMachine : IStateMachine
     {
         private readonly Dictionary<GameStateType, IGameState> _states = new();
-
         private IGameState _currentState = null;
         private IPlayerModel _playerModel;
         private GameManager _gameManager;

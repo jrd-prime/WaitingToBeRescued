@@ -4,15 +4,15 @@ using _Game._Scripts.Framework.ContextScope;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.UI.Viewer;
-using _Game._Scripts.NewUI.Menus.Main;
-using _Game._Scripts.UI;
+using _Game._Scripts.UI.Base.View;
+using _Game._Scripts.UIOLD;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Manager.UI
 {
-    public class UIManagerBase : MonoBehaviour, IUIManager
+    public abstract class UIManagerBase : MonoBehaviour, IUIManager
     {
         [Header("Viewer"), RequiredField, SerializeField]
         protected UIViewer viewer;
@@ -47,19 +47,21 @@ namespace _Game._Scripts.Framework.Manager.UI
             }
         }
 
-        public void ShowView(GameStateType gameStateType)
+        public void ShowView(GameStateType gameStateType, bool toSafe = false)
         {
             Debug.LogWarning("Show view: " + gameStateType);
             if (!_views.TryGetValue(gameStateType, out var view))
                 throw new KeyNotFoundException("View not found for game state: " + gameStateType);
             var visual = view.GetTemplateContainer();
-            viewer.ShowView(visual);
+            viewer.ShowView(visual, view.safeZone);
         }
 
         public void HideView(GameStateType gameStateType)
         {
             throw new NotImplementedException();
         }
+
+        public abstract void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);
     }
 
     [Serializable]

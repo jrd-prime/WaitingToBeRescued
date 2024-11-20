@@ -1,8 +1,6 @@
 ﻿using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
-using _Game._Scripts.NewUI;
 using _Game._Scripts.Player.Interfaces;
-using _Game._Scripts.UI;
 using UnityEngine.Assertions;
 using VContainer;
 using VContainer.Unity;

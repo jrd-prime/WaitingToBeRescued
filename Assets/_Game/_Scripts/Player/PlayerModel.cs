@@ -5,7 +5,7 @@ using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Player.Interfaces;
-using _Game._Scripts.UI.MovementControl;
+using _Game._Scripts.UIOLD.MovementControl;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -19,7 +19,7 @@ namespace _Game._Scripts.Player
         public bool Value;
     }
 
-    public class PlayerModel : IPlayerModel, IInitializable
+    public class PlayerModel : IPlayerModel, IInitializable, IDisposable
     {
         #region Reactive Properties
 
@@ -43,8 +43,6 @@ namespace _Game._Scripts.Player
 
         private CameraFollowSystem _cameraFollowSystem;
 
-        // private WeaponManager _weaponManager;
-        // private WeaponBase _weapon;
         private IObjectResolver _container;
         private readonly CompositeDisposable _disposables = new();
 
@@ -52,7 +50,7 @@ namespace _Game._Scripts.Player
         private void Construct(IObjectResolver container) => _container = container;
 
 
-        public async void Initialize()
+        public void Initialize()
         {
             Debug.LogWarning("PlayerModel Initialize");
             _movementControlModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(_container);
@@ -66,17 +64,12 @@ namespace _Game._Scripts.Player
             RotationSpeed.Value = CharSettings.rotationSpeed;
             SetHealth(CharSettings.health);
 
-            // _weapon = await _weaponManager.GetCharacterWeapon();
-
             Subscribe();
         }
 
         private void Subscribe()
         {
             TrackableAction = TakeDamage;
-            // _weapon.IsShooting
-            //     .Subscribe(value => IsShooting.Value = value)
-            //     .AddTo(_disposables);
 
             //TODO on drop joystick slow speed down
             _movementControlModel.MoveDirection
@@ -88,8 +81,6 @@ namespace _Game._Scripts.Player
         public void SetRotation(Quaternion rotation) => Rotation.Value = rotation;
         public void SetHealth(int health) => Health.Value = health;
         public void SetGameStarted(bool value) => IsGameStarted.Value = value;
-        // public void ShootToTarget(GameObject nearestEnemy) => _weapon.ShootAtTarget(nearestEnemy);
-
 
         public void TakeDamage(int damage)
         {
@@ -107,7 +98,6 @@ namespace _Game._Scripts.Player
             SetPosition(Vector3.zero);
             SetHealth(CharSettings.health);
         }
-
 
         public void Dispose()
         {

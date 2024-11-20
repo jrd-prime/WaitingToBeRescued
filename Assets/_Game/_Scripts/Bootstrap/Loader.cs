@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.UI.Bootstrap;
+using _Game._Scripts.UIOLD.Bootstrap;
 using Cysharp.Threading.Tasks;
 using VContainer;
 using VContainer.Unity;

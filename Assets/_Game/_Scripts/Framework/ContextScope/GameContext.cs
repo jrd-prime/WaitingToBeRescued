@@ -1,23 +1,20 @@
 ﻿using System;
 using _Game._Scripts.Framework.GameStateMachine;
 using _Game._Scripts.Framework.GameStateMachine.State;
-using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.Systems;
-using _Game._Scripts.NewUI;
 using _Game._Scripts.Player;
 using _Game._Scripts.Player.Interfaces;
-using _Game._Scripts.UI.MovementControl;
-using _Game._Scripts.UI.MovementControl.FullScreen;
-using _Game._Scripts.UI.PopUpText;
+using _Game._Scripts.UIOLD.MovementControl;
+using _Game._Scripts.UIOLD.MovementControl.FullScreen;
+using _Game._Scripts.UIOLD.PopUpText;
 using UnityEngine;
 using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
-using IMovementControlModel = _Game._Scripts.UI.MovementControl.IMovementControlModel;
 
 namespace _Game._Scripts.Framework.ContextScope
 {
@@ -27,7 +24,8 @@ namespace _Game._Scripts.Framework.ContextScope
         [RequiredField, SerializeField] private GameManager gameManager;
         [RequiredField, SerializeField] private PopUpTextManager popUpTextManager;
 
-        [FormerlySerializedAs("uiController")] [RequiredField, SerializeField] private UIManagerBase uiManager;
+        [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
+        private UIManagerBase uiManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -41,13 +39,13 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
 
 
-            builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
             builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton);
 
-            builder.Register<FullScreenMovementModel>(Lifetime.Singleton).As<IFullScreenMovementModel>()
-                .As<IMovementControlModel>();
-            builder.Register<FullScreenMovementViewModel>(Lifetime.Singleton).As<IFullScreenMovementViewModel>()
-                .As<IMovementControlViewModel>();
+            builder.Register<FullScreenMovementModel>(Lifetime.Singleton)
+                .As<IFullScreenMovementModel, IMovementControlModel>();
+            builder.Register<FullScreenMovementViewModel>(Lifetime.Singleton)
+                .As<IFullScreenMovementViewModel, IMovementControlViewModel>();
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton);
 
