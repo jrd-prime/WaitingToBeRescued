@@ -9,6 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9227e98e4b6e046c5b175924d7b5d070, type: 2}
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 02f2f0a3ac939be4caaea74aa3652f7e, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 1c4f80602d8417c4c8a25d08ec9bb94b, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: d9fec25dbc849bd4bb495743adb57962, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: d308bc58e7cd9f443a700ae7d77bc4ce, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: b0a993ca85f5f354e8116893da409bfa, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
