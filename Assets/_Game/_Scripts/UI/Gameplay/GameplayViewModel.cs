@@ -1,15 +1,17 @@
-﻿using _Game._Scripts.UIOLD.Base;
+﻿using _Game._Scripts.UI.Base.ViewModel;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UIOLD.GamePlay
+namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayUIViewModel : UIViewModelCustom<GameplayUIModel>
+    public class GameplayUIViewModel : CustomUIViewModel<IGameplayModel>, IGameplayViewModel
     {
         public Subject<Unit> MenuButtonClicked { get; } = new();
         public ReadOnlyReactiveProperty<int> PlayerHealth => Model.PlayerHealth;
+
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth => Model.PlayerInitialHealth;
+
         // public ReadOnlyReactiveProperty<int> KillCount => Model.KillCount;
         // public ReadOnlyReactiveProperty<int> KillToWin => Model.KillToWin;
         // public ReadOnlyReactiveProperty<int> EnemiesCount => Model.EnemiesCount;

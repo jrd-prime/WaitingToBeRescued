@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.UI.Gameplay;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,10 +12,10 @@ namespace _Game._Scripts.UIOLD.GamePlay.Components
         private VisualElement _ring;
 
         private readonly VisualElement _root;
-        private readonly GameplayUIViewModel _viewModel;
+        private readonly IGameplayViewModel _viewModel;
         private readonly CompositeDisposable _disposables;
 
-        public Movement(in GameplayUIViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
+        public Movement(IGameplayViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
         {
             _viewModel = viewModel;
             _root = root;

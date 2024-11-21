@@ -4,6 +4,7 @@ using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.UIOLD;
+using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
@@ -21,6 +22,8 @@ namespace _Game._Scripts.UI.Base.View
 
         private TemplateContainer _template;
         private bool _isInitialized;
+
+        protected readonly CompositeDisposable Disposables = new();
 
         protected readonly Dictionary<Button, EventCallback<ClickEvent>> CallbacksCache = new();
 
@@ -40,7 +43,7 @@ namespace _Game._Scripts.UI.Base.View
 
             if (_template == null) throw new NullReferenceException("Template is null. " + name);
             ContentContainer = _template.Q<VisualElement>(UIElementId.MainContentContainerId) ??
-                               throw new NullReferenceException($"{UIElementId.MainContentContainerId} not found");
+                               throw new NullReferenceException($"{UIElementId.MainContentContainerId} not found. {name}");
 
             if (LocalizationManager == null) throw new NullReferenceException("LocalizationManager is null. " + name);
 

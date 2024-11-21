@@ -1,13 +1,15 @@
 ﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.UI.Base.Model;
+using _Game._Scripts.UI.Menus.Main;
+using _Game._Scripts.UIOLD;
 using _Game._Scripts.UIOLD.MovementControl.FullScreen;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UIOLD.GamePlay
+namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayUIModel : UIModelBase, IGameplayUIModel
+    public class GameplayModel : UIModelBase, IGameplayModel
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth => GameManager.PlayerInitialHealth;
@@ -36,5 +38,19 @@ namespace _Game._Scripts.UIOLD.GamePlay
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);
         public void OnOutEvent(PointerOutEvent _) => _movementModel.OnOutEvent(_);
+        public void PlayButtonClicked()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SettingsButtonClicked()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ExitButtonClicked()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
