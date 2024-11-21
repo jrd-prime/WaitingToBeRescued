@@ -146,13 +146,5 @@ namespace _Game._Scripts.Player
         }
 
         private void OnDestroy() => _disposables.Dispose();
-//
-// #if UNITY_EDITOR
-//         private void OnDrawGizmos()
-//         {
-//             Gizmos.color = Color.yellow;
-//             Gizmos.DrawWireCube(transform.position, new Vector3(scanBoxHorizontal, 1f, scanBoxVertical));
-//         }
-// #endif
     }
 }

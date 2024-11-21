@@ -62,9 +62,8 @@ namespace _Game._Scripts.Framework.GameStateMachine
             if (!_states.TryGetValue(gameStateType, out IGameState state))
                 throw new KeyNotFoundException($"State: {gameStateType} not found!");
             Debug.LogWarning(
-                $"- StateMachine - / Change state to: {gameStateType} / Current state: {_currentState?.GetType().Name}");
-
-
+                $"<color=yellow>[STATE MACHINE]</color> <color=cyan>Change state to: <b>{gameStateType}</b></color> / Current state: {_currentState?.GetType().Name}");
+            
             ChangeState(state);
         }
 

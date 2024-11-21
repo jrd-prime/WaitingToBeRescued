@@ -1,13 +1,15 @@
 ﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.UI.Base.Model;
+using _Game._Scripts.UI.Menus.Main;
+using _Game._Scripts.UIOLD;
 using _Game._Scripts.UIOLD.MovementControl.FullScreen;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UIOLD.GamePlay
+namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayUIModel : UIModelBase, IGameplayUIModel
+    public class GameplayModel : UIModelBase, IGameplayModel
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth => GameManager.PlayerInitialHealth;
@@ -20,7 +22,7 @@ namespace _Game._Scripts.UIOLD.GamePlay
         // public ReadOnlyReactiveProperty<int> Level => GameManager.Level;
 
 
-        public void MenuButtonClicked() => StateMachine.ChangeStateTo(GameStateType.Pause);
+        public void MenuButtonClicked() => MenuButtonsHandler.MenuButtonClicked();
 
         public ReactiveProperty<bool> IsTouchPositionVisible => _movementModel.IsTouchPositionVisible;
         public ReactiveProperty<Vector2> RingPosition => _movementModel.RingPosition;

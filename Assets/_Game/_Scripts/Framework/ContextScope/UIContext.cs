@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Manager.UI;
+using _Game._Scripts.UI.Gameplay;
 using _Game._Scripts.UI.Menus.Main;
 using UnityEngine;
 using VContainer;
@@ -17,6 +18,9 @@ namespace _Game._Scripts.Framework.ContextScope
             // Main menu
             builder.Register<IMainMenuViewModel, MainMenuUIViewModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IMainMenuModel, MainMenuModel>(Lifetime.Singleton).As<IInitializable>();
+            // Gameplay UI
+            builder.Register<IGameplayViewModel, GameplayUIViewModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
         }
     }
 }

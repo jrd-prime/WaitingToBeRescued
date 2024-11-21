@@ -10,7 +10,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
     public class GameStateBase : IInitializable
     {
         protected GameManager GameManager { get; private set; }
-        protected IUIManager UIController { get; private set; }
+        protected IUIManager UIManager { get; private set; }
         protected IPlayerModel PlayerModel { get; private set; }
 
         [Inject]
@@ -19,7 +19,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
             IPlayerModel playerModel)
         {
             GameManager = gameManager;
-            UIController = uiController;
+            UIManager = uiController;
             PlayerModel = playerModel;
         }
 

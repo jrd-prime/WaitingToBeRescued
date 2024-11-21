@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.UI.Gameplay;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -26,11 +27,11 @@ namespace _Game._Scripts.UIOLD.GamePlay.Components
         private float _currentExpBarWidth;
         private TweenerCore<float, float, FloatOptions> _expTween;
 
-        private readonly GameplayUIViewModel _viewModel;
+        private readonly IGameplayViewModel _viewModel;
         private readonly VisualElement _root;
         private readonly CompositeDisposable _disposables;
 
-        public ExperienceBar(in GameplayUIViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
+        public ExperienceBar(IGameplayViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
         {
             _viewModel = viewModel;
             _root = root;
@@ -95,11 +96,11 @@ namespace _Game._Scripts.UIOLD.GamePlay.Components
 
             // _viewModel.Level.Subscribe(UpdateLevelLabel).AddTo(_disposables);
             // _viewModel.ExpToNextLevel
-                // .Subscribe(expToNextLevel => { _expToNextLevel = expToNextLevel; })
-                // .AddTo(_disposables);
+            // .Subscribe(expToNextLevel => { _expToNextLevel = expToNextLevel; })
+            // .AddTo(_disposables);
             // _viewModel.Experience
-                // .Subscribe(UpdateExperienceBar)
-                // .AddTo(_disposables);
+            // .Subscribe(UpdateExperienceBar)
+            // .AddTo(_disposables);
         }
 
         private void UpdateLevelLabel(int level)

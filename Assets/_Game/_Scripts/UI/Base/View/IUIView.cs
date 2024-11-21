@@ -2,7 +2,5 @@
 {
     public interface IUIView
     {
-        public void Show();
-        public void Hide();
     }
 }

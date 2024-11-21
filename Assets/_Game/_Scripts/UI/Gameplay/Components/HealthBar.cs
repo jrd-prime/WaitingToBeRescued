@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.UI.Gameplay;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -23,11 +24,11 @@ namespace _Game._Scripts.UIOLD.GamePlay.Components
         private float _currentHpBarWidth;
         private TweenerCore<float, float, FloatOptions> _healthTween;
 
-        private readonly GameplayUIViewModel _viewModel;
+        private readonly IGameplayViewModel _viewModel;
         private readonly VisualElement _root;
         private readonly CompositeDisposable _disposables;
 
-        public HealthBar(in GameplayUIViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
+        public HealthBar(IGameplayViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
         {
             _viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
             _root = root ?? throw new ArgumentNullException(nameof(root));
