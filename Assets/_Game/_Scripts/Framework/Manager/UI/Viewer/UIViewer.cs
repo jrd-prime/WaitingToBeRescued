@@ -27,5 +27,10 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
             RootVisualElement.style.marginLeft = safeZoneOffset.x >= 16 ? safeZoneOffset.x : 16;
             RootVisualElement.style.marginTop = safeZoneOffset.y;
         }
+
+        public void HideView()
+        {
+           RootContainer.Clear();
+        }
     }
 }

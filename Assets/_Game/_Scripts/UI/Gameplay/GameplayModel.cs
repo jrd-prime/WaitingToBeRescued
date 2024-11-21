@@ -22,7 +22,7 @@ namespace _Game._Scripts.UI.Gameplay
         // public ReadOnlyReactiveProperty<int> Level => GameManager.Level;
 
 
-        public void MenuButtonClicked() => StateMachine.ChangeStateTo(GameStateType.Pause);
+        public void MenuButtonClicked() => MenuButtonsHandler.MenuButtonClicked();
 
         public ReactiveProperty<bool> IsTouchPositionVisible => _movementModel.IsTouchPositionVisible;
         public ReactiveProperty<Vector2> RingPosition => _movementModel.RingPosition;
@@ -38,19 +38,5 @@ namespace _Game._Scripts.UI.Gameplay
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);
         public void OnOutEvent(PointerOutEvent _) => _movementModel.OnOutEvent(_);
-        public void PlayButtonClicked()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void SettingsButtonClicked()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ExitButtonClicked()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

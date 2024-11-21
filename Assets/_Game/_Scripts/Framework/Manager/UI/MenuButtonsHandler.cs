@@ -10,7 +10,7 @@ namespace _Game._Scripts.Framework.Manager.UI
     {
         private const float DoubleClickDelay = 0.5f;
         private float _lastClickTime;
-        
+
         private StateMachine _stateMachine;
         private IUIManager _uiManager;
 
@@ -42,6 +42,11 @@ namespace _Game._Scripts.Framework.Manager.UI
 
             _uiManager.ShowPopUpAsync("Click 2 times to exit.", (int)(DoubleClickDelay * 2000));
         }
+
+        public void MenuButtonClicked()
+        {
+            _stateMachine.ChangeStateTo(GameStateType.Menu);
+        }
     }
 
     public interface IMenuButtonsHandler
@@ -49,5 +54,6 @@ namespace _Game._Scripts.Framework.Manager.UI
         public void PlayButtonClicked();
         public void SettingsButtonClicked();
         public void ExitButtonClicked();
+        public void MenuButtonClicked();
     }
 }

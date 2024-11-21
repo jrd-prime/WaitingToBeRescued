@@ -58,7 +58,7 @@ namespace _Game._Scripts.Framework.Manager.UI
 
         public void HideView(GameStateType gameStateType)
         {
-            throw new NotImplementedException();
+            viewer.HideView();
         }
 
         public abstract void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);

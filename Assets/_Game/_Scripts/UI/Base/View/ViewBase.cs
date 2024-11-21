@@ -59,13 +59,14 @@ namespace _Game._Scripts.UI.Base.View
 
         private void RegisterCallbacks()
         {
-            Debug.LogWarning("reg callbacks " + name);
+            Debug.Log("reg callbacks " + name);
             foreach (var callback in CallbacksCache)
                 callback.Key.RegisterCallback(callback.Value);
         }
 
         private void UnregisterCallbacks()
         {
+            Debug.Log("unreg callbacks " + name);
             foreach (var callback in CallbacksCache)
                 callback.Key.UnregisterCallback(callback.Value);
         }
@@ -75,14 +76,6 @@ namespace _Game._Scripts.UI.Base.View
             if (!_isInitialized)
                 throw new Exception("View is not initialized. " + name); //TODO mb call InitializeView??
             return _template;
-        }
-
-        public void Show()
-        {
-        }
-
-        public void Hide()
-        {
         }
     }
 }
