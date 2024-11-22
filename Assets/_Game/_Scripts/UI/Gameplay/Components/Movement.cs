@@ -1,10 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.UI.Gameplay;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UIOLD.GamePlay.Components
+namespace _Game._Scripts.UI.Gameplay.Components
 {
     public sealed class Movement
     {

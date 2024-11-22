@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public interface IGameplayModel : IUIModel
+    public interface IGameplayUIModel : IUIModel
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth { get; }
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth { get; }

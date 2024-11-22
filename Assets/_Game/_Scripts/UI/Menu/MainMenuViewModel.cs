@@ -1,9 +1,10 @@
 ﻿using _Game._Scripts.UI.Base.ViewModel;
+using _Game._Scripts.UI.Menu.Base;
 using R3;
 
-namespace _Game._Scripts.UI.Menus.Main
+namespace _Game._Scripts.UI.Menu
 {
-    public class MainMenuUIViewModel : CustomUIViewModel<IMainMenuModel>, IMainMenuViewModel
+    public class MenuViewModel : CustomUIViewModel<IMenuModel>, IMenuViewModel
     {
         public Subject<Unit> PlayButtonClicked { get; } = new();
         public Subject<Unit> SettingsButtonClicked { get; } = new();

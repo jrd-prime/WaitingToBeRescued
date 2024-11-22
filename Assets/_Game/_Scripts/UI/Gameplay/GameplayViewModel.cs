@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayUIViewModel : CustomUIViewModel<IGameplayModel>, IGameplayViewModel
+    public class GameplayViewModel : CustomUIViewModel<IGameplayUIModel>, IGameplayViewModel
     {
         public Subject<Unit> MenuButtonClicked { get; } = new();
         public ReadOnlyReactiveProperty<int> PlayerHealth => Model.PlayerHealth;

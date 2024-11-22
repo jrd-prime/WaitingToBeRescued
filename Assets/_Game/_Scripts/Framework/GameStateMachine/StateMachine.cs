@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.GameStateMachine.State;
+using _Game._Scripts.Framework.GameStateMachine.State.Gameover;
+using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
+using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+using _Game._Scripts.Framework.GameStateMachine.State.Pause;
+using _Game._Scripts.Framework.GameStateMachine.State.Win;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UIOLD;
@@ -29,11 +33,10 @@ namespace _Game._Scripts.Framework.GameStateMachine
         private void Construct(IObjectResolver container)
         {
             _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
-            // _states.Add(StateType.GameOver, container.Resolve<GameOverState>());
+            _states.Add(GameStateType.GameOver, container.Resolve<GameOverState>());
             _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
             _states.Add(GameStateType.Gameplay, container.Resolve<GamePlayState>());
-            _states.Add(GameStateType.Settings, container.Resolve<SettingsState>());
-            // _states.Add(StateType.Win, container.Resolve<WinState>());
+            _states.Add(GameStateType.Win, container.Resolve<WinState>());
 
             _playerModel = container.Resolve<IPlayerModel>();
             _gameManager = container.Resolve<GameManager>();
@@ -63,7 +66,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
                 throw new KeyNotFoundException($"State: {gameStateType} not found!");
             Debug.LogWarning(
                 $"<color=yellow>[STATE MACHINE]</color> <color=cyan>Change state to: <b>{gameStateType}</b></color> / Current state: {_currentState?.GetType().Name}");
-            
+
             ChangeState(state);
         }
 

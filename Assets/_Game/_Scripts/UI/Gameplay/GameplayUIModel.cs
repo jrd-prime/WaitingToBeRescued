@@ -1,6 +1,5 @@
 ﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.UI.Base.Model;
-using _Game._Scripts.UI.Menus.Main;
 using _Game._Scripts.UIOLD;
 using _Game._Scripts.UIOLD.MovementControl.FullScreen;
 using R3;
@@ -9,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayModel : UIModelBase, IGameplayModel
+    public class GameplayModel : UIModelBase, IGameplayUIModel
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth => GameManager.PlayerInitialHealth;

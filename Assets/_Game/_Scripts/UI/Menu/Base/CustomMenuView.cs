@@ -5,7 +5,7 @@ using _Game._Scripts.UI.Base.ViewModel;
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.UI.Menus
+namespace _Game._Scripts.UI.Menu.Base
 {
     public abstract class CustomMenuView<T> : ViewBase where T : IUIViewModel
     {

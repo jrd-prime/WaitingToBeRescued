@@ -1,6 +1,12 @@
 ﻿using System;
 using _Game._Scripts.Framework.GameStateMachine;
 using _Game._Scripts.Framework.GameStateMachine.State;
+using _Game._Scripts.Framework.GameStateMachine.State.Gameover;
+using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
+using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+using _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState;
+using _Game._Scripts.Framework.GameStateMachine.State.Pause;
+using _Game._Scripts.Framework.GameStateMachine.State.Win;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
@@ -31,11 +37,9 @@ namespace _Game._Scripts.Framework.ContextScope
         {
             Debug.Log("<color=cyan>Game context</color>");
 
-
             if (uiManager == null) throw new NullReferenceException("UIController is null");
 
             builder.RegisterComponent(uiManager).As<IUIManager>();
-            // MonoBehaviour
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
 
 
@@ -56,12 +60,12 @@ namespace _Game._Scripts.Framework.ContextScope
 
             // State machine
             builder.Register<StateMachine>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<GameStateBase>(Lifetime.Singleton).AsSelf();
 
             builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GamePlayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<SettingsState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<GameOverState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<PauseState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<WinState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }
