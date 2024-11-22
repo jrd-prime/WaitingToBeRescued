@@ -1,11 +1,12 @@
-﻿using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+﻿using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
+using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+using _Game._Scripts.UI.Menu.Base;
 using _Game._Scripts.UIOLD;
-using _Game._Scripts.UIOLD.Menus;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.GameStateMachine.State.Win
 {
-    public sealed class WinState : GameStateBase<IWinUIModel>
+    public sealed class WinState : GameStateBase<IWinModel<WinSubStateType>>
     {
         protected override void OnMainStateEnter()
         {

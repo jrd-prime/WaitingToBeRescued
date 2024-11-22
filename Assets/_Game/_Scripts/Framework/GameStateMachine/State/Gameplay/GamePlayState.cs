@@ -1,11 +1,15 @@
 ﻿using _Game._Scripts.Framework.GameStateMachine.State.Menu;
 using _Game._Scripts.UI.Gameplay;
+using _Game._Scripts.UI.Menu.Base;
 using _Game._Scripts.UIOLD;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.GameStateMachine.State.Gameplay
-{
-    public sealed class GamePlayState : GameStateBase<IGameplayUIModel>
+{public enum GameplaySubStateType{}
+    public enum GameoverSubStateType{}
+    public enum PauseSubStateType{}
+    public enum WinSubStateType{}
+    public sealed class GamePlayState : GameStateBase<IGameplayModel<GameplaySubStateType>>
     {
         protected override void OnMainStateEnter()
         {

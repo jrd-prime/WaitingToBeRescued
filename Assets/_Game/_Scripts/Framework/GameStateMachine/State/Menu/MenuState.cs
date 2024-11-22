@@ -5,25 +5,24 @@ using UnityEngine;
 
 namespace _Game._Scripts.Framework.GameStateMachine.State.Menu
 {
-    public enum MenuSubState
+    public enum MenuSubStateType
     {
         Main,
         Settings
     }
 
-    public sealed class MenuState : GameStateBase<IMenuModel>
+    public sealed class MenuState : GameStateBase<IMenuModel<MenuSubStateType>>
     {
         protected override void InitializeSubStates()
         {
-            SubStates.TryAdd(MenuSubState.Main, new MainSubState());
-            SubStates.TryAdd(MenuSubState.Settings, new SettingsSubState());
+            SubStates.TryAdd(MenuSubStateType.Main, new MainSubState());
+            SubStates.TryAdd(MenuSubStateType.Settings, new SettingsSubState());
 
-            SetDefaultSubState(MenuSubState.Main);
+            SetDefaultSubState(MenuSubStateType.Main);
         }
 
         protected override void SubscribeToModel()
         {
-            
         }
 
         protected override void OnMainStateEnter()

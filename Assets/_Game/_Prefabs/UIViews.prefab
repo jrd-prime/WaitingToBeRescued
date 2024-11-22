@@ -90,7 +90,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2035356768220219712, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
       propertyPath: m_Name
-      value: main-menu
+      value: ui-menu
       objectReference: {fileID: 0}
     - target: {fileID: 6370663619619772022, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -132,6 +132,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
+      propertyPath: subStatesData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
+      propertyPath: subStatesData.Array.data[1].subStateType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
+      propertyPath: subStatesData.Array.data[0].visualTreeAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 8a3373506294f254aa33749b359fa461, type: 3}
+    - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
+      propertyPath: subStatesData.Array.data[1].visualTreeAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: d2bf93339acb1b341a582a7fa776fb76, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

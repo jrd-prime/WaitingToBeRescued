@@ -10,5 +10,6 @@
         Settings,
         PopUp,
         Win,
+        Exit = 99
     }
 }

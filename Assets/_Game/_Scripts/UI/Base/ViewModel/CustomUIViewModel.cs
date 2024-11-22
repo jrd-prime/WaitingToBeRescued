@@ -5,18 +5,20 @@ using VContainer;
 
 namespace _Game._Scripts.UI.Base.ViewModel
 {
-    public abstract class CustomUIViewModel<T> : UIViewModelBase where T : class, IUIModel
+    public abstract class CustomUIViewModel<TModel, TSubStateEnum> : UIViewModelBase
+        where TModel : class, IUIModel<TSubStateEnum>
+        where TSubStateEnum : Enum
     {
-        protected T Model { get; private set; }
+        protected TModel Model { get; private set; }
 
         [Inject]
-        private void Construct(T model)
+        private void Construct(TModel model)
         {
             Model = model;
 
             Debug.LogWarning("model " + model);
 
-            if (Model == null) throw new NullReferenceException($"{typeof(T)} is null");
+            if (Model == null) throw new NullReferenceException($"{typeof(TModel)} is null");
         }
     }
 }

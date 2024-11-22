@@ -10,7 +10,7 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.GameStateMachine
 {
-    public abstract class GameStateBase<T> : IGameState, IInitializable where T : IUIModel
+    public abstract class GameStateBase<T> : IGameState, IInitializable
     {
         protected IGameManager GameManager { get; private set; }
         protected IUIManager UIManager { get; private set; }

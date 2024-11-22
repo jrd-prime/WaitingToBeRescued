@@ -13,15 +13,11 @@ namespace _Game._Scripts.Framework.ContextScope
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("<color=cyan>UI context</color>");
-            // Menu buttons handler
-            builder.Register<IMenuButtonsHandler, MenuButtonsHandler>(Lifetime.Singleton);
 
             // Main menu
             builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
             // Gameplay UI
             builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IGameplayUIModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
         }
     }
 }

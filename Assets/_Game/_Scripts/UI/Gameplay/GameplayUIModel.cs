@@ -1,5 +1,7 @@
-﻿using _Game._Scripts.Framework.Helpers;
+﻿using System;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.UI.Base.Model;
+using _Game._Scripts.UI.Menu.Base;
 using _Game._Scripts.UIOLD;
 using _Game._Scripts.UIOLD.MovementControl.FullScreen;
 using R3;
@@ -8,9 +10,10 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayModel : UIModelBase, IGameplayUIModel
+    public class GameplayModel : UIModelBase, IGameplayModel<GameplaySubStateType>
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
+
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth => GameManager.PlayerInitialHealth;
         // public ReadOnlyReactiveProperty<int> KillCount => GameManager.KillCount;
         // public ReadOnlyReactiveProperty<int> KillToWin => GameManager.KillToWin;
@@ -21,7 +24,12 @@ namespace _Game._Scripts.UI.Gameplay
         // public ReadOnlyReactiveProperty<int> Level => GameManager.Level;
 
 
-        public void MenuButtonClicked() => MenuButtonsHandler.MenuButtonClicked();
+        public void MenuButtonClicked()
+        {
+        }
+
+        // MenuButtonsHandler.MenuButtonClicked();
+
 
         public ReactiveProperty<bool> IsTouchPositionVisible => _movementModel.IsTouchPositionVisible;
         public ReactiveProperty<Vector2> RingPosition => _movementModel.RingPosition;
@@ -37,5 +45,11 @@ namespace _Game._Scripts.UI.Gameplay
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);
         public void OnOutEvent(PointerOutEvent _) => _movementModel.OnOutEvent(_);
+        public ReactiveProperty<GameplaySubStateType> CurrentSubState { get; }
+        public ReactiveProperty<GameStateType> GameState { get; }
+    }
+
+    public enum GameplaySubStateType
+    {
     }
 }

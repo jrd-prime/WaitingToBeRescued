@@ -1,11 +1,12 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Framework.GameStateMachine.State.Menu;
 using _Game._Scripts.UI.Menu.Base;
 using R3;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Menu
 {
-    public class MenuView : CustomMenuView<IMenuViewModel>
+    public class MenuView : CustomMenuView<IMenuViewModel, MenuSubStateType>
     {
         private Button _playBtn;
         private Button _settingsBtn;

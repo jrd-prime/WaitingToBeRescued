@@ -1,16 +1,12 @@
 ﻿using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+using _Game._Scripts.UI.Gameplay;
+using _Game._Scripts.UI.Menu.Base;
 using _Game._Scripts.UIOLD;
-using _Game._Scripts.UIOLD.Menus;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.GameStateMachine.State.Gameover
 {
-    public enum GameoverSubState
-    {
-        Main
-    }
-
-    public sealed class GameOverState : GameStateBase<IGameoverUIModel>
+    public sealed class GameOverState : GameStateBase<IGameoverModel<GameplaySubStateType>>
     {
         protected override void OnMainStateEnter()
         {
@@ -25,7 +21,6 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Gameover
 
         protected override void SubscribeToModel()
         {
-            
         }
 
         protected override void InitializeSubStates()
