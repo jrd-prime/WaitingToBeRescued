@@ -1,13 +1,12 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.UI.Gameplay;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using R3;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UIOLD.GamePlay.Components
+namespace _Game._Scripts.UI.Gameplay.Components
 {
     public sealed class ExperienceBar
     {
