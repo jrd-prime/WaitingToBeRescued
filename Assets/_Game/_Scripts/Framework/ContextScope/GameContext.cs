@@ -15,6 +15,7 @@ using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Gameplay;
 using _Game._Scripts.UI.Menu;
+using _Game._Scripts.UI.Menu.Base;
 using _Game._Scripts.UI.MovementControl;
 using _Game._Scripts.UI.MovementControl.FullScreen;
 using _Game._Scripts.UI.PopUpText;
@@ -40,7 +41,7 @@ namespace _Game._Scripts.Framework.ContextScope
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
 
-            builder.RegisterComponent(uiManager).As<IUIManager>();
+            builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
 
 
@@ -61,6 +62,10 @@ namespace _Game._Scripts.Framework.ContextScope
             // Menu buttons handler
             builder.Register<IMenuButtonsHandler, MenuButtonsHandler>(Lifetime.Singleton);
 
+            // Main menu
+            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable>();
+            // Gameplay UI
+            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton).As<IInitializable>();
             // State models
             builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();

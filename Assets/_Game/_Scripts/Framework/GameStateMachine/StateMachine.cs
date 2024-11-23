@@ -37,6 +37,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
 
         public void PostStart()
         {
+            Debug.LogWarning("post start " + this);
             if (_currentState != null) return;
 
             ChangeStateTo(EGameState.Menu);

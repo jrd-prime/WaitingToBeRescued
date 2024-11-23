@@ -13,13 +13,11 @@ namespace _Game._Scripts.UI.Base.View
 
 
         protected readonly CompositeDisposable Disposables = new();
-
-
         protected readonly Dictionary<Enum, SubViewBase> subViewsCache = new();
 
-        public TemplateContainer GetTemplateContainer(Enum subState)
+        public SubViewBase GetSubView(Enum subState)
         {
-            return subViewsCache[subState].GetTemplate();
+            return subViewsCache[subState];
         }
 
         public abstract void Initialize();

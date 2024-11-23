@@ -2,8 +2,8 @@
 {
     public static class TextNameId
     {
-        public const string playBtnNameId = "play";
-        public const string settingsBtnNameId = "settings";
-        public const string exitBtnNameId = "exit";
+        public const string playBtnNameId = "play-ttl";
+        public const string settingsBtnNameId = "settings-ttl";
+        public const string exitBtnNameId = "exit-ttl";
     }
 }

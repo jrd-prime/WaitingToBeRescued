@@ -7,8 +7,7 @@ namespace _Game._Scripts.UI.Menu.Base
     [Serializable]
     public struct SubViewData<TSubStateEnum> where TSubStateEnum : Enum
     {
-        public string headerNameId;
-        public TSubStateEnum subStateType;
+        public TSubStateEnum subState;
         public SubViewBase subView;
     }
 }

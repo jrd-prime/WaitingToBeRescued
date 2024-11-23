@@ -10,55 +10,26 @@ using VContainer;
 
 namespace _Game._Scripts.UI.Base.View
 {
-    public abstract class SubViewBase<T> : MonoBehaviour where T : IUIViewModel
+    public abstract class SubViewBase : MonoBehaviour
     {
-        [Inject]
-        private void Construct(T viewModel, ILocalizationManager localizationManager)
-        {
-            ViewModel = viewModel;
-            LocalizationManager = localizationManager;
-        }
-
         [SerializeField] protected string headerNameId;
-        [SerializeField] private VisualTreeAsset template;
-        private TemplateContainer _template;
-        protected bool _isInitialized;
+        [SerializeField] protected VisualTreeAsset template;
         [SerializeField] public bool inSafeZone;
-
-        protected T ViewModel { get; private set; }
-        protected ILocalizationManager LocalizationManager { get; private set; }
-        protected VisualElement ContentContainer;
         protected readonly CompositeDisposable Disposables = new();
-
         protected readonly Dictionary<Button, EventCallback<ClickEvent>> CallbacksCache = new();
 
-        private void Awake()
-        {
-            _template = template.Instantiate();
+        protected TemplateContainer Template;
+        protected bool IsInitialized;
 
-            if (template == null) throw new NullReferenceException("Template is null. " + name);
+        protected VisualElement ContentContainer;
 
-            ContentContainer = _template.Q<VisualElement>(UIElementId.MainContentContainerId) ??
-                               throw new NullReferenceException(
-                                   $"{UIElementId.MainContentContainerId} not found. {name} / {template.name}");
-
-
-            // if (LocalizationManager == null) throw new NullReferenceException("LocalizationManager is null. " + name);
-
-            InitializeView();
-            InitializeCallbacks();
-            RegisterCallbacks();
-
-            _isInitialized = true;
-        }
-
-        private void RegisterCallbacks()
+        protected void RegisterCallbacks()
         {
             foreach (var callback in CallbacksCache)
                 callback.Key.RegisterCallback(callback.Value);
         }
 
-        private void UnregisterCallbacks()
+        protected void UnregisterCallbacks()
         {
             Debug.LogWarning("unreg callbacks " + name);
             foreach (var callback in CallbacksCache)
@@ -70,8 +41,44 @@ namespace _Game._Scripts.UI.Base.View
 
         public TemplateContainer GetTemplate()
         {
-            if (!_isInitialized) throw new Exception("View is not initialized. " + name);
-            return _template;
+            if (!IsInitialized) throw new Exception("View is not initialized. " + name);
+            return Template;
+        }
+    }
+
+    public abstract class CustomSubViewBase<T> : SubViewBase where T : IUIViewModel
+    {
+        protected T ViewModel { get; private set; }
+        protected ILocalizationManager LocalizationManager { get; private set; }
+
+        [Inject]
+        private void Construct(T viewModel, ILocalizationManager localizationManager)
+        {
+            ViewModel = viewModel;
+            LocalizationManager = localizationManager;
+        }
+
+        private void Awake()
+        {
+            Debug.LogWarning("awake inherit " + name);
+            if (ViewModel == null) throw new NullReferenceException("ViewModel is null. " + name);
+            if (LocalizationManager == null) throw new NullReferenceException("LocalizationManager is null. " + name);
+
+
+            Debug.LogWarning("awake top " + name);
+            Template = template.Instantiate();
+
+            if (template == null) throw new NullReferenceException("Template is null. " + name);
+
+            ContentContainer = Template.Q<VisualElement>(UIElementId.MainContentContainerId) ??
+                               throw new NullReferenceException(
+                                   $"{UIElementId.MainContentContainerId} not found. {name} / {template.name}");
+
+            InitializeView();
+            InitializeCallbacks();
+            RegisterCallbacks();
+
+            IsInitialized = true;
         }
     }
 }

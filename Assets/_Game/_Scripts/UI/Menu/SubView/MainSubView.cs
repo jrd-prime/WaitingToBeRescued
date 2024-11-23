@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Menu.SubView
 {
-    public class MainSubView : SubViewBase<IMenuViewModel>
+    public class MainSubView : CustomSubViewBase<IMenuViewModel>
     {
         private Button _playBtn;
         private Button _settingsBtn;

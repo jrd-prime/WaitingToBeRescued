@@ -1,6 +1,6 @@
 ﻿{
-  "main-menu-ttl": "Menu",
-  "play": "play",
-  "settings": "Settings",
-  "exit": "exit"
+  "main-ttl": "Menu",
+  "play-ttl": "play",
+  "settings-ttl": "Settings",
+  "exit-ttl": "exit"
 }

@@ -1,6 +1,6 @@
 ﻿{
-  "main-menu-ttl": "меню",
-  "play": "Играть",
-  "settings": "Настройки",
-  "exit": "Выход"
+  "main-ttl": "меню",
+  "play-ttl": "Играть",
+  "settings-ttl": "Настройки",
+  "exit-ttl": "Выход"
 }

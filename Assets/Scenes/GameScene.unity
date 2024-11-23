@@ -1053,6 +1053,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 1209719480}
+  - {fileID: 241316067700558133}
 --- !u!1 &679638985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,7 +1445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2560a6cef0f84c8ea8c4a1199d594683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headerNameId: main-ttl
   template: {fileID: 9197481963319205126, guid: 8a3373506294f254aa33749b359fa461, type: 3}
+  inSafeZone: 0
 --- !u!1 &1333833943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,7 +2322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffdf750d8ce74aa584713956efaa6f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headerNameId: settings-ttl
   template: {fileID: 9197481963319205126, guid: e33bce4faed937940ada5a052340a327, type: 3}
+  inSafeZone: 0
 --- !u!1 &2020864644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,11 +2449,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0c3057d8d34e40b31b41ec48daa52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headerNameId: main-menu-ttl
   viewForEGameState: 0
-  viewTemplate: {fileID: 9197481963319205126, guid: 8a3373506294f254aa33749b359fa461, type: 3}
-  inSafeZone: 0
-  subViewsData: []
+  defaultSubView: 0
+  subViewsData:
+  - subView: {fileID: 1333770949}
+  - subView: {fileID: 1970709120}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
