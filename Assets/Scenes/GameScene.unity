@@ -2452,8 +2452,10 @@ MonoBehaviour:
   viewForEGameState: 0
   defaultSubView: 0
   subViewsData:
-  - subView: {fileID: 1333770949}
-  - subView: {fileID: 1970709120}
+  - subState: 0
+    subView: {fileID: 1333770949}
+  - subState: 1
+    subView: {fileID: 1970709120}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

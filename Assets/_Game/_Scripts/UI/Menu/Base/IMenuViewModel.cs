@@ -5,6 +5,7 @@ namespace _Game._Scripts.UI.Menu.Base
 {
     public interface IMenuViewModel : IUIViewModel
     {
+        public Subject<Unit> BackButtonClicked { get; }
         public Subject<Unit> PlayButtonClicked { get; }
         public Subject<Unit> SettingsButtonClicked { get; }
         public Subject<Unit> ExitButtonClicked { get; }

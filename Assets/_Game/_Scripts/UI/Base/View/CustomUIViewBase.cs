@@ -35,7 +35,7 @@ namespace _Game._Scripts.UI.Base.View
             LocalizationManager = localizationManager;
         }
 
-     
+
         // public override void Initialize()
         // {
         //     Debug.LogWarning("initialize " + name);
@@ -48,7 +48,8 @@ namespace _Game._Scripts.UI.Base.View
             foreach (var subState in subViewsData)
             {
                 _resolver.Inject(subState.subView);
-                subViewsCache.TryAdd(subState.subState, subState.subView);
+                if (!subViewsCache.TryAdd(subState.subState, subState.subView))
+                    throw new Exception($"Subview with subState \"{subState.subState}\" already added to {name} view");
             }
         }
 

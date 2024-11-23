@@ -1,23 +1,25 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.UI;
+using UnityEngine;
 
 namespace _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState
 {
     public class MainSubState : SubStateBase
     {
-        public MainSubState(IUIManager uiManager) : base(uiManager)
+        public MainSubState(IUIManager uiManager, EMenuSubState defaultSubState) : base(uiManager, defaultSubState)
         {
         }
 
         public override void Enter()
         {
-            CurrentSubState = EMenuSubState.Main;
-            UIManager.ShowView(EGameState.Menu, CurrentSubState, true);
+            Debug.LogWarning("Enter settings sub state " + DefaultSubState + " / " + this);
+            UIManager.ShowView(EGameState.Menu, DefaultSubState, true);
         }
 
         public override void Exit()
         {
-            UIManager.HideView(EGameState.Menu, CurrentSubState);
+            Debug.LogWarning("Exit settings sub state " + DefaultSubState + " / " + this);
+            UIManager.HideView(EGameState.Menu,  DefaultSubState);
         }
     }
 }

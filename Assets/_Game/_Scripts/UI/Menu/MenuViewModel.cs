@@ -9,6 +9,7 @@ namespace _Game._Scripts.UI.Menu
 {
     public class MenuViewModel : UIViewModelBase<IMenuModel, EMenuSubState>, IMenuViewModel
     {
+        public Subject<Unit> BackButtonClicked { get; } = new();
         public Subject<Unit> PlayButtonClicked { get; } = new();
         public Subject<Unit> SettingsButtonClicked { get; } = new();
         public Subject<Unit> ExitButtonClicked { get; } = new();
@@ -30,6 +31,12 @@ namespace _Game._Scripts.UI.Menu
             {
                 Model.SetGameState(EGameState.Exit);
                 Debug.LogWarning("cli exit");
+            }).AddTo(Disposables);
+            
+            BackButtonClicked.Subscribe(_ =>
+            {
+                Model.SetSubState(EMenuSubState.Main);
+                Debug.LogWarning("cli back");
             }).AddTo(Disposables);
         }
     }

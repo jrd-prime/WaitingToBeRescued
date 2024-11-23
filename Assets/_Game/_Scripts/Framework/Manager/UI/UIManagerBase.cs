@@ -42,13 +42,17 @@ namespace _Game._Scripts.Framework.Manager.UI
         public void ShowView(EGameState eGameState, Enum subState, bool toSafe = false)
         {
             Debug.LogWarning("Show view: " + eGameState + ", " + subState);
+
             if (!_views.TryGetValue(eGameState, out UIViewBase view))
                 throw new KeyNotFoundException("View not found for game state: " + eGameState);
+            Debug.LogWarning("view = " + view.name);
+
             var subView = view.GetSubView(subState);
-
+            Debug.LogWarning("subview = " + subView.name);
+            
             var visual = subView.GetTemplate();
-
-            Debug.LogWarning("show view: " + subView.name);
+            Debug.LogWarning("visual = " + visual);
+            
             viewer.ShowView(visual, subView.inSafeZone);
         }
 

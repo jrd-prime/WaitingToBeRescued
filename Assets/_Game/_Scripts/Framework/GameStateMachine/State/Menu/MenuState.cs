@@ -10,8 +10,8 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Menu
     {
         protected override void InitializeSubStates()
         {
-            SubStates.TryAdd(EMenuSubState.Main, new MainSubState(UIManager));
-            SubStates.TryAdd(EMenuSubState.Settings, new SettingsSubState(UIManager));
+            SubStates.TryAdd(EMenuSubState.Main, new MainSubState(UIManager, EMenuSubState.Main));
+            SubStates.TryAdd(EMenuSubState.Settings, new SettingsSubState(UIManager, EMenuSubState.Settings));
 
             SetDefaultSubState(EMenuSubState.Main);
         }
