@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game._Scripts.Framework.ContextScope;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.UI.Viewer;
 using _Game._Scripts.UI.Base.View;
-using _Game._Scripts.UIOLD;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Serialization;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Manager.UI
@@ -17,7 +18,7 @@ namespace _Game._Scripts.Framework.Manager.UI
         [Header("Viewer"), RequiredField, SerializeField]
         protected UIViewer viewer;
 
-        private readonly Dictionary<GameStateType, ViewBase> _views = new();
+        private readonly Dictionary<EGameState, UIViewBase> _views = new();
 
         private ISettingsManager _settingsManager;
 
@@ -36,27 +37,27 @@ namespace _Game._Scripts.Framework.Manager.UI
             var uiContext = FindFirstObjectByType<UIContext>() ??
                             throw new NullReferenceException("UIContext not found");
 
-            var views = GetComponentsInChildren<ViewBase>();
+            var views = GetComponentsInChildren<UIViewBase>();
 
             if (views.Length == 0 || views == null) throw new Exception("Views not found");
 
             foreach (var view in views)
             {
                 uiContext.Container.Inject(view);
-                _views.TryAdd(view.viewForGameStateType, view);
+                _views.TryAdd(view.viewForEGameState, view);
             }
         }
 
-        public void ShowView(GameStateType gameStateType, bool toSafe = false)
+        public void ShowView(EGameState eGameState, bool toSafe = false)
         {
-            Debug.LogWarning("Show view: " + gameStateType);
-            if (!_views.TryGetValue(gameStateType, out var view))
-                throw new KeyNotFoundException("View not found for game state: " + gameStateType);
+            Debug.LogWarning("Show view: " + eGameState);
+            if (!_views.TryGetValue(eGameState, out var view))
+                throw new KeyNotFoundException("View not found for game state: " + eGameState);
             var visual = view.GetTemplateContainer();
             viewer.ShowView(visual, view.safeZone);
         }
 
-        public void HideView(GameStateType gameStateType)
+        public void HideView(EGameState eGameState)
         {
             viewer.HideView();
         }
@@ -67,7 +68,7 @@ namespace _Game._Scripts.Framework.Manager.UI
     [Serializable]
     public struct MenuViewData
     {
-        public GameStateType menuForType;
+        [FormerlySerializedAs("menuForType")] public EGameState menuFor;
         public AssetReferenceGameObject menuViewPrefab;
     }
 }

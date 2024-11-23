@@ -5,7 +5,7 @@ using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Player.Interfaces;
-using _Game._Scripts.UIOLD.MovementControl;
+using _Game._Scripts.UI.MovementControl;
 using R3;
 using UnityEngine;
 using VContainer;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.GameStateMachine.State.Gameover;
 using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
 using _Game._Scripts.Framework.GameStateMachine.State.Menu;
@@ -7,7 +8,6 @@ using _Game._Scripts.Framework.GameStateMachine.State.Pause;
 using _Game._Scripts.Framework.GameStateMachine.State.Win;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Player.Interfaces;
-using _Game._Scripts.UIOLD;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -17,12 +17,12 @@ namespace _Game._Scripts.Framework.GameStateMachine
 {
     public interface IStateMachine : IPostStartable, IDisposable
     {
-        public void ChangeStateTo(GameStateType gameStateType);
+        public void ChangeStateTo(EGameState eGameState);
     }
 
     public class StateMachine : IStateMachine
     {
-        private readonly Dictionary<GameStateType, IGameState> _states = new();
+        private readonly Dictionary<EGameState, IGameState> _states = new();
         private IGameState _currentState = null;
         private IPlayerModel _playerModel;
         private GameManager _gameManager;
@@ -32,11 +32,11 @@ namespace _Game._Scripts.Framework.GameStateMachine
         [Inject]
         private void Construct(IObjectResolver container)
         {
-            _states.Add(GameStateType.Menu, container.Resolve<MenuState>());
-            _states.Add(GameStateType.GameOver, container.Resolve<GameOverState>());
-            _states.Add(GameStateType.Pause, container.Resolve<PauseState>());
-            _states.Add(GameStateType.Gameplay, container.Resolve<GamePlayState>());
-            _states.Add(GameStateType.Win, container.Resolve<WinState>());
+            _states.Add(EGameState.Menu, container.Resolve<MenuState>());
+            _states.Add(EGameState.GameOver, container.Resolve<GameOverState>());
+            _states.Add(EGameState.Pause, container.Resolve<PauseState>());
+            _states.Add(EGameState.Gameplay, container.Resolve<GamePlayState>());
+            _states.Add(EGameState.Win, container.Resolve<WinState>());
 
             _playerModel = container.Resolve<IPlayerModel>();
             _gameManager = container.Resolve<GameManager>();
@@ -46,7 +46,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
         {
             if (_currentState != null) return;
 
-            ChangeStateTo(GameStateType.Menu);
+            ChangeStateTo(EGameState.Menu);
 
             _gameManager.IsGameStarted
                 .Subscribe(value => isGameStarted = value).AddTo(_disposables);
@@ -60,12 +60,12 @@ namespace _Game._Scripts.Framework.GameStateMachine
             //     .AddTo(_disposables);
         }
 
-        public void ChangeStateTo(GameStateType gameStateType)
+        public void ChangeStateTo(EGameState eGameState)
         {
-            if (!_states.TryGetValue(gameStateType, out IGameState state))
-                throw new KeyNotFoundException($"State: {gameStateType} not found!");
+            if (!_states.TryGetValue(eGameState, out IGameState state))
+                throw new KeyNotFoundException($"State: {eGameState} not found!");
             Debug.LogWarning(
-                $"<color=yellow>[STATE MACHINE]</color> <color=cyan>Change state to: <b>{gameStateType}</b></color> / Current state: {_currentState?.GetType().Name}");
+                $"<color=yellow>[STATE MACHINE]</color> <color=cyan>Change state to: <b>{eGameState}</b></color> / Current state: {_currentState?.GetType().Name}");
 
             ChangeState(state);
         }

@@ -1,5 +1,5 @@
 ﻿using System;
-using _Game._Scripts.UIOLD;
+using _Game._Scripts.Framework.Helpers;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.Framework.Manager.UI.Viewer
