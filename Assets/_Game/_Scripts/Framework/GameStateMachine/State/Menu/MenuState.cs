@@ -10,30 +10,29 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Menu
     {
         protected override void InitializeSubStates()
         {
-            SubStates.TryAdd(EMenuSubState.Main, new MainSubState());
-            SubStates.TryAdd(EMenuSubState.Settings, new SettingsSubState());
+            SubStates.TryAdd(EMenuSubState.Main, new MainSubState(UIManager));
+            SubStates.TryAdd(EMenuSubState.Settings, new SettingsSubState(UIManager));
 
             SetDefaultSubState(EMenuSubState.Main);
         }
 
         protected override void SubscribeToModel()
         {
-            Model.CurrentSubState.Subscribe(ChangeSubState).AddTo(Disposables);
+            Model.CurrentSubState
+                .Subscribe(ChangeSubState)
+                .AddTo(Disposables);
         }
 
         protected override void OnMainStateEnter()
         {
-            if (GameManager.IsGameStarted.CurrentValue) GameManager.GameOver();
-
-            UIManager.ShowView(EGameState.Menu, true);
-            GameManager.Pause();
+            // if (GameManager.IsGameStarted.CurrentValue) GameManager.GameOver();
+            //
+            // GameManager.Pause();
         }
 
         protected override void OnMainStateExit()
         {
-            UIManager.HideView(EGameState.Menu);
-            GameManager.Pause();
-            Debug.LogWarning($"{GetType().Name} exit");
+            // GameManager.Pause();
         }
     }
 }

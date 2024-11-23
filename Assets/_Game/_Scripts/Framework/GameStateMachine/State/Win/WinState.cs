@@ -11,13 +11,13 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Win
     {
         protected override void OnMainStateEnter()
         {
-            UIManager.ShowView(EGameState.Win);
+            // UIManager.ShowView(EGameState.Win);
             GameManager.StopTheGame();
         }
 
         protected override void OnMainStateExit()
         {
-            UIManager.HideView(EGameState.Win);
+            // UIManager.HideView(EGameState.Win);
         }
 
         protected override void SubscribeToModel()
@@ -26,7 +26,6 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Win
 
         protected override void InitializeSubStates()
         {
-            Debug.LogWarning("implement me");
         }
     }
 }

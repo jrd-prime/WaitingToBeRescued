@@ -1,13 +1,19 @@
-﻿namespace _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState
+﻿using _Game._Scripts.Framework.Manager.UI;
+
+namespace _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState
 {
-    public sealed class SettingsSubState : ISubState
+    public sealed class SettingsSubState : SubStateBase
     {
-        public void Enter()
+        public SettingsSubState(IUIManager uiManager) : base(uiManager)
+        {
+        }
+
+        public override void Enter()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Exit()
+        public override void Exit()
         {
             throw new System.NotImplementedException();
         }

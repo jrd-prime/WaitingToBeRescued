@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.UI.Base.View;
 using _Game._Scripts.UI.Gameplay.Components;
 using R3;
@@ -8,7 +9,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayView : CustomUIViewBase<IGameplayViewModel, GameplaySubStateType>
+    public class GameplayView : CustomUIViewBase<IGameplayViewModel, EGameplaySubState>
     {
         private static readonly Vector2 ScreenTargetSize = new(800f, 360f);
         private const float Offset = 16f;
@@ -26,12 +27,12 @@ namespace _Game._Scripts.UI.Gameplay
             if (ViewModel == null) throw new NullReferenceException($"ViewModel is null");
 
             // Movement
-            _movementComponent = new Movement(ViewModel, in ContentContainer, in Disposables);
-            _movementComponent.InitElements();
+            // _movementComponent = new Movement(ViewModel, in ContentContainer, in Disposables);
+            // _movementComponent.InitElements();
 
-            _movementComponent.Init();
+            // _movementComponent.Init();
 
-            ViewModel.PlayerHealth.Subscribe(SetHealth).AddTo(Disposables);
+            // ViewModel.PlayerHealth.Subscribe(SetHealth).AddTo(Disposables);
 
             _menuButton = ContentContainer.Q<Button>(UIConst.MenuButtonIDName);
         }

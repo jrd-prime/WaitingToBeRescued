@@ -11,12 +11,13 @@ namespace _Game._Scripts.UI.Gameplay.Components
         private VisualElement _ring;
 
         private readonly VisualElement _root;
-        private readonly IGameplayViewModel _viewModel;
+
+        // private readonly IGameplayViewModel _viewModel;
         private readonly CompositeDisposable _disposables;
 
         public Movement(IGameplayViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
         {
-            _viewModel = viewModel;
+            // _viewModel = viewModel;
             _root = root;
             _disposables = disposables;
         }
@@ -29,13 +30,13 @@ namespace _Game._Scripts.UI.Gameplay.Components
 
         public void Init()
         {
-            _movementRoot.RegisterCallback<PointerDownEvent>(OnPointerDown);
-            _movementRoot.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-            _movementRoot.RegisterCallback<PointerUpEvent>(OnPointerUp);
-            _movementRoot.RegisterCallback<PointerOutEvent>(OnPointerCancel);
+            // _movementRoot.RegisterCallback<PointerDownEvent>(OnPointerDown);
+            // _movementRoot.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+            // _movementRoot.RegisterCallback<PointerUpEvent>(OnPointerUp);
+            // _movementRoot.RegisterCallback<PointerOutEvent>(OnPointerCancel);
 
-            _viewModel.IsTouchPositionVisible.Subscribe(IsTouchPositionVisible).AddTo(_disposables);
-            _viewModel.RingPosition.Subscribe(SetRingPosition).AddTo(_disposables);
+            // _viewModel.IsTouchPositionVisible.Subscribe(IsTouchPositionVisible).AddTo(_disposables);
+            // _viewModel.RingPosition.Subscribe(SetRingPosition).AddTo(_disposables);
         }
 
         private void SetRingPosition(Vector2 position)
@@ -48,9 +49,9 @@ namespace _Game._Scripts.UI.Gameplay.Components
             _ring.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
 
 
-        private void OnPointerCancel(PointerOutEvent evt) => _viewModel.OnOutEvent(evt);
-        private void OnPointerDown(PointerDownEvent evt) => _viewModel.OnDownEvent(evt);
-        private void OnPointerMove(PointerMoveEvent evt) => _viewModel.OnMoveEvent(evt);
-        private void OnPointerUp(PointerUpEvent evt) => _viewModel.OnUpEvent(evt);
+        // private void OnPointerCancel(PointerOutEvent evt) => _viewModel.OnOutEvent(evt);
+        // private void OnPointerDown(PointerDownEvent evt) => _viewModel.OnDownEvent(evt);
+        // private void OnPointerMove(PointerMoveEvent evt) => _viewModel.OnMoveEvent(evt);
+        // private void OnPointerUp(PointerUpEvent evt) => _viewModel.OnUpEvent(evt);
     }
 }

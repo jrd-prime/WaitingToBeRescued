@@ -1,8 +1,6 @@
-﻿using System;
-using _Game._Scripts.Framework.Data.Enums.States;
+﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.UI.Base.Model;
-using _Game._Scripts.UI.Menu.Base;
 using _Game._Scripts.UI.MovementControl.FullScreen;
 using R3;
 using UnityEngine;
@@ -10,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayModel : CustomUIModelBase<GameplaySubStateType>, IGameplayModel
+    public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
 
@@ -38,10 +36,5 @@ namespace _Game._Scripts.UI.Gameplay
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);
         public void OnOutEvent(PointerOutEvent _) => _movementModel.OnOutEvent(_);
-        public ReactiveProperty<EGameplaySubState> CurrentSubState { get; }
-    }
-
-    public enum GameplaySubStateType
-    {
     }
 }

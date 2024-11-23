@@ -11,14 +11,14 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Gameplay
     {
         protected override void OnMainStateEnter()
         {
-            UIManager.ShowView(EGameState.Gameplay);
+            // UIManager.ShowView(EGameState.Gameplay);
             GameManager.StartNewGame();
             PlayerModel.SetGameStarted(true);
         }
 
         protected override void OnMainStateExit()
         {
-            UIManager.HideView(EGameState.Gameplay);
+            // UIManager.HideView(EGameState.Gameplay);
             PlayerModel.SetGameStarted(false);
         }
 
@@ -28,7 +28,6 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Gameplay
 
         protected override void InitializeSubStates()
         {
-            Debug.LogWarning("implement me");
         }
     }
 }

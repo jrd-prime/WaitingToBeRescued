@@ -1,15 +1,23 @@
-﻿namespace _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState
+﻿using _Game._Scripts.Framework.Data.Enums.States;
+using _Game._Scripts.Framework.Manager.UI;
+
+namespace _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState
 {
-    public class MainSubState : ISubState
+    public class MainSubState : SubStateBase
     {
-        public void Enter()
+        public MainSubState(IUIManager uiManager) : base(uiManager)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void Exit()
+        public override void Enter()
         {
-            throw new System.NotImplementedException();
+            CurrentSubState = EMenuSubState.Main;
+            UIManager.ShowView(EGameState.Menu, CurrentSubState, true);
+        }
+
+        public override void Exit()
+        {
+            UIManager.HideView(EGameState.Menu, CurrentSubState);
         }
     }
 }
