@@ -19,6 +19,10 @@ namespace _Game._Scripts.UI.Menu.SubView
             _backBtn = _content.Q<Button>(UIElementId.BackBtnId).CheckOnNull();
         }
 
+        protected override void Localize()
+        {
+        }
+
         protected override void InitializeCallbacks()
         {
             CallbacksCache.Add(_backBtn, _ => ViewModel.BackButtonClicked.OnNext(Unit.Default));

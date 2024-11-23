@@ -25,8 +25,10 @@ namespace _Game._Scripts.UI.Menu.SubView
             _playBtn = _content.Q<Button>(UIElementId.PlayBtnId);
             _settingsBtn = _content.Q<Button>(UIElementId.SettingsBtnId);
             _exitBtn = _content.Q<Button>(UIElementId.ExitBtnId);
+        }
 
-
+        protected override void Localize()
+        {
             _head.text = LocalizationManager.GetString(headerNameId).ToUpper();
 
             _playBtn.text = LocalizationManager.GetString(TextNameId.playBtnNameId).ToUpper();

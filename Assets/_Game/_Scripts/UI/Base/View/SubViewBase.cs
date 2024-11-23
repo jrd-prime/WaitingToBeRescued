@@ -23,12 +23,18 @@ namespace _Game._Scripts.UI.Base.View
 
         protected VisualElement ContentContainer;
 
+        /// <summary>
+        /// Register initialized callbacks
+        /// </summary>
         protected void RegisterCallbacks()
         {
             foreach (var callback in CallbacksCache)
                 callback.Key.RegisterCallback(callback.Value);
         }
 
+        /// <summary>
+        /// Unregister initialized callbacks
+        /// </summary>
         protected void UnregisterCallbacks()
         {
             Debug.LogWarning("unreg callbacks " + name);
@@ -36,7 +42,19 @@ namespace _Game._Scripts.UI.Base.View
                 callback.Key.UnregisterCallback(callback.Value);
         }
 
+        /// <summary>
+        /// Find and initialize UI elements
+        /// </summary>
         protected abstract void InitializeView();
+
+        /// <summary>
+        /// Localize
+        /// </summary>
+        protected abstract void Localize();
+
+        /// <summary>
+        /// Add callbacks to UI elements
+        /// </summary>
         protected abstract void InitializeCallbacks();
 
         public TemplateContainer GetTemplate()
@@ -75,6 +93,7 @@ namespace _Game._Scripts.UI.Base.View
                                    $"{UIElementId.MainContentContainerId} not found. {name} / {template.name}");
 
             InitializeView();
+            Localize();
             InitializeCallbacks();
             RegisterCallbacks();
 
