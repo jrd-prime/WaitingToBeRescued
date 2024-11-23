@@ -12,13 +12,13 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Gameover
     {
         protected override void OnMainStateEnter()
         {
-            UIManager.ShowView(EGameState.GameOver);
+            // UIManager.ShowView(EGameState.GameOver);
             GameManager.GameOver();
         }
 
         protected override void OnMainStateExit()
         {
-            UIManager.HideView(EGameState.GameOver);
+            // UIManager.HideView(EGameState.GameOver);
         }
 
         protected override void SubscribeToModel()
@@ -27,7 +27,6 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Gameover
 
         protected override void InitializeSubStates()
         {
-            Debug.LogWarning("implement me");
         }
     }
 }

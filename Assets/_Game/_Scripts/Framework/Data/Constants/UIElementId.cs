@@ -10,5 +10,6 @@
         public const string PlayBtnId = "play-btn";
         public const string SettingsBtnId = "settings-btn";
         public const string ExitBtnId = "exit-btn";
+        public const string BackBtnId = "back-btn";
     }
 }

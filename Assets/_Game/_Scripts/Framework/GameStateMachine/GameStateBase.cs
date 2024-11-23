@@ -53,7 +53,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
 
         protected void ChangeSubState<TSubState>(TSubState subStateType) where TSubState : TSubStateEnum
         {
-            Debug.LogWarning("Change sub state " + subStateType);
+            Debug.LogWarning("Change sub state to " + subStateType + " from " + CurrentSubState);
             CurrentSubState.Exit();
             CurrentSubState = SubStates[subStateType];
             SubStates[subStateType].Enter();
@@ -72,7 +72,8 @@ namespace _Game._Scripts.Framework.GameStateMachine
             if (!SubStates.TryGetValue(_defaultSubStateType, out _defaultSubState))
                 throw new KeyNotFoundException($"SubState: {_defaultSubStateType} not found!");
             _defaultSubState.Enter();
-            Debug.LogWarning($"------ {CurrentSubState.GetType().Name} enter");
+            if (CurrentSubState != null) Debug.LogWarning($"------ {CurrentSubState?.GetType().Name} enter");
+
             CurrentSubState = _defaultSubState;
         }
 

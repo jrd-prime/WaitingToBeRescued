@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.GameStateMachine.State.Gameover;
 using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
@@ -11,15 +10,9 @@ using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.GameStateMachine
 {
-    public interface IStateMachine : IPostStartable, IDisposable
-    {
-        public void ChangeStateTo(EGameState eGameState);
-    }
-
     public class StateMachine : IStateMachine
     {
         private readonly Dictionary<EGameState, IGameState> _states = new();
@@ -44,6 +37,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
 
         public void PostStart()
         {
+            Debug.LogWarning("post start " + this);
             if (_currentState != null) return;
 
             ChangeStateTo(EGameState.Menu);

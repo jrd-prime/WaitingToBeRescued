@@ -14,10 +14,6 @@ namespace _Game._Scripts.Framework.ContextScope
         {
             Debug.Log("<color=cyan>UI context</color>");
 
-            // Main menu
-            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable>();
-            // Gameplay UI
-            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton).As<IInitializable>();
         }
     }
 }

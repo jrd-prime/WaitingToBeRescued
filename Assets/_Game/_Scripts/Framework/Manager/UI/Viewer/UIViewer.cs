@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Helpers;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.Framework.Manager.UI.Viewer
@@ -8,6 +9,7 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
     {
         public void ShowView(TemplateContainer view, bool toSafe = false)
         {
+            Debug.LogWarning("VIEWER SHOW VIEW: " + view);
             if (toSafe) ToSafe();
 
             if (view == null) throw new NullReferenceException("View is null.");
@@ -30,7 +32,7 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
 
         public void HideView()
         {
-           RootContainer.Clear();
+            RootContainer.Clear();
         }
     }
 }

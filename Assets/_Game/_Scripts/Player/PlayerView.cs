@@ -113,8 +113,8 @@ namespace _Game._Scripts.Player
 
         private void SetAnimatorBool(int animParameterId, bool value)
         {
-            if (_animator.GetBool(animParameterId) == value) return;
-            _animator.SetBool(animParameterId, value);
+            // if (_animator.GetBool(animParameterId) == value) return;
+            // _animator.SetBool(animParameterId, value);
         }
 
         private void CharacterMovement()

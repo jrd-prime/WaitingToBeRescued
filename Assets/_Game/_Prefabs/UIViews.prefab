@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1238201bb39440f4ad066074927c809a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewForGameStateType: 1
+  headerNameId: 
+  viewForEGameState: 1
   viewTemplate: {fileID: 9197481963319205126, guid: 470873792a2aa2543aec906044c0529f, type: 3}
-  safeZone: 0
+  inSafeZone: 0
+  subStatesData: []
 --- !u!1 &4179273034671793257
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,13 +139,21 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
+      propertyPath: subStatesData.Array.data[0].headerNameId
+      value: main-ttl
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
+      propertyPath: subStatesData.Array.data[1].headerNameId
+      value: settings-ttl
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
       propertyPath: subStatesData.Array.data[1].subStateType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
       propertyPath: subStatesData.Array.data[0].visualTreeAsset
       value: 
-      objectReference: {fileID: 9197481963319205126, guid: 8a3373506294f254aa33749b359fa461, type: 3}
+      objectReference: {fileID: 9197481963319205126, guid: e33bce4faed937940ada5a052340a327, type: 3}
     - target: {fileID: 7672483398657280262, guid: 046482d1699ad924fa949f5ffba83bae, type: 3}
       propertyPath: subStatesData.Array.data[1].visualTreeAsset
       value: 

@@ -22,8 +22,6 @@ namespace _Game._Scripts.UI.Base.ViewModel
         {
             Model = model;
 
-            Debug.LogWarning("model " + model);
-
             if (Model == null) throw new NullReferenceException($"{typeof(TModel)} is null");
         }
 

@@ -52,10 +52,8 @@ namespace _Game._Scripts.Player
 
         public void Initialize()
         {
-            Debug.LogWarning("PlayerModel Initialize");
             _movementControlModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(_container);
             _cameraFollowSystem = ResolverHelp.ResolveAndCheck<CameraFollowSystem>(_container);
-            // _weaponManager = ResolverHelp.ResolveAndCheck<WeaponManager>(_container);
             var settingsManager = ResolverHelp.ResolveAndCheck<ISettingsManager>(_container);
             CharSettings = settingsManager.GetConfig<CharacterSettings>();
 

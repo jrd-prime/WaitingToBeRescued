@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.ContextScope;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.UI.Viewer;
 using _Game._Scripts.UI.Base.View;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Manager.UI
@@ -20,55 +17,67 @@ namespace _Game._Scripts.Framework.Manager.UI
 
         private readonly Dictionary<EGameState, UIViewBase> _views = new();
 
+        [SerializeField] protected List<StateViewData> stateViews = new();
+
         private ISettingsManager _settingsManager;
+        private IObjectResolver _resolver;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
-            Debug.LogWarning("Construct UIControllerBase");
+            _resolver = resolver;
             _settingsManager = resolver.Resolve<ISettingsManager>();
         }
 
-        private void Awake()
+        private void Start()
         {
-            Debug.LogWarning("UIControllerBase awake");
+            Debug.LogWarning("start " + name);
             if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null.");
 
-            var uiContext = FindFirstObjectByType<UIContext>() ??
-                            throw new NullReferenceException("UIContext not found");
-
-            var views = GetComponentsInChildren<UIViewBase>();
-
-            if (views.Length == 0 || views == null) throw new Exception("Views not found");
-
-            foreach (var view in views)
-            {
-                uiContext.Container.Inject(view);
-                _views.TryAdd(view.viewForEGameState, view);
-            }
+            if (stateViews.Count == 0) throw new Exception("Views not found!");
+            if (Enum.GetNames(typeof(EGameState)).Length != stateViews.Count)
+                Debug.LogWarning("View count is not equal to game state count");
         }
 
-        public void ShowView(EGameState eGameState, bool toSafe = false)
+        public void ShowView(EGameState eGameState, Enum subState, bool toSafe = false)
         {
-            Debug.LogWarning("Show view: " + eGameState);
-            if (!_views.TryGetValue(eGameState, out var view))
+            Debug.LogWarning("Show view: " + eGameState + ", " + subState);
+
+            if (!_views.TryGetValue(eGameState, out UIViewBase view))
                 throw new KeyNotFoundException("View not found for game state: " + eGameState);
-            var visual = view.GetTemplateContainer();
-            viewer.ShowView(visual, view.safeZone);
+            Debug.LogWarning("view = " + view.name);
+
+            var subView = view.GetSubView(subState);
+            Debug.LogWarning("subview = " + subView.name);
+            
+            var visual = subView.GetTemplate();
+            Debug.LogWarning("visual = " + visual);
+            
+            viewer.ShowView(visual, subView.inSafeZone);
         }
 
-        public void HideView(EGameState eGameState)
+        public void HideView(EGameState eGameState, Enum subState)
         {
             viewer.HideView();
         }
 
         public abstract void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);
+
+        public void Initialize()
+        {
+            foreach (var view in stateViews)
+            {
+                Debug.LogWarning("INJECT = " + this);
+                _resolver.Inject(view.viewHolder);
+                _views.TryAdd(view.uiForState, view.viewHolder);
+            }
+        }
     }
 
     [Serializable]
-    public struct MenuViewData
+    public struct StateViewData
     {
-        [FormerlySerializedAs("menuForType")] public EGameState menuFor;
-        public AssetReferenceGameObject menuViewPrefab;
+        public EGameState uiForState;
+        public UIViewBase viewHolder;
     }
 }

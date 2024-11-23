@@ -11,13 +11,13 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Pause
     {
         protected override void OnMainStateEnter()
         {
-            UIManager.ShowView(EGameState.Pause);
+            // UIManager.ShowView(EGameState.Pause);
             GameManager.Pause();
         }
 
         protected override void OnMainStateExit()
         {
-            UIManager.HideView(EGameState.Pause);
+            // UIManager.HideView(EGameState.Pause);
             GameManager.UnPause();
         }
 
@@ -27,7 +27,6 @@ namespace _Game._Scripts.Framework.GameStateMachine.State.Pause
 
         protected override void InitializeSubStates()
         {
-            Debug.LogWarning("implement me");
         }
     }
 }
