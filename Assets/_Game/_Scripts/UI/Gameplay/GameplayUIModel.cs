@@ -1,27 +1,20 @@
 ﻿using System;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Menu.Base;
-using _Game._Scripts.UIOLD;
-using _Game._Scripts.UIOLD.MovementControl.FullScreen;
+using _Game._Scripts.UI.MovementControl.FullScreen;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayModel : UIModelBase, IGameplayModel<GameplaySubStateType>
+    public class GameplayModel : CustomUIModelBase<GameplaySubStateType>, IGameplayModel
     {
         public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
 
         public ReadOnlyReactiveProperty<int> PlayerInitialHealth => GameManager.PlayerInitialHealth;
-        // public ReadOnlyReactiveProperty<int> KillCount => GameManager.KillCount;
-        // public ReadOnlyReactiveProperty<int> KillToWin => GameManager.KillToWin;
-        // public ReadOnlyReactiveProperty<int> EnemiesCount => GameManager.EnemiesCount;
-
-        // public ReadOnlyReactiveProperty<int> Experience => GameManager.Experience;
-        // public ReadOnlyReactiveProperty<int> ExperienceToNextLevel => GameManager.ExperienceToNextLevel;
-        // public ReadOnlyReactiveProperty<int> Level => GameManager.Level;
 
 
         public void MenuButtonClicked()
@@ -45,8 +38,7 @@ namespace _Game._Scripts.UI.Gameplay
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);
         public void OnOutEvent(PointerOutEvent _) => _movementModel.OnOutEvent(_);
-        public ReactiveProperty<GameplaySubStateType> CurrentSubState { get; }
-        public ReactiveProperty<GameStateType> GameState { get; }
+        public ReactiveProperty<EGameplaySubState> CurrentSubState { get; }
     }
 
     public enum GameplaySubStateType

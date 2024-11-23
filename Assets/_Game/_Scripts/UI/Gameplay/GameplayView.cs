@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayView : CustomView<IGameplayViewModel>
+    public class GameplayView : CustomUIViewBase<IGameplayViewModel, GameplaySubStateType>
     {
         private static readonly Vector2 ScreenTargetSize = new(800f, 360f);
         private const float Offset = 16f;

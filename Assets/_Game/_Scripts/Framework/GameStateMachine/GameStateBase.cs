@@ -4,27 +4,31 @@ using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.Base.Model;
+using R3;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.GameStateMachine
 {
-    public abstract class GameStateBase<T> : IGameState, IInitializable
+    public abstract class GameStateBase<TUIModel, TSubStateEnum> : IGameState, IInitializable
+        where TUIModel : IUIModel<TSubStateEnum> where TSubStateEnum : Enum
     {
         protected IGameManager GameManager { get; private set; }
         protected IUIManager UIManager { get; private set; }
         protected IPlayerModel PlayerModel { get; private set; }
-        protected readonly Dictionary<Enum, ISubState> SubStates = new();
+        protected readonly Dictionary<TSubStateEnum, ISubState> SubStates = new();
+        protected readonly CompositeDisposable Disposables = new();
 
-        protected T Model { get; private set; }
+        protected TUIModel Model { get; private set; }
 
-        private Enum _defaultSubStateType;
+        private TSubStateEnum _defaultSubStateType;
         private ISubState _defaultSubState;
-        private ISubState _currentSubState;
+        protected ISubState CurrentSubState;
 
         [Inject]
-        private void Construct(IGameManager gameManager, IUIManager uiController, IPlayerModel playerModel, T dataModel)
+        private void Construct(IGameManager gameManager, IUIManager uiController, IPlayerModel playerModel,
+            TUIModel dataModel)
         {
             GameManager = gameManager;
             UIManager = uiController;
@@ -47,9 +51,17 @@ namespace _Game._Scripts.Framework.GameStateMachine
             //     throw new Exception("DefaultSubState is  not set. Use SetDefaultSubState()" + this);
         }
 
+        protected void ChangeSubState<TSubState>(TSubState subStateType) where TSubState : TSubStateEnum
+        {
+            Debug.LogWarning("Change sub state " + subStateType);
+            CurrentSubState.Exit();
+            CurrentSubState = SubStates[subStateType];
+            SubStates[subStateType].Enter();
+        }
+
         protected abstract void SubscribeToModel();
 
-        protected void SetDefaultSubState(Enum subState) => _defaultSubStateType = subState;
+        protected void SetDefaultSubState(TSubStateEnum subState) => _defaultSubStateType = subState;
 
         protected abstract void InitializeSubStates();
 
@@ -60,15 +72,15 @@ namespace _Game._Scripts.Framework.GameStateMachine
             if (!SubStates.TryGetValue(_defaultSubStateType, out _defaultSubState))
                 throw new KeyNotFoundException($"SubState: {_defaultSubStateType} not found!");
             _defaultSubState.Enter();
-            Debug.LogWarning($"------ {_currentSubState.GetType().Name} enter");
-            _currentSubState = _defaultSubState;
+            Debug.LogWarning($"------ {CurrentSubState.GetType().Name} enter");
+            CurrentSubState = _defaultSubState;
         }
 
         public void Exit()
         {
-            _currentSubState.Exit();
-            Debug.LogWarning($"------ {_currentSubState.GetType().Name} exit");
-            _currentSubState = null;
+            CurrentSubState.Exit();
+            Debug.LogWarning($"------ {CurrentSubState.GetType().Name} exit");
+            CurrentSubState = null;
             Debug.LogWarning($"--- {GetType().Name} exit");
             OnMainStateExit();
         }

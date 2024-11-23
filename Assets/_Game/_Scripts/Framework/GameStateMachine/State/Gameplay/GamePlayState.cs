@@ -1,32 +1,29 @@
-﻿using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+﻿using _Game._Scripts.Framework.Data.Enums.States;
+using _Game._Scripts.Framework.GameStateMachine.State.Menu;
+using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Gameplay;
 using _Game._Scripts.UI.Menu.Base;
-using _Game._Scripts.UIOLD;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.GameStateMachine.State.Gameplay
-{public enum GameplaySubStateType{}
-    public enum GameoverSubStateType{}
-    public enum PauseSubStateType{}
-    public enum WinSubStateType{}
-    public sealed class GamePlayState : GameStateBase<IGameplayModel<GameplaySubStateType>>
+{
+    public sealed class GamePlayState : GameStateBase<IGameplayModel, EGameplaySubState>
     {
         protected override void OnMainStateEnter()
         {
-            UIManager.ShowView(GameStateType.Gameplay);
+            UIManager.ShowView(EGameState.Gameplay);
             GameManager.StartNewGame();
             PlayerModel.SetGameStarted(true);
         }
 
         protected override void OnMainStateExit()
         {
-            UIManager.HideView(GameStateType.Gameplay);
+            UIManager.HideView(EGameState.Gameplay);
             PlayerModel.SetGameStarted(false);
         }
 
         protected override void SubscribeToModel()
         {
-            
         }
 
         protected override void InitializeSubStates()

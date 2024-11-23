@@ -5,4 +5,8 @@ namespace _Game._Scripts.Framework.GameStateMachine
         public void Enter();
         public void Exit();
     }
+
+    public interface ISubState : IGameState
+    {
+    }
 }

@@ -1,4 +1,7 @@
-﻿using _Game._Scripts.UI.Base.ViewModel;
+﻿using _Game._Scripts.Framework.Data.Enums.States;
+using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
+using _Game._Scripts.UI.Base.Model;
+using _Game._Scripts.UI.Base.ViewModel;
 using _Game._Scripts.UI.Menu.Base;
 using R3;
 using UnityEngine;
@@ -6,8 +9,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Gameplay
 {
-    public class GameplayViewModel : CustomUIViewModel<IGameplayModel<GameplaySubStateType>, GameplaySubStateType>,
-        IGameplayViewModel
+    public class GameplayViewModel : UIViewModelBase<IGameplayModel, EGameplaySubState>, IGameplayViewModel
     {
         public Subject<Unit> MenuButtonClicked { get; } = new();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.GameStateMachine;
 using _Game._Scripts.Framework.GameStateMachine.State;
 using _Game._Scripts.Framework.GameStateMachine.State.Gameover;
@@ -14,13 +15,13 @@ using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Player;
 using _Game._Scripts.Player.Interfaces;
+using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Gameplay;
 using _Game._Scripts.UI.Menu;
 using _Game._Scripts.UI.Menu.Base;
-using _Game._Scripts.UIOLD;
-using _Game._Scripts.UIOLD.MovementControl;
-using _Game._Scripts.UIOLD.MovementControl.FullScreen;
-using _Game._Scripts.UIOLD.PopUpText;
+using _Game._Scripts.UI.MovementControl;
+using _Game._Scripts.UI.MovementControl.FullScreen;
+using _Game._Scripts.UI.PopUpText;
 using R3;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -67,17 +68,15 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IMenuButtonsHandler, MenuButtonsHandler>(Lifetime.Singleton);
 
             // State models
-            builder.Register<IMenuModel<MenuSubStateType>, MenuModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IGameplayModel<GameplaySubStateType>, GameplayModel>(Lifetime.Singleton)
-                .As<IInitializable>();
-            builder.Register<IGameoverModel<GameoverSubStateType>, GameoverModel>(Lifetime.Singleton)
-                .As<IInitializable>();
-            builder.Register<IPauseModel<PauseSubStateType>, PauseModel>(Lifetime.Singleton).As<IInitializable>();
-            builder.Register<IWinModel<WinSubStateType>, WinModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IGameoverModel, GameoverModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IPauseModel, PauseModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IWinModel, WinModel>(Lifetime.Singleton).As<IInitializable>();
 
 
             // State machine
-            builder.Register<StateMachine>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
             builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GamePlayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
@@ -87,36 +86,36 @@ namespace _Game._Scripts.Framework.ContextScope
         }
     }
 
-    public class GameoverModel : IGameoverModel<GameoverSubStateType>
+    public class GameoverModel : CustomUIModelBase<EGameoverSubState>, IGameoverModel
     {
-        public void Initialize()
+        public ReactiveProperty<EGameoverSubState> CurrentSubState { get; }
+        public ReactiveProperty<EGameState> GameState { get; }
+
+        public override void Initialize()
         {
             throw new NotImplementedException();
         }
-
-        public ReactiveProperty<GameoverSubStateType> CurrentSubState { get; }
-        public ReactiveProperty<GameStateType> GameState { get; }
     }
 
-    public class PauseModel : IPauseModel<PauseSubStateType>
+    public class PauseModel : CustomUIModelBase<EPauseSubState>, IPauseModel
     {
-        public void Initialize()
+        public ReactiveProperty<EPauseSubState> CurrentSubState { get; }
+        public ReactiveProperty<EGameState> GameState { get; }
+
+        public override void Initialize()
         {
             throw new NotImplementedException();
         }
-
-        public ReactiveProperty<PauseSubStateType> CurrentSubState { get; }
-        public ReactiveProperty<GameStateType> GameState { get; }
     }
 
-    public class WinModel : IWinModel<WinSubStateType>
+    public class WinModel : CustomUIModelBase<EWinSubState>, IWinModel
     {
-        public void Initialize()
+        public ReactiveProperty<EWinSubState> CurrentSubState { get; }
+        public ReactiveProperty<EGameState> GameState { get; }
+
+        public override void Initialize()
         {
             throw new NotImplementedException();
         }
-
-        public ReactiveProperty<WinSubStateType> CurrentSubState { get; }
-        public ReactiveProperty<GameStateType> GameState { get; }
     }
 }
