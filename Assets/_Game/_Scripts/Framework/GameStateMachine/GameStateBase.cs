@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Player.Interfaces;
@@ -17,9 +18,10 @@ namespace _Game._Scripts.Framework.GameStateMachine
         protected IGameManager GameManager { get; private set; }
         protected IUIManager UIManager { get; private set; }
         protected IPlayerModel PlayerModel { get; private set; }
-        protected readonly Dictionary<TSubStateEnum, ISubState> SubStates = new();
+        protected readonly Dictionary<TSubStateEnum, ISubState> SubStatesCache = new();
         protected readonly CompositeDisposable Disposables = new();
 
+        protected Action<EGameState> ChangeStateCallback { get; private set; }
         protected TUIModel Model { get; private set; }
 
         private TSubStateEnum _defaultSubStateType;
@@ -44,7 +46,6 @@ namespace _Game._Scripts.Framework.GameStateMachine
             if (Model == null) throw new NullReferenceException("DataModel is null");
 
             InitializeSubStates();
-            SubscribeToModel();
 //TODO uncomm
             // if (SubStates.Count == 0) throw new Exception("SubStates is empty. You need to add substates." + this);
             // if (_defaultSubStateType == null)
@@ -55,22 +56,25 @@ namespace _Game._Scripts.Framework.GameStateMachine
         {
             Debug.LogWarning("Change sub state to " + subStateType + " from " + CurrentSubState);
             CurrentSubState.Exit();
-            CurrentSubState = SubStates[subStateType];
-            SubStates[subStateType].Enter();
+            CurrentSubState = SubStatesCache[subStateType];
+            SubStatesCache[subStateType].Enter();
         }
-
-        protected abstract void SubscribeToModel();
-
-        protected void SetDefaultSubState(TSubStateEnum subState) => _defaultSubStateType = subState;
-
-        protected abstract void InitializeSubStates();
 
         public void Enter()
         {
-            Debug.LogWarning($"--- {GetType().Name} enter");
+            SubscribeToModel();
+            Debug.LogWarning("subscribe to model completed in " + GetType().Name);
+            Debug.LogWarning(
+                $"--- {GetType().Name} enter. (DefaultSubStateType: {_defaultSubStateType} ) (SubStates count: {SubStatesCache.Count})");
             OnMainStateEnter();
-            if (!SubStates.TryGetValue(_defaultSubStateType, out _defaultSubState))
-                throw new KeyNotFoundException($"SubState: {_defaultSubStateType} not found!");
+
+
+            if (!SubStatesCache.TryGetValue(_defaultSubStateType, out _defaultSubState))
+                throw new KeyNotFoundException(
+                    $"SubState: {_defaultSubStateType} not found! Base state: {GetType().Name}");
+
+            Debug.LogWarning("Default sub state: " + _defaultSubState);
+
             _defaultSubState.Enter();
             if (CurrentSubState != null) Debug.LogWarning($"------ {CurrentSubState?.GetType().Name} enter");
 
@@ -84,8 +88,18 @@ namespace _Game._Scripts.Framework.GameStateMachine
             CurrentSubState = null;
             Debug.LogWarning($"--- {GetType().Name} exit");
             OnMainStateExit();
+            Disposables.Dispose();
         }
 
+        public void SetCallback(Action<EGameState> changeStateCallback) => ChangeStateCallback = changeStateCallback;
+
+
+        /// <summary>
+        /// Initialize SubStates and add to cache <see cref="SubStatesCache"/>
+        /// </summary>
+        protected abstract void InitializeSubStates();
+
+        protected abstract void SubscribeToModel();
         protected abstract void OnMainStateEnter();
         protected abstract void OnMainStateExit();
     }

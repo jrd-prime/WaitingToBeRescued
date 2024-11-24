@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.GameStates.Gameover;
-using _Game._Scripts.Framework.GameStates.Gameplay;
-using _Game._Scripts.Framework.GameStates.Menu;
-using _Game._Scripts.Framework.GameStates.Pause;
-using _Game._Scripts.Framework.GameStates.Win;
 using _Game._Scripts.Framework.Manager.Game;
+using _Game._Scripts.Framework.Manager.Settings;
+using _Game._Scripts.GameStates.Gameover;
+using _Game._Scripts.GameStates.Gameplay;
+using _Game._Scripts.GameStates.Menu;
+using _Game._Scripts.GameStates.Pause;
+using _Game._Scripts.GameStates.Win;
 using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
@@ -21,6 +23,8 @@ namespace _Game._Scripts.Framework.GameStateMachine
         private GameManager _gameManager;
         private readonly CompositeDisposable _disposables = new();
         private bool isGameStarted;
+        public Action<EGameState> ChangeStateCallback;
+        private ISettingsManager _settingsManager;
 
         [Inject]
         private void Construct(IObjectResolver container)
@@ -37,21 +41,6 @@ namespace _Game._Scripts.Framework.GameStateMachine
 
         public void PostStart()
         {
-            Debug.LogWarning("post start " + this);
-            if (_currentState != null) return;
-
-            ChangeStateTo(EGameState.Menu);
-
-            _gameManager.IsGameStarted
-                .Subscribe(value => isGameStarted = value).AddTo(_disposables);
-
-            // _playerModel.Health
-            //     .Where(h => h <= 0)
-            //     .Subscribe(h =>
-            //     {
-            //         if (isGameStarted) ChangeStateTo(StateType.GameOver);
-            //     })
-            //     .AddTo(_disposables);
         }
 
         public void ChangeStateTo(EGameState eGameState)
@@ -60,6 +49,8 @@ namespace _Game._Scripts.Framework.GameStateMachine
                 throw new KeyNotFoundException($"State: {eGameState} not found!");
             Debug.LogWarning(
                 $"<color=yellow>[STATE MACHINE]</color> <color=cyan>Change state to: <b>{eGameState}</b></color> / Current state: {_currentState?.GetType().Name}");
+
+            state.SetCallback(ChangeStateCallback);
 
             ChangeState(state);
         }
@@ -74,6 +65,19 @@ namespace _Game._Scripts.Framework.GameStateMachine
         public void Dispose()
         {
             _disposables?.Dispose();
+        }
+
+        public void Start()
+        {
+            ChangeStateCallback += ChangeStateTo;
+            Debug.LogWarning("start " + this);
+            if (_currentState != null) return;
+
+            ChangeStateTo(EGameState.Menu);
+
+            _gameManager.IsGameStarted
+                .Subscribe(value => isGameStarted = value)
+                .AddTo(_disposables);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace _Game._Scripts.UI.Base
     public struct SubViewData<TSubStateEnum> where TSubStateEnum : Enum
     {
         public TSubStateEnum subState;
-        public SubViewBase subView;
+        public JSubViewBase subView;
     }
 }

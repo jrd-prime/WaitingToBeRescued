@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace _Game._Scripts.Framework.Manager.Game
         protected bool IsGamePaused;
 
         protected IPlayerModel PlayerModel;
+        protected ISettingsManager SettingsManager;
 
         private IObjectResolver _resolver;
 

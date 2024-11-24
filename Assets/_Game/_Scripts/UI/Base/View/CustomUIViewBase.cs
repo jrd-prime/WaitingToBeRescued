@@ -28,7 +28,6 @@ namespace _Game._Scripts.UI.Base.View
         [Inject]
         private void Construct(IObjectResolver resolver, TViewModel viewModel, ILocalizationManager localizationManager)
         {
-            Debug.LogWarning("construct " + name);
             _resolver = resolver;
             ViewModel = viewModel;
             LocalizationManager = localizationManager;
@@ -43,18 +42,16 @@ namespace _Game._Scripts.UI.Base.View
 
         private void Awake()
         {
-            Debug.LogWarning("awake " + name);
             foreach (var subState in subViewsData)
             {
                 _resolver.Inject(subState.subView);
-                if (!subViewsCache.TryAdd(subState.subState, subState.subView))
+                if (!SubViewsCache.TryAdd(subState.subState, subState.subView))
                     throw new Exception($"Subview with subState \"{subState.subState}\" already added to {name} view");
             }
         }
 
         private void Start()
         {
-            Debug.LogWarning("start " + name);
             if (viewForEGameState == EGameState.NotSet)
                 throw new Exception("GameStateType for view is not set. " + name);
         }
