@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.GameStateMachine.State.Gameover;
-using _Game._Scripts.Framework.GameStateMachine.State.Gameplay;
-using _Game._Scripts.Framework.GameStateMachine.State.Menu;
-using _Game._Scripts.Framework.GameStateMachine.State.Pause;
-using _Game._Scripts.Framework.GameStateMachine.State.Win;
+using _Game._Scripts.Framework.GameStates.Gameover;
+using _Game._Scripts.Framework.GameStates.Gameplay;
+using _Game._Scripts.Framework.GameStates.Menu;
+using _Game._Scripts.Framework.GameStates.Pause;
+using _Game._Scripts.Framework.GameStates.Win;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Player.Interfaces;
 using R3;

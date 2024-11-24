@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.UI.Base.ViewModel;
-using _Game._Scripts.UI.Menu.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;

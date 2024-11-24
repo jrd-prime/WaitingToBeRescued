@@ -1,9 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.UI.Base.Model;
 
-namespace _Game._Scripts.UI.Pause
+namespace _Game._Scripts.Framework.GameStates.Menu.UI
 {
-    public class PauseModel : CustomUIModelBase<EPauseSubState>, IPauseModel
+    public class MenuModel : CustomUIModelBase<EMenuSubState>, IMenuModel
     {
 
         public override void Initialize()

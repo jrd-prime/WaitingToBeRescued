@@ -1,8 +1,7 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.UI;
 
-namespace _Game._Scripts.Framework.GameStateMachine.State.Menu.SubState
+namespace _Game._Scripts.Framework.GameStateMachine
 {
     public abstract class SubStateBase : ISubState
     {
