@@ -2,5 +2,6 @@
   "main-ttl": "Menu",
   "play-ttl": "play",
   "settings-ttl": "Settings",
-  "exit-ttl": "exit"
+  "exit-ttl": "exit",
+  "back-ttl": "back"
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.Settings;
@@ -21,6 +22,7 @@ namespace _Game._Scripts.Framework.Manager.UI
 
         private ISettingsManager _settingsManager;
         private IObjectResolver _resolver;
+        private bool _isViewsInitialized;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
@@ -29,31 +31,38 @@ namespace _Game._Scripts.Framework.Manager.UI
             _settingsManager = resolver.Resolve<ISettingsManager>();
         }
 
-        private void Start()
+        public void Initialize()
         {
-            Debug.LogWarning("start " + name);
-            if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null.");
+            foreach (var view in stateViews)
+            {
+                _resolver.Inject(view.viewHolder);
+                _views.TryAdd(view.uiForState, view.viewHolder);
+            }
 
             if (stateViews.Count == 0) throw new Exception("Views not found!");
             if (Enum.GetNames(typeof(EGameState)).Length != stateViews.Count)
-                Debug.LogWarning("View count is not equal to game state count");
+                Debug.LogError("View count is not equal to game state count");
+
+            _isViewsInitialized = true;
+        }
+
+        private void Start()
+        {
+            if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null.");
         }
 
         public void ShowView(EGameState eGameState, Enum subState, bool toSafe = false)
         {
             Debug.LogWarning("Show view: " + eGameState + ", " + subState);
+            if (!_isViewsInitialized) throw new NullReferenceException($"Views not initialized. {name}");
 
-            if (!_views.TryGetValue(eGameState, out UIViewBase view))
-                throw new KeyNotFoundException("View not found for game state: " + eGameState);
-            Debug.LogWarning("view = " + view.name);
+            if (!_views.TryGetValue(eGameState, out var viewBase))
+                throw new KeyNotFoundException($"View not found for state:  {eGameState}. {name}");
 
-            var subView = view.GetSubView(subState);
-            Debug.LogWarning("subview = " + subView.name);
-            
-            var visual = subView.GetTemplate();
-            Debug.LogWarning("visual = " + visual);
-            
-            viewer.ShowView(visual, subView.inSafeZone);
+            SubViewDto subViewDto = viewBase.GetSubViewDto(subState);
+
+
+            viewer.ShowView(subViewDto.Template, subViewDto.InSafeZone);
         }
 
         public void HideView(EGameState eGameState, Enum subState)
@@ -62,22 +71,5 @@ namespace _Game._Scripts.Framework.Manager.UI
         }
 
         public abstract void ShowPopUpAsync(string clickTimesToExit, int doubleClickDelay);
-
-        public void Initialize()
-        {
-            foreach (var view in stateViews)
-            {
-                Debug.LogWarning("INJECT = " + this);
-                _resolver.Inject(view.viewHolder);
-                _views.TryAdd(view.uiForState, view.viewHolder);
-            }
-        }
-    }
-
-    [Serializable]
-    public struct StateViewData
-    {
-        public EGameState uiForState;
-        public UIViewBase viewHolder;
     }
 }

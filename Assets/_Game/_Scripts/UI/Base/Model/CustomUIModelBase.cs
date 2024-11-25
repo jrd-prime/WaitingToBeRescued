@@ -8,7 +8,7 @@ namespace _Game._Scripts.UI.Base.Model
         where TSubStateEnum : Enum
     {
         public abstract void Initialize();
-        public ReactiveProperty<TSubStateEnum> CurrentSubState { get; } = new();
+        public ReactiveProperty<TSubStateEnum> SubState { get; } = new();
         public ReactiveProperty<EGameState> GameState { get; } = new();
     }
 }

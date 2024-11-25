@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.GameStateMachine
 {
-    public interface IStateMachine : IPostStartable, IDisposable
+    public interface IStateMachine : IStartable, IDisposable
     {
         public void ChangeStateTo(EGameState eGameState);
     }
