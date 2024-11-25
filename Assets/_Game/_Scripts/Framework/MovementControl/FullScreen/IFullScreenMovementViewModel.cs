@@ -1,7 +1,7 @@
 ﻿using R3;
 using UnityEngine;
 
-namespace _Game._Scripts.UI.MovementControl.FullScreen
+namespace _Game._Scripts.Framework.MovementControl.FullScreen
 {
     public interface IFullScreenMovementViewModel : IMovementControlViewModel
     {

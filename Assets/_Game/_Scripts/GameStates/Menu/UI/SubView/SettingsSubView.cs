@@ -29,6 +29,10 @@ namespace _Game._Scripts.GameStates.Menu.UI.SubView
             _header = ContentContainer.Q<Label>(UIElementId.MenuHeaderId).CheckOnNull();
         }
 
+        protected override void CreateAndInitComponents()
+        {
+        }
+
         protected override void Localize()
         {
             _backBtn.text = LocalizationManager.GetString(TextNameId.backBtnNameId).ToUpper();

@@ -40,6 +40,7 @@ namespace _Game._Scripts.UI.Base.View
             if (ViewModel == null) throw new NullReferenceException("ViewModel is null. " + name);
             if (LocalizationManager == null) throw new NullReferenceException("LocalizationManager is null. " + name);
 
+            CreateAndInitComponents();
             Localize();
             InitializeCallbacks();
             RegisterCallbacks();

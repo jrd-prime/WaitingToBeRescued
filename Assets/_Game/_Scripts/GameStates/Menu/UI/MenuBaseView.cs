@@ -6,9 +6,5 @@ namespace _Game._Scripts.GameStates.Menu.UI
 {
     public class MenuUIView : CustomUIViewBase<IMenuViewModel, EMenuSubState>
     {
-        public override void Initialize()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -51,7 +51,7 @@ namespace _Game._Scripts.Framework.Manager.UI
             if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null.");
         }
 
-        public void ShowView(EGameState eGameState, Enum subState, bool toSafe = false)
+        public void ShowView(EGameState eGameState, Enum subState)
         {
             Debug.LogWarning("Show view: " + eGameState + ", " + subState);
             if (!_isViewsInitialized) throw new NullReferenceException($"Views not initialized. {name}");

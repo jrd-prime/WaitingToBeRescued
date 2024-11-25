@@ -1,36 +1,28 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.UI.Base.Model;
-using _Game._Scripts.UI.MovementControl.FullScreen;
-using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI
 {
+    public interface IGameplayModel : IUIModel<EGameplaySubState>
+    {
+        public void OnDownEvent(PointerDownEvent evt);
+        public void OnMoveEvent(PointerMoveEvent evt);
+        public void OnUpEvent(PointerUpEvent _);
+        public void OnOutEvent(PointerOutEvent _);
+    }
+
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
-        public ReadOnlyReactiveProperty<int> PlayerHealth => GameManager.PlayerHealth;
-
-        public ReadOnlyReactiveProperty<int> PlayerInitialHealth => GameManager.PlayerInitialHealth;
-
-
-        public void MenuButtonClicked()
-        {
-        }
-
-        // MenuButtonsHandler.MenuButtonClicked();
-
-
-        public ReactiveProperty<bool> IsTouchPositionVisible => _movementModel.IsTouchPositionVisible;
-        public ReactiveProperty<Vector2> RingPosition => _movementModel.RingPosition;
-
-        private IFullScreenMovementModel _movementModel;
+        private IMovementControlModel _movementModel;
 
         public override void Initialize()
         {
-            _movementModel = ResolverHelp.ResolveAndCheck<IFullScreenMovementModel>(Container);
+            _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Resolver);
         }
+
 
         public void OnDownEvent(PointerDownEvent evt) => _movementModel.OnDownEvent(evt);
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);

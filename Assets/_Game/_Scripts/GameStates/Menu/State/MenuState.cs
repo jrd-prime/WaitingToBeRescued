@@ -1,11 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.GameStateMachine;
-using _Game._Scripts.GameStates.Menu.SubState;
+using _Game._Scripts.Framework.JrdStateMachine.BaseState;
+using _Game._Scripts.GameStates.Menu.State.SubState;
 using _Game._Scripts.UI.Base.Model;
-using R3;
-using UnityEngine;
 
-namespace _Game._Scripts.GameStates.Menu
+namespace _Game._Scripts.GameStates.Menu.State
 {
     public class MenuState : GameStateBase<IMenuModel, EMenuSubState>
     {

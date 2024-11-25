@@ -6,6 +6,7 @@ using _Game._Scripts.UI.Base.ViewModel;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
+using VContainer.Unity;
 
 namespace _Game._Scripts.UI.Base.View
 {
@@ -33,14 +34,7 @@ namespace _Game._Scripts.UI.Base.View
             LocalizationManager = localizationManager;
         }
 
-
-        // public override void Initialize()
-        // {
-        //     Debug.LogWarning("initialize " + name);
-        //     
-        // }
-
-        private void Awake()
+        protected void Awake()
         {
             foreach (var subState in subViewsData)
             {
@@ -50,7 +44,7 @@ namespace _Game._Scripts.UI.Base.View
             }
         }
 
-        private void Start()
+        protected void Start()
         {
             if (viewForEGameState == EGameState.NotSet)
                 throw new Exception("GameStateType for view is not set. " + name);

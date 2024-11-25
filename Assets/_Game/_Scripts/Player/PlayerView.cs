@@ -1,6 +1,5 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
@@ -12,8 +11,6 @@ namespace _Game._Scripts.Player
     public class PlayerView : MonoBehaviour
     {
         public LayerMask targetLayer;
-        public float scanBoxHorizontal = 32f;
-        public float scanBoxVertical = 16f;
 
         private IPlayerViewModel _viewModel;
 
@@ -45,20 +42,21 @@ namespace _Game._Scripts.Player
 
         private void FixedUpdate()
         {
-            if (!_isGameStarted) return;
-            if (!_isShooting)
-            {
-                _nearestEnemy = FindTargetSystem.FindNearestInBox(transform, scanBoxHorizontal, scanBoxVertical,
-                    targetLayer);
-
-                // if (_nearestEnemy is not null) _viewModel.ShootToTarget(_nearestEnemy);
-            }
+            // if (!_isGameStarted) return;
+            // if (!_isShooting)
+            // {
+            //     _nearestEnemy = FindTargetSystem.FindNearestInBox(transform, scanBoxHorizontal, scanBoxVertical,
+            //         targetLayer);
+            //
+            //     // if (_nearestEnemy is not null) _viewModel.ShootToTarget(_nearestEnemy);
+            // }
 
             CharacterMovement();
         }
 
         private void Subscribe()
         {
+            Debug.LogWarning("subscribe");
             _viewModel.Position
                 .Subscribe(position => _rb.position = position)
                 .AddTo(_disposables);
@@ -119,7 +117,7 @@ namespace _Game._Scripts.Player
 
         private void CharacterMovement()
         {
-            if (_isMovementBlocked) return;
+            // if (_isMovementBlocked) return;
             MoveCharacter();
             RotateCharacter();
         }

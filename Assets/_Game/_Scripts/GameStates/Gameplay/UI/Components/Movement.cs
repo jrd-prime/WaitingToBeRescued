@@ -1,57 +1,38 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.GameStates.Gameplay.UI.Base;
+using _Game._Scripts.UI.Base;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 {
-    public sealed class Movement
+    public sealed class Movement : SubViewComponentBase<IGameplayViewModel>
     {
         private VisualElement _movementRoot;
-        private VisualElement _ring;
-
-        private readonly VisualElement _root;
-
-        // private readonly IGameplayViewModel _viewModel;
-        private readonly CompositeDisposable _disposables;
 
         public Movement(IGameplayViewModel viewModel, in VisualElement root, in CompositeDisposable disposables)
+            : base(viewModel, root, disposables)
         {
-            // _viewModel = viewModel;
-            _root = root;
-            _disposables = disposables;
         }
 
-        public void InitElements()
+        protected override void InitElements()
         {
-            _movementRoot = _root.Q<VisualElement>(UIConst.MovementRootIDName);
-            _ring = _root.Q<VisualElement>(UIConst.FullScreenRingIDName);
+            _movementRoot = Root.Q<VisualElement>(UIConst.MovementRootIDName).CheckOnNull();
         }
 
-        public void Init()
+        protected override void Init()
         {
-            // _movementRoot.RegisterCallback<PointerDownEvent>(OnPointerDown);
-            // _movementRoot.RegisterCallback<PointerMoveEvent>(OnPointerMove);
-            // _movementRoot.RegisterCallback<PointerUpEvent>(OnPointerUp);
-            // _movementRoot.RegisterCallback<PointerOutEvent>(OnPointerCancel);
-
-            // _viewModel.IsTouchPositionVisible.Subscribe(IsTouchPositionVisible).AddTo(_disposables);
-            // _viewModel.RingPosition.Subscribe(SetRingPosition).AddTo(_disposables);
+            _movementRoot.RegisterCallback<PointerDownEvent>(OnPointerDown);
+            _movementRoot.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+            _movementRoot.RegisterCallback<PointerUpEvent>(OnPointerUp);
+            _movementRoot.RegisterCallback<PointerOutEvent>(OnPointerCancel);
         }
 
-        private void SetRingPosition(Vector2 position)
-        {
-            _ring.style.left = position.x;
-            _ring.style.top = position.y;
-        }
-
-        private void IsTouchPositionVisible(bool value) =>
-            _ring.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
-
-
-        // private void OnPointerCancel(PointerOutEvent evt) => _viewModel.OnOutEvent(evt);
-        // private void OnPointerDown(PointerDownEvent evt) => _viewModel.OnDownEvent(evt);
-        // private void OnPointerMove(PointerMoveEvent evt) => _viewModel.OnMoveEvent(evt);
-        // private void OnPointerUp(PointerUpEvent evt) => _viewModel.OnUpEvent(evt);
+        private void OnPointerCancel(PointerOutEvent evt) => ViewModel.OnOutEvent(evt);
+        private void OnPointerDown(PointerDownEvent evt) => ViewModel.OnDownEvent(evt);
+        private void OnPointerMove(PointerMoveEvent evt) => ViewModel.OnMoveEvent(evt);
+        private void OnPointerUp(PointerUpEvent evt) => ViewModel.OnUpEvent(evt);
     }
 }
