@@ -87,9 +87,9 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         {
             _healthBar.RegisterCallback<GeometryChangedEvent>(_ => SetHpBarWidth(_healthBar.resolvedStyle.width));
 
-            _viewModel.PlayerInitialHealth
-                .Subscribe(initialHealth => { _playerInitialHealth = initialHealth; })
-                .AddTo(_disposables);
+            // _viewModel.PlayerInitialHealth
+            //     .Subscribe(initialHealth => { _playerInitialHealth = initialHealth; })
+            //     .AddTo(_disposables);
         }
     }
 }

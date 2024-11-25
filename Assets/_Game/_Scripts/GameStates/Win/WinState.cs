@@ -6,18 +6,18 @@ namespace _Game._Scripts.GameStates.Win
 {
     public sealed class WinState : GameStateBase<IWinModel, EWinSubState>
     {
-        protected override void OnMainStateEnter()
+        protected override void OnBaseStateEnter()
         {
             // UIManager.ShowView(EGameState.Win);
             GameManager.StopTheGame();
         }
 
-        protected override void OnMainStateExit()
+        protected override void OnBaseStateExit()
         {
             // UIManager.HideView(EGameState.Win);
         }
 
-        protected override void SubscribeToModel()
+        protected override void InitCustomSubscribes()
         {
         }
 

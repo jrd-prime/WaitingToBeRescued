@@ -14,13 +14,11 @@ namespace _Game._Scripts.GameStates.Menu.SubState
 
         public override void Enter()
         {
-            Debug.LogWarning("Enter settings sub state " + DefaultSubState + " / " + this);
             UIManager.ShowView(BaseState, DefaultSubState, true);
         }
 
         public override void Exit()
         {
-            Debug.LogWarning("Exit settings sub state " + DefaultSubState + " / " + this);
             UIManager.HideView(BaseState, DefaultSubState);
         }
     }

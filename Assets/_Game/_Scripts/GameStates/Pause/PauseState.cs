@@ -6,19 +6,19 @@ namespace _Game._Scripts.GameStates.Pause
 {
     public sealed class PauseState : GameStateBase<IPauseModel, EPauseSubState>
     {
-        protected override void OnMainStateEnter()
+        protected override void OnBaseStateEnter()
         {
             // UIManager.ShowView(EGameState.Pause);
             GameManager.Pause();
         }
 
-        protected override void OnMainStateExit()
+        protected override void OnBaseStateExit()
         {
             // UIManager.HideView(EGameState.Pause);
             GameManager.UnPause();
         }
 
-        protected override void SubscribeToModel()
+        protected override void InitCustomSubscribes()
         {
         }
 

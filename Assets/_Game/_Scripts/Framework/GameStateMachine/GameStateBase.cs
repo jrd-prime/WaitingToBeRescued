@@ -21,11 +21,11 @@ namespace _Game._Scripts.Framework.GameStateMachine
         protected readonly Dictionary<TSubStateEnum, ISubState> SubStatesCache = new();
         protected readonly CompositeDisposable Disposables = new();
 
-        protected Action<EGameState> ChangeStateCallback { get; private set; }
+        private Action<EGameState> ChangeStateCallback { get; set; }
         protected TUIModel Model { get; private set; }
 
-        private TSubStateEnum _defaultSubStateType;
-        private ISubState _defaultSubState;
+        private TSubStateEnum _subStateType;
+        private ISubState _subState;
         protected ISubState CurrentSubState;
 
         [Inject]
@@ -46,15 +46,33 @@ namespace _Game._Scripts.Framework.GameStateMachine
             if (Model == null) throw new NullReferenceException("DataModel is null");
 
             InitializeSubStates();
-//TODO uncomm
-            // if (SubStates.Count == 0) throw new Exception("SubStates is empty. You need to add substates." + this);
-            // if (_defaultSubStateType == null)
-            //     throw new Exception("DefaultSubState is  not set. Use SetDefaultSubState()" + this);
+            Subscribe();
+
+            //TODO uncomment
+            //if (SubStatesCache.Count == 0) throw new Exception("SubStates is empty. You need to add substates." + this);
         }
 
-        protected void ChangeSubState<TSubState>(TSubState subStateType) where TSubState : TSubStateEnum
+        private void Subscribe()
         {
-            Debug.LogWarning("Change sub state to " + subStateType + " from " + CurrentSubState);
+            InitBaseSubscribes();
+            InitCustomSubscribes();
+        }
+
+        private void InitBaseSubscribes()
+        {
+            Model.SubState
+                .Skip(1)
+                .Subscribe(ChangeSubState)
+                .AddTo(Disposables);
+            Model.GameState
+                .Skip(1)
+                .Subscribe(ChangeState)
+                .AddTo(Disposables);
+        }
+
+        private void ChangeSubState<TSubState>(TSubState subStateType) where TSubState : TSubStateEnum
+        {
+            Debug.LogWarning("<color=darkblue>[CHANGE SUB]</color> To " + subStateType + " from " + CurrentSubState);
             CurrentSubState.Exit();
             CurrentSubState = SubStatesCache[subStateType];
             SubStatesCache[subStateType].Enter();
@@ -62,36 +80,28 @@ namespace _Game._Scripts.Framework.GameStateMachine
 
         public void Enter()
         {
-            SubscribeToModel();
-            Debug.LogWarning("subscribe to model completed in " + GetType().Name);
             Debug.LogWarning(
-                $"--- {GetType().Name} enter. (DefaultSubStateType: {_defaultSubStateType} ) (SubStates count: {SubStatesCache.Count})");
-            OnMainStateEnter();
+                $"<color=darkblue>[ENTER BASE]</color> {GetType().Name} (SubStates: {SubStatesCache.Count} / Disp: {Disposables.Count})");
+            OnBaseStateEnter();
 
+            if (!SubStatesCache.TryGetValue(_subStateType, out _subState))
+                throw new KeyNotFoundException($"SubState: {_subStateType} not found! Base state: {GetType().Name}");
 
-            if (!SubStatesCache.TryGetValue(_defaultSubStateType, out _defaultSubState))
-                throw new KeyNotFoundException(
-                    $"SubState: {_defaultSubStateType} not found! Base state: {GetType().Name}");
-
-            Debug.LogWarning("Default sub state: " + _defaultSubState);
-
-            _defaultSubState.Enter();
-            if (CurrentSubState != null) Debug.LogWarning($"------ {CurrentSubState?.GetType().Name} enter");
-
-            CurrentSubState = _defaultSubState;
+            _subState.Enter();
+            CurrentSubState = _subState;
         }
 
         public void Exit()
         {
             CurrentSubState.Exit();
-            Debug.LogWarning($"------ {CurrentSubState.GetType().Name} exit");
             CurrentSubState = null;
-            Debug.LogWarning($"--- {GetType().Name} exit");
-            OnMainStateExit();
-            Disposables.Dispose();
+            OnBaseStateExit();
+            Debug.LogWarning($"<color=darkblue>[EXIT BASE]</color> {GetType().Name}");
         }
 
         public void SetCallback(Action<EGameState> changeStateCallback) => ChangeStateCallback = changeStateCallback;
+
+        private void ChangeState(EGameState eGameState) => ChangeStateCallback.Invoke(eGameState);
 
 
         /// <summary>
@@ -99,8 +109,8 @@ namespace _Game._Scripts.Framework.GameStateMachine
         /// </summary>
         protected abstract void InitializeSubStates();
 
-        protected abstract void SubscribeToModel();
-        protected abstract void OnMainStateEnter();
-        protected abstract void OnMainStateExit();
+        protected abstract void InitCustomSubscribes();
+        protected abstract void OnBaseStateEnter();
+        protected abstract void OnBaseStateExit();
     }
 }

@@ -9,7 +9,7 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
     {
         public void ShowView(TemplateContainer view, bool toSafe = false)
         {
-            Debug.LogWarning("VIEWER SHOW VIEW: " + view);
+            Debug.LogWarning("<color=yellow>[VIEWER]</color> Show view");
             if (toSafe) ToSafe();
 
             if (view == null) throw new NullReferenceException("View is null.");

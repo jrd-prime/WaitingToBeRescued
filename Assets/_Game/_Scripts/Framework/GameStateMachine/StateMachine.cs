@@ -39,10 +39,6 @@ namespace _Game._Scripts.Framework.GameStateMachine
             _gameManager = container.Resolve<GameManager>();
         }
 
-        public void PostStart()
-        {
-        }
-
         public void ChangeStateTo(EGameState eGameState)
         {
             if (!_states.TryGetValue(eGameState, out IGameState state))
@@ -70,7 +66,7 @@ namespace _Game._Scripts.Framework.GameStateMachine
         public void Start()
         {
             ChangeStateCallback += ChangeStateTo;
-            Debug.LogWarning("start " + this);
+            Debug.Log("State machine start " + this);
             if (_currentState != null) return;
 
             ChangeStateTo(EGameState.Menu);

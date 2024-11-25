@@ -6,18 +6,18 @@ namespace _Game._Scripts.GameStates.Gameover
 {
     public sealed class GameOverState : GameStateBase<IGameoverModel, EGameoverSubState>
     {
-        protected override void OnMainStateEnter()
+        protected override void OnBaseStateEnter()
         {
             // UIManager.ShowView(EGameState.GameOver);
             GameManager.GameOver();
         }
 
-        protected override void OnMainStateExit()
+        protected override void OnBaseStateExit()
         {
             // UIManager.HideView(EGameState.GameOver);
         }
 
-        protected override void SubscribeToModel()
+        protected override void InitCustomSubscribes()
         {
         }
 

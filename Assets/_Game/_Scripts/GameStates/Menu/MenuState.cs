@@ -17,30 +17,16 @@ namespace _Game._Scripts.GameStates.Menu
                 new MenuSettingsSubState(UIManager, EGameState.Menu, EMenuSubState.Settings));
         }
 
-        protected override void SubscribeToModel()
+        protected override void InitCustomSubscribes()
         {
-            Model.CurrentSubState
-                .Subscribe(ChangeSubState)
-                .AddTo(Disposables);
-            Model.GameState.Subscribe(x => ChangeState(x)).AddTo(Disposables);
         }
 
-        private void ChangeState(EGameState eGameState)
+        protected override void OnBaseStateEnter()
         {
-            Debug.LogWarning("change state in menu " + eGameState);
-            ChangeStateCallback.Invoke(eGameState);
         }
 
-        protected override void OnMainStateEnter()
+        protected override void OnBaseStateExit()
         {
-            // if (GameManager.IsGameStarted.CurrentValue) GameManager.GameOver();
-            //
-            // GameManager.Pause();
-        }
-
-        protected override void OnMainStateExit()
-        {
-            // GameManager.Pause();
         }
     }
 }

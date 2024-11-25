@@ -15,26 +15,17 @@ namespace _Game._Scripts.GameStates.Gameplay
                 new GameplayMainSubState(UIManager, EGameState.Gameplay, EGameplaySubState.Main));
         }
 
-        protected override void SubscribeToModel()
-        {
-            Model.CurrentSubState
-                .Subscribe(ChangeSubState)
-                .AddTo(Disposables);
-            Model.GameState.Subscribe(x => ChangeState(x)).AddTo(Disposables);
-        }
-
-        protected override void OnMainStateEnter()
+        protected override void InitCustomSubscribes()
         {
         }
 
-        protected override void OnMainStateExit()
+        protected override void OnBaseStateEnter()
         {
         }
 
-        private void ChangeState(EGameState eGameState)
+        protected override void OnBaseStateExit()
         {
-            Debug.LogWarning("ChangeState callback " + eGameState);
-            ChangeStateCallback.Invoke(eGameState);
         }
+
     }
 }
