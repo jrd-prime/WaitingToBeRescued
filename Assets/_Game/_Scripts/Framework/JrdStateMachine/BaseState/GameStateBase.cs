@@ -50,6 +50,10 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
 
             //TODO uncomment
             //if (SubStatesCache.Count == 0) throw new Exception("SubStates is empty. You need to add substates." + this);
+
+            if (Enum.GetNames(typeof(TSubStateEnum)).Length != SubStatesCache.Count)
+                Debug.LogWarning(
+                    $"<color=red>[{GetType().Name} / SUB STATES] Initialized substates: {SubStatesCache.Count} but should be {Enum.GetNames(typeof(TSubStateEnum)).Length}</color>");
         }
 
         private void Subscribe()

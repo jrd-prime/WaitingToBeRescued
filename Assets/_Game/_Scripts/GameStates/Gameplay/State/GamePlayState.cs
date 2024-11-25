@@ -11,6 +11,8 @@ namespace _Game._Scripts.GameStates.Gameplay.State
         {
             SubStatesCache.TryAdd(EGameplaySubState.Main,
                 new GameplayMainSubState(UIManager, EGameState.Gameplay, EGameplaySubState.Main));
+            SubStatesCache.TryAdd(EGameplaySubState.ShelterMenu,
+                new GameplayShelterMenuSubState(UIManager, EGameState.Gameplay, EGameplaySubState.ShelterMenu));
         }
 
         protected override void InitCustomSubscribes()

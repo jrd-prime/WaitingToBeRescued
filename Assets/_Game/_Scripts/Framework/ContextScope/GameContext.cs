@@ -18,6 +18,7 @@ using _Game._Scripts.GameStates.Menu.UI;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
+using _Game._Scripts.Interactable;
 using _Game._Scripts.Player;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.Base.Model;
@@ -86,6 +87,9 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<GameOverState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<PauseState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<WinState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+
+            builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
         }
     }
 }

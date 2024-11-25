@@ -2,6 +2,7 @@
 {
     public enum EGameplaySubState
     {
-        Main
+        Main,
+        ShelterMenu
     }
 }

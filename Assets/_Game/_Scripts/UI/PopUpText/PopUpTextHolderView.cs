@@ -32,8 +32,8 @@ namespace _Game._Scripts.UI.PopUpText
             var cam = _cameraManager.GetMainCamera();
             var mainCamera = cam != null ? cam : throw new NullReferenceException("MainCamera is null.");
 
-            SetRotationToFace(mainCamera);
-            if (popUpText == null) throw new NullReferenceException($"PopUpText is null. {popUpText.GetType()}");
+            // SetRotationToFace(mainCamera);
+            // if (popUpText == null) throw new NullReferenceException($"PopUpText is null. {popUpText.GetType()}");
         }
 
         public void Show(string text, float duration, bool isCrit = false)

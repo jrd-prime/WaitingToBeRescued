@@ -53,14 +53,17 @@ namespace _Game._Scripts.Framework.Manager.UI
 
         public void ShowView(EGameState eGameState, Enum subState)
         {
-            Debug.LogWarning("Show view: " + eGameState + ", " + subState);
+            Debug.LogWarning("Show view: " + eGameState + ", " + subState + " / " + _isViewsInitialized);
             if (!_isViewsInitialized) throw new NullReferenceException($"Views not initialized. {name}");
 
+            Debug.LogWarning("Show view: " + eGameState + ", " + subState + " / " + _isViewsInitialized);
             if (!_views.TryGetValue(eGameState, out var viewBase))
                 throw new KeyNotFoundException($"View not found for state:  {eGameState}. {name}");
 
+            Debug.LogWarning("Show view: " + eGameState + ", " + subState + " / " + _isViewsInitialized);
             SubViewDto subViewDto = viewBase.GetSubViewDto(subState);
 
+            Debug.LogWarning("Show view: " + eGameState + ", " + subState + " / " + _isViewsInitialized);
 
             viewer.ShowView(subViewDto.Template, subViewDto.InSafeZone);
         }
