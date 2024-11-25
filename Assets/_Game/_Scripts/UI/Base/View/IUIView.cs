@@ -2,7 +2,7 @@
 
 namespace _Game._Scripts.UI.Base.View
 {
-    public interface IUIView : IInitializable
+    public interface IUIView 
     {
     }
 }

@@ -20,14 +20,11 @@ namespace _Game._Scripts.Player
         public ReactiveProperty<bool> IsInAction { get; } = new(false);
 
         private IPlayerModel _model;
-        private readonly CompositeDisposable _disposables = new();
 
         [Inject]
         private void Construct(IObjectResolver container) => _model = container.Resolve<IPlayerModel>();
 
         public void SetModelPosition(Vector3 value) => _model.SetPosition(value);
         public void SetModelRotation(Quaternion value) => _model.SetRotation(value);
-
-        public void Dispose() => _disposables.Dispose();
     }
 }

@@ -2,7 +2,7 @@
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.UI;
 
-namespace _Game._Scripts.Framework.GameStateMachine
+namespace _Game._Scripts.Framework.JrdStateMachine.SubState
 {
     public abstract class SubStateBase : ISubState
     {
@@ -18,6 +18,16 @@ namespace _Game._Scripts.Framework.GameStateMachine
             DefaultSubState = defaultSubState ?? throw new ArgumentNullException(nameof(defaultSubState));
             CurrentSubState = DefaultSubState;
             BaseState = baseState;
+        }
+
+        protected void ShowView()
+        {
+            UIManager.ShowView(BaseState, DefaultSubState);
+        }
+
+        protected void HideView()
+        {
+            UIManager.HideView(BaseState, DefaultSubState);
         }
 
         public abstract void Enter();

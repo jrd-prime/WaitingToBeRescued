@@ -35,9 +35,6 @@ namespace _Game._Scripts.UI.Base.Model
     {
     }
 
-    public interface IGameplayModel : IUIModel<EGameplaySubState>
-    {
-    }
 
     public interface IGameoverModel : IUIModel<EGameoverSubState>
     {

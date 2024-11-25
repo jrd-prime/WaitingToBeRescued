@@ -1,9 +1,8 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.GameStateMachine;
+using _Game._Scripts.Framework.JrdStateMachine.SubState;
 using _Game._Scripts.Framework.Manager.UI;
-using UnityEngine;
 
-namespace _Game._Scripts.GameStates.Menu.SubState
+namespace _Game._Scripts.GameStates.Menu.State.SubState
 {
     public sealed class MenuSettingsSubState : SubStateBase
     {
@@ -14,14 +13,12 @@ namespace _Game._Scripts.GameStates.Menu.SubState
 
         public override void Enter()
         {
-            Debug.LogWarning("Enter settings sub state " + DefaultSubState + " / " + this);
-            UIManager.ShowView(BaseState, DefaultSubState, true);
+            ShowView();
         }
 
         public override void Exit()
         {
-            Debug.LogWarning("Exit settings sub state " + DefaultSubState + " / " + this);
-            UIManager.HideView(BaseState, DefaultSubState);
+            HideView();
         }
     }
 }

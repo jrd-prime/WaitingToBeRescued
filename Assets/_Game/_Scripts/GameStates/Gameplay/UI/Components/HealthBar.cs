@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;

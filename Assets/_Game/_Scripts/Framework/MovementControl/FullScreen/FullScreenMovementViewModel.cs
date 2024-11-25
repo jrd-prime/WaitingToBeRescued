@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
 
-namespace _Game._Scripts.UI.MovementControl.FullScreen
+namespace _Game._Scripts.Framework.MovementControl.FullScreen
 {
     public class FullScreenMovementViewModel : IFullScreenMovementViewModel
     {

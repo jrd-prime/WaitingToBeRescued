@@ -55,6 +55,11 @@ namespace _Game._Scripts.UI.Base.View
         /// Find and initialize UI elements
         /// </summary>
         protected abstract void InitializeView();
+        
+        /// <summary>
+        /// In Start() cuz ViewModel injected in start //TODO or refact
+        /// </summary>
+        protected abstract void CreateAndInitComponents();
 
         /// <summary>
         /// Localize

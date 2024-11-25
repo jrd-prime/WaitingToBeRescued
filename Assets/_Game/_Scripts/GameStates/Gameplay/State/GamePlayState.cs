@@ -1,11 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.GameStateMachine;
-using _Game._Scripts.GameStates.Gameplay.SubState;
-using _Game._Scripts.UI.Base.Model;
-using R3;
-using UnityEngine;
+using _Game._Scripts.Framework.JrdStateMachine.BaseState;
+using _Game._Scripts.GameStates.Gameplay.State.SubState;
+using _Game._Scripts.GameStates.Gameplay.UI;
 
-namespace _Game._Scripts.GameStates.Gameplay
+namespace _Game._Scripts.GameStates.Gameplay.State
 {
     public sealed class GamePlayState : GameStateBase<IGameplayModel, EGameplaySubState>
     {
@@ -26,6 +24,5 @@ namespace _Game._Scripts.GameStates.Gameplay
         protected override void OnBaseStateExit()
         {
         }
-
     }
 }

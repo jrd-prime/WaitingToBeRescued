@@ -26,8 +26,7 @@ namespace _Game._Scripts.Framework.Manager.Localization
                 throw new KeyNotFoundException($"Localization key '{key}' not found.");
             return s;
         }
-
-
+        
         public async void LoaderServiceInitialization()
         {
             try

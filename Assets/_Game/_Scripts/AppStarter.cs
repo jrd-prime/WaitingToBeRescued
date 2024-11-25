@@ -1,7 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Bootstrap;
 using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.GameStateMachine;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Providers.AssetProvider;

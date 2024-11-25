@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.Data.SO;
+﻿using System;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Manager.Settings;
 using R3;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UIElements;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Game._Scripts.UI.MovementControl.FullScreen
+namespace _Game._Scripts.Framework.MovementControl.FullScreen
 {
     public class FullScreenMovementModel : IFullScreenMovementModel, IInitializable
     {
@@ -25,18 +26,13 @@ namespace _Game._Scripts.UI.MovementControl.FullScreen
 
         public void Initialize()
         {
-            if (_settingsManager != null)
-            {
-                var movementControlSettings = _settingsManager.GetConfig<MovementControlSettings>();
-                _offsetForFullSpeed = movementControlSettings.offsetForFullSpeed;
-                return;
-            }
+            if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null.");
 
-            Debug.LogError("SettingsManager is null. Use default settings.");
+            var movementControlSettings = _settingsManager.GetConfig<MovementControlSettings>();
+            _offsetForFullSpeed = movementControlSettings.offsetForFullSpeed;
         }
 
         private void SetMoveDirection(Vector3 value) => MoveDirection.Value = value;
-
 
         public void OnDownEvent(PointerDownEvent evt)
         {
@@ -44,8 +40,6 @@ namespace _Game._Scripts.UI.MovementControl.FullScreen
 
             _isTouchActive = true;
             _startTouchPosition = evt.localPosition;
-
-            ShowRingAtTouchPosition(_startTouchPosition);
         }
 
         public void OnMoveEvent(PointerMoveEvent evt)
@@ -64,35 +58,17 @@ namespace _Game._Scripts.UI.MovementControl.FullScreen
             SetMoveDirection(new Vector3(_moveInput.x, 0, _moveInput.y * -1f));
         }
 
-        public void OnUpEvent(PointerUpEvent _)
-        {
-            if (!_isTouchActive) return;
-            ResetTouch();
-        }
-
-        public void OnOutEvent(PointerOutEvent _)
-        {
-            if (!_isTouchActive) return;
-            ResetTouch();
-        }
+        public void OnUpEvent(PointerUpEvent _) => ResetTouch();
+        public void OnOutEvent(PointerOutEvent _) => ResetTouch();
 
         private void ResetTouch()
         {
+            if (!_isTouchActive) return;
+
             _isTouchActive = false;
             _moveInput = Vector2.zero;
 
             SetMoveDirection(Vector3.zero);
-            HideRing();
         }
-
-        private void ShowRingAtTouchPosition(Vector3 position)
-        {
-            RingPosition.Value = new Vector2(position.x, position.y);
-
-            ShowRing();
-        }
-
-        private void HideRing() => IsTouchPositionVisible.Value = false;
-        private void ShowRing() => IsTouchPositionVisible.Value = true;
     }
 }

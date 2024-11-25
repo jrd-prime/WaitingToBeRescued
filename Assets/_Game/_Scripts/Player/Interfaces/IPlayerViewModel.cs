@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Game._Scripts.Player.Interfaces
 {
-    public interface IPlayerViewModel : IDisposable
+    public interface IPlayerViewModel
     {
         public ReadOnlyReactiveProperty<Vector3> MoveDirection { get; }
         public ReadOnlyReactiveProperty<float> MoveSpeed { get; }

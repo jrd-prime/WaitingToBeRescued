@@ -26,6 +26,11 @@ namespace _Game._Scripts.GameStates.Menu.UI.SubView
             _exitBtn = _content.Q<Button>(UIElementId.ExitBtnId);
         }
 
+        protected override void CreateAndInitComponents()
+        {
+            
+        }
+
         protected override void Localize()
         {
             _head.text = LocalizationManager.GetString(headerNameId).ToUpper();

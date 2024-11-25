@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.Manager.UI;
 using R3;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace _Game._Scripts.UI.Base.View
 {
@@ -22,8 +20,6 @@ namespace _Game._Scripts.UI.Base.View
                 throw new KeyNotFoundException($"SubView not found in cache for: {subState}");
             return subViewBase;
         }
-
-        public abstract void Initialize();
 
         public SubViewDto GetSubViewDto(Enum subState)
         {

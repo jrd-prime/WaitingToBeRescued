@@ -1,14 +1,13 @@
-﻿using R3;
+﻿using _Game._Scripts.UI.Base.ViewModel;
+using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.UI.MovementControl.FullScreen
+namespace _Game._Scripts.GameStates.Gameplay.UI.Base
 {
-    public interface IFullScreenMovementModel : IMovementControlModel
+    public interface IGameplayViewModel : IUIViewModel
     {
-        public ReactiveProperty<bool> IsTouchPositionVisible { get; }
-        public ReactiveProperty<Vector2> RingPosition { get; }
-
+        public Subject<Unit> MenuButtonClicked { get; }
         public void OnDownEvent(PointerDownEvent evt);
         public void OnMoveEvent(PointerMoveEvent evt);
         public void OnUpEvent(PointerUpEvent evt);

@@ -1,14 +1,19 @@
 ﻿using System;
-using _Game._Scripts.Framework.GameStateMachine;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
+using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.UI;
+using _Game._Scripts.Framework.MovementControl;
+using _Game._Scripts.Framework.MovementControl.FullScreen;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.GameStates.Gameover;
 using _Game._Scripts.GameStates.Gameplay;
+using _Game._Scripts.GameStates.Gameplay.State;
 using _Game._Scripts.GameStates.Gameplay.UI;
+using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.GameStates.Menu;
+using _Game._Scripts.GameStates.Menu.State;
 using _Game._Scripts.GameStates.Menu.UI;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
@@ -17,8 +22,6 @@ using _Game._Scripts.Player;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.GameOver;
-using _Game._Scripts.UI.MovementControl;
-using _Game._Scripts.UI.MovementControl.FullScreen;
 using _Game._Scripts.UI.Pause;
 using _Game._Scripts.UI.PopUpText;
 using _Game._Scripts.UI.Win;
@@ -52,9 +55,9 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton);
 
             builder.Register<FullScreenMovementModel>(Lifetime.Singleton)
-                .As<IFullScreenMovementModel, IMovementControlModel>();
+                .As<IMovementControlModel>().As<IInitializable>();
             builder.Register<FullScreenMovementViewModel>(Lifetime.Singleton)
-                .As<IFullScreenMovementViewModel, IMovementControlViewModel>();
+                .As<IMovementControlViewModel>();
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton);
 
@@ -76,7 +79,7 @@ namespace _Game._Scripts.Framework.ContextScope
 
 
             // State machine
-            builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton).As<IStartable>();
+            builder.Register<IStateMachine, JrdStateMachine.StateMachine>(Lifetime.Singleton).As<IStartable>();
 
             builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GamePlayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
