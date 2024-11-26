@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.JrdStateMachine.BaseState;
+﻿using _Game._Scripts.Framework.Data;
+using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using R3;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine
 
         public void SetStateData(StateData stateData)
         {
-            Debug.LogWarning("Set state data");
+            Debug.Log($"<b>State change requested to {stateData.State}.{stateData.SubState}</b>");
             StateData.Value = stateData;
         }
     }

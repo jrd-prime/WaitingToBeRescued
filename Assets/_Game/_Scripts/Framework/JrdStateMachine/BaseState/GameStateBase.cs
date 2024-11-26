@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.JrdStateMachine.SubState;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
@@ -51,7 +50,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
             //if (SubStatesCache.Count == 0) throw new Exception("SubStates is empty. You need to add substates." + this);
 
             if (Enum.GetNames(typeof(TSubStateEnum)).Length != SubStatesCache.Count)
-                Debug.LogWarning(
+                Debug.Log(
                     $"<color=red>[{GetType().Name} / SUB STATES] Initialized substates: {SubStatesCache.Count} but should be {Enum.GetNames(typeof(TSubStateEnum)).Length}</color>");
         }
 
@@ -67,8 +66,8 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
 
         public void Enter()
         {
-            Debug.LogWarning(
-                $"<color=darkblue>[ENTER BASE]</color> {GetType().Name} (SubStates: {SubStatesCache.Count} / Disp: {Disposables.Count})");
+            Debug.Log(
+                $"<color=red><b>[ENTER BASE]</b></color> {GetType().Name} (Sub: {SubStatesCache.Count} / Disp: {Disposables.Count})");
             OnBaseStateEnter();
 
             if (!SubStatesCache.TryGetValue(_subStateType, out _subState))
@@ -83,7 +82,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
             CurrentSubState.Exit();
             CurrentSubState = null;
             OnBaseStateExit();
-            Debug.LogWarning($"<color=darkblue>[EXIT BASE]</color> {GetType().Name}");
+            Debug.Log($"<color=red><b>[EXIT BASE]</b></color> {GetType().Name}");
         }
 
         public void ChangeSubState(Enum stateDataSubState)
@@ -91,10 +90,10 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
             var subState = stateDataSubState == null ? default : (TSubStateEnum)stateDataSubState;
             if (subState == null) throw new NullReferenceException("SubState is null.");
 
-            Debug.LogWarning(
-                "<color=darkblue>[CHANGE SUB]</color> To " + subState + " from " + CurrentSubState);
-            CurrentSubState?.Exit();
+            Debug.Log("<color=darkblue>[CHANGE SUB]</color> To " + subState + " from " +
+                      CurrentSubState.GetType().Name);
 
+            CurrentSubState?.Exit();
             CurrentSubState = SubStatesCache[subState];
             SubStatesCache[subState].Enter();
         }
@@ -107,17 +106,5 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         protected abstract void InitCustomSubscribes();
         protected abstract void OnBaseStateEnter();
         protected abstract void OnBaseStateExit();
-    }
-
-    public struct StateData
-    {
-        public EGameState State;
-        public Enum SubState;
-
-        public StateData(EGameState baseState, Enum oSubState = default)
-        {
-            State = baseState;
-            SubState = oSubState;
-        }
     }
 }

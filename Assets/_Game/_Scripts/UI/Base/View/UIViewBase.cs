@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
-using R3;
 using UnityEngine;
 
 namespace _Game._Scripts.UI.Base.View
@@ -12,50 +11,50 @@ namespace _Game._Scripts.UI.Base.View
         [SerializeField] public EGameState viewForEGameState = EGameState.NotSet;
 
         protected readonly Dictionary<Enum, JSubViewBase> SubViewsCache = new();
-        protected readonly CompositeDisposable Disposables = new();
 
-        public JSubViewBase GetSubView(Enum subState)
+        private void Awake()
         {
-            if (SubViewsCache.Count != Enum.GetNames(subState.GetType()).Length)
-            {
-                Debug.LogError("--- SubView cache ---");
-                Debug.LogError(
-                    $"SubView count({SubViewsCache.Count}) is not equal to game sub state count({Enum.GetNames(subState.GetType()).Length})");
-
-                foreach (var subView in SubViewsCache)
-                {
-                    Debug.LogError($"SubView in cache: {subView.Key} / {subView.Value}");
-                }
-
-                Debug.LogError("Create sub view for sub state: " + subState);
-                Debug.LogError("--- SubView cache ---");
-            }
-
-            if (!SubViewsCache.ContainsKey(subState))
-            {
-                Debug.LogWarning("asd");
-                throw new KeyNotFoundException("SubView not found in cache. Creating new one: " + subState);
-            }
-
-            if (!SubViewsCache.TryGetValue(subState, out var subViewBase))
-                throw new KeyNotFoundException($"SubView not found in cache for: {subState}");
-
-            Debug.LogWarning($"Get sub view: {subState} / {subViewBase}");
-
-            return subViewBase;
+            if (viewForEGameState == EGameState.NotSet)
+                throw new Exception("GameStateType for view is not set. " + name);
         }
 
         public SubViewDto GetSubViewDto(Enum subState)
         {
-            Debug.LogWarning("get sub view dto: " + subState);
-            var subView = GetSubView(subState);
-            Debug.LogWarning("sub view: " + subView);
+            var subView = GetSubView(subState) ?? throw new NullReferenceException("SubView is null. " + subState);
 
             return new SubViewDto
             {
                 InSafeZone = subView.inSafeZone,
                 Template = subView.GetTemplate()
             };
+        }
+
+        private JSubViewBase GetSubView(Enum subState)
+        {
+            CheckSubViewsCount(subState);
+
+
+            if (!SubViewsCache.TryGetValue(subState, out var subViewBase))
+                throw new KeyNotFoundException($"SubView not found in cache for: {subState}");
+
+            return subViewBase;
+        }
+
+        private void CheckSubViewsCount(Enum subState)
+        {
+            if (SubViewsCache.Count == Enum.GetNames(subState.GetType()).Length) return;
+
+            Debug.LogError("--- SubView cache ---");
+            Debug.LogError(
+                $"SubView count({SubViewsCache.Count}) is not equal to game sub state count({Enum.GetNames(subState.GetType()).Length})");
+
+            foreach (var subView in SubViewsCache)
+            {
+                Debug.LogError($"SubView in cache: {subView.Key} / {subView.Value}");
+            }
+
+            Debug.LogError("Create sub view for sub state: " + subState);
+            Debug.LogError("--- SubView cache ---");
         }
     }
 }

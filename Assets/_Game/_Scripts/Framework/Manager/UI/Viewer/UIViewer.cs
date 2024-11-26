@@ -8,9 +8,6 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
 {
     public class UIViewer : UIViewerBase
     {
-        [Header("Debug"), SerializeField] private bool showDebugLog;
-
-
         private void ToSafe()
         {
             var safeZoneOffset = ScreenHelper.GetSafeZoneOffset(800f, 360f);
@@ -18,11 +15,8 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
             RootVisualElement.style.marginTop = safeZoneOffset.y;
         }
 
-
         private void Prepare(SubViewDto subViewDto)
         {
-            Log("<color=yellow>[VIEWER]</color> Prepare to show view");
-
             var view = subViewDto.Template;
             if (view == null) throw new NullReferenceException("View is null.");
 
@@ -44,6 +38,7 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
 
         public void ShowNewBase(SubViewDto subViewDto)
         {
+            Debug.Log("<color=yellow>[VIEWER BASE]</color> Show view ");
             Prepare(subViewDto);
             HideView();
             MainLayer.Add(subViewDto.Template);
@@ -51,22 +46,18 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
 
         public void ShowOverSubView(SubViewDto subViewDto)
         {
-            Log($"show over sub view: {subViewDto.Template}");
+            Debug.Log("<color=yellow>[VIEWER OVER]</color> Show view");
             Prepare(subViewDto);
             TopLayer.Add(subViewDto.Template);
         }
 
         public void ShowUnderSubView(SubViewDto subViewDto)
         {
+            Debug.Log("<color=yellow>[VIEWER UNDER]</color> Show view");
             Prepare(subViewDto);
             BackLayer.Add(subViewDto.Template);
         }
 
         public void HideView() => ClearAll();
-
-        private void Log(string message)
-        {
-            if (showDebugLog) Debug.LogWarning(message);
-        }
     }
 }

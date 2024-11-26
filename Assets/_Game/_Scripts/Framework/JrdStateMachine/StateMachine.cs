@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using _Game._Scripts.Framework.Manager.Game;
@@ -48,13 +49,13 @@ namespace _Game._Scripts.Framework.JrdStateMachine
 
         public void Start()
         {
-            Debug.Log("State machine started! " + this);
+            Debug.Log("<color=darkblue>[STATE MACHINE]</color> Start!");
+
             if (_currentState != null) return;
 
             var defStateData = new StateData { State = EGameState.Menu, SubState = default };
 
-            // ChangeBaseState(EGameState.Menu, default);
-            OnNewStateData(defStateData);
+            ChangeBaseState(defStateData);
 
             _gameManager.IsGameStarted
                 .Subscribe(value => isGameStarted = value)
@@ -69,7 +70,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine
         {
             if (_currentBaseState != stateData.State)
             {
-                ChangeBaseState(stateData.State, stateData.SubState);
+                ChangeBaseState(stateData);
                 _currentBaseState = stateData.State;
             }
             else
@@ -82,15 +83,15 @@ namespace _Game._Scripts.Framework.JrdStateMachine
             }
         }
 
-        public void ChangeBaseState(EGameState eGameState, Enum stateDataSubState)
+        private void ChangeBaseState(StateData stateData)
         {
-            if (!_states.TryGetValue(eGameState, out IGameState state))
-                throw new KeyNotFoundException($"State: {eGameState} not found!");
+            if (!_states.TryGetValue(stateData.State, out IGameState state))
+                throw new KeyNotFoundException($"State: {stateData.State} not found!");
             Debug.LogWarning(
-                $"<color=darkblue>[STATE MACHINE]</color> Change TO: <b>{eGameState}</b> FROM {_currentState?.GetType().Name}");
+                $"<color=darkblue>[STATE MACHINE]</color> <b>{_currentState?.GetType().Name} >>> {stateData.State}</b>");
 
             ChangeState(state);
-            state.ChangeSubState(stateDataSubState);
+            // state.ChangeSubState(stateData.SubState);
         }
 
         private void ChangeState(IGameState newState)
