@@ -16,14 +16,40 @@ namespace _Game._Scripts.UI.Base.View
 
         public JSubViewBase GetSubView(Enum subState)
         {
+            if (SubViewsCache.Count != Enum.GetNames(subState.GetType()).Length)
+            {
+                Debug.LogError("--- SubView cache ---");
+                Debug.LogError(
+                    $"SubView count({SubViewsCache.Count}) is not equal to game sub state count({Enum.GetNames(subState.GetType()).Length})");
+
+                foreach (var subView in SubViewsCache)
+                {
+                    Debug.LogError($"SubView in cache: {subView.Key} / {subView.Value}");
+                }
+
+                Debug.LogError("Create sub view for sub state: " + subState);
+                Debug.LogError("--- SubView cache ---");
+            }
+
+            if (!SubViewsCache.ContainsKey(subState))
+            {
+                Debug.LogWarning("asd");
+                throw new KeyNotFoundException("SubView not found in cache. Creating new one: " + subState);
+            }
+
             if (!SubViewsCache.TryGetValue(subState, out var subViewBase))
                 throw new KeyNotFoundException($"SubView not found in cache for: {subState}");
+
+            Debug.LogWarning($"Get sub view: {subState} / {subViewBase}");
+
             return subViewBase;
         }
 
         public SubViewDto GetSubViewDto(Enum subState)
         {
+            Debug.LogWarning("get sub view dto: " + subState);
             var subView = GetSubView(subState);
+            Debug.LogWarning("sub view: " + subView);
 
             return new SubViewDto
             {

@@ -26,8 +26,11 @@ namespace _Game._Scripts.Framework.JrdStateMachine
         private GameManager _gameManager;
         private readonly CompositeDisposable _disposables = new();
         private bool isGameStarted;
-        public Action<EGameState> ChangeStateCallback;
         private ISettingsManager _settingsManager;
+        private IStateMachineReactiveAdapter _ra;
+
+        private EGameState _currentBaseState;
+        private Enum _currentSubState;
 
         [Inject]
         private void Construct(IObjectResolver container)
@@ -40,31 +43,54 @@ namespace _Game._Scripts.Framework.JrdStateMachine
 
             _playerModel = container.Resolve<IPlayerModel>();
             _gameManager = container.Resolve<GameManager>();
+            _ra = container.Resolve<IStateMachineReactiveAdapter>();
         }
 
         public void Start()
         {
-            ChangeStateCallback += ChangeStateTo;
             Debug.Log("State machine started! " + this);
             if (_currentState != null) return;
 
-            ChangeStateTo(EGameState.Gameplay);
+            var defStateData = new StateData { State = EGameState.Menu, SubState = default };
+
+            // ChangeBaseState(EGameState.Menu, default);
+            OnNewStateData(defStateData);
 
             _gameManager.IsGameStarted
                 .Subscribe(value => isGameStarted = value)
                 .AddTo(_disposables);
+            _ra.StateData
+                .Skip(1)
+                .Subscribe(OnNewStateData)
+                .AddTo(_disposables);
         }
 
-        public void ChangeStateTo(EGameState eGameState)
+        private void OnNewStateData(StateData stateData)
+        {
+            if (_currentBaseState != stateData.State)
+            {
+                ChangeBaseState(stateData.State, stateData.SubState);
+                _currentBaseState = stateData.State;
+            }
+            else
+            {
+                if (!_states.TryGetValue(stateData.State, out var state))
+                    throw new KeyNotFoundException($"State: {stateData.State} not found!");
+
+                state.ChangeSubState(stateData.SubState);
+                _currentSubState = stateData.SubState;
+            }
+        }
+
+        public void ChangeBaseState(EGameState eGameState, Enum stateDataSubState)
         {
             if (!_states.TryGetValue(eGameState, out IGameState state))
                 throw new KeyNotFoundException($"State: {eGameState} not found!");
             Debug.LogWarning(
-                $"<color=darkblue>[STATE MACHINE]</color> <color=cyan>Change TO: <b>{eGameState}</b></color> FROM {_currentState?.GetType().Name}");
-
-            state.SetCallback(ChangeStateCallback);
+                $"<color=darkblue>[STATE MACHINE]</color> Change TO: <b>{eGameState}</b> FROM {_currentState?.GetType().Name}");
 
             ChangeState(state);
+            state.ChangeSubState(stateDataSubState);
         }
 
         private void ChangeState(IGameState newState)

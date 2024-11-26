@@ -22,8 +22,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         {
             _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Resolver);
         }
-
-
+        
         public void OnDownEvent(PointerDownEvent evt) => _movementModel.OnDownEvent(evt);
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);

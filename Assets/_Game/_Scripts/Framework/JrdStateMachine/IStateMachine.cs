@@ -6,6 +6,5 @@ namespace _Game._Scripts.Framework.JrdStateMachine
 {
     public interface IStateMachine : IStartable, IDisposable
     {
-        public void ChangeStateTo(EGameState eGameState);
     }
 }

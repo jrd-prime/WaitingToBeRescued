@@ -19,7 +19,8 @@ namespace _Game._Scripts.GameStates.Gameplay.State.SubState
 
         public override void Exit()
         {
-            HideView();
+            // Hide only when we change BASE state
+            // HideView();
         }
     }
 }

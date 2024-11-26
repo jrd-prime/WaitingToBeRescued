@@ -1,6 +1,6 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.Enums.States;
-using R3;
+using _Game._Scripts.Framework.JrdStateMachine.BaseState;
+using UnityEngine;
 
 namespace _Game._Scripts.UI.Base.Model
 {
@@ -8,7 +8,17 @@ namespace _Game._Scripts.UI.Base.Model
         where TSubStateEnum : Enum
     {
         public abstract void Initialize();
-        public ReactiveProperty<TSubStateEnum> SubState { get; } = new();
-        public ReactiveProperty<EGameState> GameState { get; } = new();
+
+        public void SetGameState(StateData stateData) => _ra.SetStateData(stateData);
+
+        public void SetPreviousState()
+        {
+            var stateData = UIManager.GetPreviousState();
+
+            Debug.LogWarning(
+                $"<color=darkblue>[Set PREVIOUS State]</color> Previous: {stateData.State}.{stateData.SubState}");
+
+            _ra.SetStateData(stateData);
+        }
     }
 }

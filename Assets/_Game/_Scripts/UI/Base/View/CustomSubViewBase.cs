@@ -32,7 +32,6 @@ namespace _Game._Scripts.UI.Base.View
             InitializeView();
 
             IsInitialized = true;
-            Debug.Log($"View {name} is initialized.");
         }
 
         private void Start()
@@ -44,7 +43,6 @@ namespace _Game._Scripts.UI.Base.View
             Localize();
             InitializeCallbacks();
             RegisterCallbacks();
-            Debug.Log($"View {name} is ready.");
         }
     }
 }

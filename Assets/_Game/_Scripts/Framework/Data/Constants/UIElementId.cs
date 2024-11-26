@@ -13,5 +13,6 @@
         public const string ExitBtnId = "exit-btn";
         public const string BackBtnId = "back-btn";
         public const string SoundBtnId = "sound-btn";
+        public const string CloseBtnIDName = "close-btn";
     }
 }

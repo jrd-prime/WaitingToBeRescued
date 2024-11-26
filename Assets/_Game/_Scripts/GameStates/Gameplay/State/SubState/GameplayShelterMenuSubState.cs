@@ -1,14 +1,16 @@
-﻿using _Game._Scripts.Framework.Data.Enums;
+﻿using System;
+using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.JrdStateMachine.SubState;
 using _Game._Scripts.Framework.Manager.UI;
 
-namespace _Game._Scripts.GameStates.Menu.State.SubState
+namespace _Game._Scripts.GameStates.Gameplay.State.SubState
 {
-    public sealed class MenuSettingsSubState : SubStateBase
+    public class GameplayShelterMenuSubState : SubStateBase
     {
-        public MenuSettingsSubState(IUIManager uiManager, EGameState baseState, EMenuSubState defaultSubState) : base(
-            uiManager, baseState, defaultSubState)
+        public GameplayShelterMenuSubState(IUIManager uiManager, EGameState baseState, Enum defaultSubState) : base(
+            uiManager,
+            baseState, defaultSubState)
         {
         }
 

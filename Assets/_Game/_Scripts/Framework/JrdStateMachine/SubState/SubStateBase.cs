@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.UI;
 
@@ -20,14 +21,14 @@ namespace _Game._Scripts.Framework.JrdStateMachine.SubState
             BaseState = baseState;
         }
 
-        protected void ShowView()
+        protected void ShowView(EShowLogic showLogic = EShowLogic.Default)
         {
-            UIManager.ShowView(BaseState, DefaultSubState);
+            UIManager.ShowView(BaseState, DefaultSubState, showLogic);
         }
 
-        protected void HideView()
+        protected void HideView(EShowLogic showLogic = EShowLogic.Default)
         {
-            UIManager.HideView(BaseState, DefaultSubState);
+            UIManager.HideView(BaseState, DefaultSubState, showLogic);
         }
 
         public abstract void Enter();
