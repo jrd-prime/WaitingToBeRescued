@@ -224,3 +224,11 @@
     -unity-font-definition: url("project://database/Assets/_Game/Font/Exo2/Exo2-Regular.ttf?fileID=12800000&guid=ec1dde784d5c8d649a32afeade078951&type=3#Exo2-Regular");
     font-size: 12px;
 }
+
+.absolute-0 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}

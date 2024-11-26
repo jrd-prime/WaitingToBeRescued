@@ -7,6 +7,6 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
     {
         public void Enter();
         public void Exit();
-        public void SetCallback(Action<EGameState> changeStateCallback);
+        public void ChangeSubState(Enum stateDataSubState);
     }
 }

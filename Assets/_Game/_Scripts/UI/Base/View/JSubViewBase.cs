@@ -13,6 +13,8 @@ namespace _Game._Scripts.UI.Base.View
         [SerializeField] protected VisualTreeAsset template;
         [SerializeField] public bool inSafeZone;
 
+        [Header("Debug")] [SerializeField] public bool showDebug;
+
         protected TemplateContainer Template;
         protected VisualElement ContentContainer;
         protected bool IsInitialized;
@@ -55,7 +57,7 @@ namespace _Game._Scripts.UI.Base.View
         /// Find and initialize UI elements
         /// </summary>
         protected abstract void InitializeView();
-        
+
         /// <summary>
         /// In Start() cuz ViewModel injected in start //TODO or refact
         /// </summary>

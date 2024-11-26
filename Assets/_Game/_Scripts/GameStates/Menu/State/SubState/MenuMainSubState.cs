@@ -16,10 +16,9 @@ namespace _Game._Scripts.GameStates.Menu.State.SubState
             ShowView();
         }
 
-
         public override void Exit()
         {
-            HideView();
+            // HideView();
         }
     }
 }

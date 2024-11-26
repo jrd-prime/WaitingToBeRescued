@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.GameStates.Gameplay.UI.Components;
@@ -8,9 +9,9 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
 {
-    public class GameplayMainSubView : CustomSubViewBase<IGameplayViewModel>
+    public class GameplayShelterMenuSubView : CustomSubViewBase<IGameplayViewModel>
     {
-        private Button _menuBtn;
+        private Button _closeBtn;
 
         private HealthBar _healthBarComponent;
         private ExperienceBar _experienceBarComponent;
@@ -18,14 +19,13 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
 
         protected override void InitializeView()
         {
-            _menuBtn = ContentContainer.Q<Button>("menu-btn").CheckOnNull();
+            _closeBtn = ContentContainer.Q<Button>(UIElementId.CloseBtnIDName).CheckOnNull();
         }
 
         protected override void CreateAndInitComponents()
         {
-            if (ViewModel == null) throw new NullReferenceException("ViewModel is null");
-
-            _movementComponent = new Movement(ViewModel, ContentContainer, Disposables);
+            if (ViewModel == null)
+                throw new NullReferenceException("ViewModel is null");
         }
 
         protected override void Localize()
@@ -34,7 +34,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
 
         protected override void InitializeCallbacks()
         {
-            CallbacksCache.TryAdd(_menuBtn, _ => ViewModel.MenuBtnClicked.OnNext(Unit.Default));
+            CallbacksCache.TryAdd(_closeBtn, _ => ViewModel.CloseBtnClicked.OnNext(Unit.Default));
         }
     }
 }

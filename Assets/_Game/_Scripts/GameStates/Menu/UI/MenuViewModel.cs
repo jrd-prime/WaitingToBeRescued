@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
+using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Base.ViewModel;
@@ -15,12 +16,21 @@ namespace _Game._Scripts.GameStates.Menu.UI
 
         public override void Initialize()
         {
-            // Main
-            PlayButtonClicked.Subscribe(_ => Model.SetGameState(EGameState.Gameplay)).AddTo(Disposables);
-            SettingsButtonClicked.Subscribe(_ => Model.SetSubState(EMenuSubState.Settings)).AddTo(Disposables);
-            ExitButtonClicked.Subscribe(_ => Model.SetGameState(EGameState.Exit)).AddTo(Disposables);
-            // Settings
-            BackButtonClicked.Subscribe(_ => Model.SetSubState(EMenuSubState.Main)).AddTo(Disposables);
+            PlayButtonClicked
+                .Subscribe(_ => Model.SetGameState(new StateData(EGameState.Gameplay)))
+                .AddTo(Disposables);
+
+            SettingsButtonClicked
+                .Subscribe(_ => Model.SetGameState(new StateData(EGameState.Menu, EMenuSubState.Settings)))
+                .AddTo(Disposables);
+
+            ExitButtonClicked
+                .Subscribe(_ => Model.SetGameState(new StateData(EGameState.Exit)))
+                .AddTo(Disposables);
+
+            BackButtonClicked
+                .Subscribe(_ => Model.SetGameState(new StateData(EGameState.Menu)))
+                .AddTo(Disposables);
         }
     }
 }

@@ -18,17 +18,22 @@ namespace _Game._Scripts.UI.Base.View
         {
             if (SubViewsCache.Count != Enum.GetNames(subState.GetType()).Length)
             {
-                Debug.LogError("SubViewsCache.Count != Enum.GetNames(subState.GetType()).Length");
-            }
+                Debug.LogError("--- SubView cache ---");
+                Debug.LogError(
+                    $"SubView count({SubViewsCache.Count}) is not equal to game sub state count({Enum.GetNames(subState.GetType()).Length})");
 
-            foreach (var q in SubViewsCache)
-            {
-                Debug.LogWarning(q);
-            }
+                foreach (var subView in SubViewsCache)
+                {
+                    Debug.LogError($"SubView in cache: {subView.Key} / {subView.Value}");
+                }
 
+                Debug.LogError("Create sub view for sub state: " + subState);
+                Debug.LogError("--- SubView cache ---");
+            }
 
             if (!SubViewsCache.ContainsKey(subState))
             {
+                Debug.LogWarning("asd");
                 throw new KeyNotFoundException("SubView not found in cache. Creating new one: " + subState);
             }
 

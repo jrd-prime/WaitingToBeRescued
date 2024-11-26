@@ -90,6 +90,8 @@ namespace _Game._Scripts.Framework.ContextScope
 
 
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
+
+            builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
         }
     }
 }

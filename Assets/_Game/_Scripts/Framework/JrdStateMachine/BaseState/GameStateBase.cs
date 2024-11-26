@@ -23,7 +23,6 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         private TUIModel _model;
         private IPlayerModel _playerModel;
         protected readonly CompositeDisposable Disposables = new();
-        private Action<EGameState> ChangeStateCallback;
         private TSubStateEnum _subStateType;
         private ISubState _subState;
         private ISubState CurrentSubState;
@@ -64,22 +63,6 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
 
         private void InitBaseSubscribes()
         {
-            _model.SubState
-                .Skip(1)
-                .Subscribe(ChangeSubState)
-                .AddTo(Disposables);
-            _model.GameState
-                .Skip(1)
-                .Subscribe(ChangeState)
-                .AddTo(Disposables);
-        }
-
-        private void ChangeSubState<TSubState>(TSubState subStateType) where TSubState : TSubStateEnum
-        {
-            Debug.LogWarning("<color=darkblue>[CHANGE SUB]</color> To " + subStateType + " from " + CurrentSubState);
-            CurrentSubState.Exit();
-            CurrentSubState = SubStatesCache[subStateType];
-            SubStatesCache[subStateType].Enter();
         }
 
         public void Enter()
@@ -103,9 +86,18 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
             Debug.LogWarning($"<color=darkblue>[EXIT BASE]</color> {GetType().Name}");
         }
 
-        public void SetCallback(Action<EGameState> changeStateCallback) => ChangeStateCallback = changeStateCallback;
-        private void ChangeState(EGameState eGameState) => ChangeStateCallback.Invoke(eGameState);
+        public void ChangeSubState(Enum stateDataSubState)
+        {
+            var subState = stateDataSubState == null ? default : (TSubStateEnum)stateDataSubState;
+            if (subState == null) throw new NullReferenceException("SubState is null.");
 
+            Debug.LogWarning(
+                "<color=darkblue>[CHANGE SUB]</color> To " + subState + " from " + CurrentSubState);
+            CurrentSubState?.Exit();
+
+            CurrentSubState = SubStatesCache[subState];
+            SubStatesCache[subState].Enter();
+        }
 
         /// <summary>
         /// Initialize SubStates and add to cache <see cref="SubStatesCache"/>
@@ -115,5 +107,17 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         protected abstract void InitCustomSubscribes();
         protected abstract void OnBaseStateEnter();
         protected abstract void OnBaseStateExit();
+    }
+
+    public struct StateData
+    {
+        public EGameState State;
+        public Enum SubState;
+
+        public StateData(EGameState baseState, Enum oSubState = default)
+        {
+            State = baseState;
+            SubState = oSubState;
+        }
     }
 }

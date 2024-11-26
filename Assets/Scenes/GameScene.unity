@@ -327,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8366da66462e4fd4a683099db26047d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showDebugLog: 1
 --- !u!114 &93862452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1433,6 +1434,53 @@ Transform:
   - {fileID: 1209719482}
   m_Father: {fileID: 290362262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1480937094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1480937095}
+  - component: {fileID: 1480937096}
+  m_Layer: 0
+  m_Name: ui-gameplay-shelter-menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1480937095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480937094}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2041626997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480937096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480937094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d8ca3fb3874a598bf3a815a2d200f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headerNameId: SHelter
+  template: {fileID: 9197481963319205126, guid: c1015a7cb8b2f1f47b8e447ec8c25372, type: 3}
+  inSafeZone: 0
 --- !u!1 &1579921994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,6 +1565,7 @@ MonoBehaviour:
     viewHolder: {fileID: 8438754616901519731}
   - uiForState: 1
     viewHolder: {fileID: 2041626998}
+  showDebugLog: 1
 --- !u!1 &1637869236
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,6 +2274,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1827415824}
+  - {fileID: 1480937095}
   m_Father: {fileID: 1298579667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2041626998
@@ -2244,6 +2294,8 @@ MonoBehaviour:
   subViewsData:
   - subState: 0
     subView: {fileID: 1827415825}
+  - subState: 1
+    subView: {fileID: 1480937096}
 --- !u!1 &2098459430
 GameObject:
   m_ObjectHideFlags: 0
