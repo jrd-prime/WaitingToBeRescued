@@ -1,5 +1,7 @@
-﻿using _Game._Scripts.Framework.Data.Enums.States;
+﻿using _Game._Scripts.Framework.Data;
+using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.JrdStateMachine.BaseState;
+using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
@@ -11,6 +13,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
     {
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
+        public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData => Model.ShelterEnergyData;
 
 
         public override void Initialize()

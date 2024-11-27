@@ -3,6 +3,7 @@ using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
+using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
@@ -80,7 +81,7 @@ namespace _Game._Scripts.Framework.ContextScope
 
 
             // State machine
-            builder.Register<IStateMachine, JrdStateMachine.StateMachine>(Lifetime.Singleton).As<IStartable>();
+            builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton).As<IStartable>();
 
             builder.Register<MenuState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GamePlayState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
@@ -92,6 +93,10 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
+
+
+            builder.Register<ShelterEnergyModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
+            builder.Register<AmbientTemperatureModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }

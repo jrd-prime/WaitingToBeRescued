@@ -5,6 +5,12 @@ using _Game._Scripts.Framework.Manager.UI;
 
 namespace _Game._Scripts.Framework.JrdStateMachine.SubState
 {
+    public interface ISubState
+    {
+        public void Enter();
+        public void Exit();
+    }
+
     public abstract class SubStateBase : ISubState
     {
         protected IUIManager UIManager;

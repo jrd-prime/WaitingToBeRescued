@@ -56,7 +56,6 @@ namespace _Game._Scripts.Player
 
         private void Subscribe()
         {
-            Debug.LogWarning("subscribe");
             _viewModel.Position
                 .Subscribe(position => _rb.position = position)
                 .AddTo(_disposables);
