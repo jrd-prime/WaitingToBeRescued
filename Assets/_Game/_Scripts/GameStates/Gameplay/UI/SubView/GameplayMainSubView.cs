@@ -15,6 +15,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
         private HealthBar _healthBarComponent;
         private ExperienceBar _experienceBarComponent;
         private Movement _movementComponent;
+        private ShelterEnergyTimer _shelterEnergyTimer;
+        private AmbientTemperatureTimer _ambientTemperatureTimer;
 
         protected override void InitializeView()
         {
@@ -26,6 +28,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
             if (ViewModel == null) throw new NullReferenceException("ViewModel is null");
 
             _movementComponent = new Movement(ViewModel, ContentContainer, Disposables);
+            _shelterEnergyTimer = new ShelterEnergyTimer(ViewModel, ContentContainer, Disposables);
+            _ambientTemperatureTimer = new AmbientTemperatureTimer(ViewModel, ContentContainer, Disposables);
         }
 
         protected override void Localize()

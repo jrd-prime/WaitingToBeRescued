@@ -16,9 +16,14 @@ using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.JrdStateMachine
 {
+    public interface IStateMachine : IStartable, IDisposable
+    {
+    }
+
     public class StateMachine : IStateMachine
     {
         private readonly Dictionary<EGameState, IGameState> _states = new();
@@ -53,7 +58,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine
 
             if (_currentState != null) return;
 
-            var defStateData = new StateData { State = EGameState.Menu, SubState = default };
+            var defStateData = new StateData { State = EGameState.Gameplay, SubState = default };
 
             ChangeBaseState(defStateData);
 

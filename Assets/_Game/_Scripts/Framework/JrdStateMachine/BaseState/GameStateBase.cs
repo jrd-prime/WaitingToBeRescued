@@ -12,6 +12,13 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
 {
+    public interface IGameState
+    {
+        public void Enter();
+        public void Exit();
+        public void ChangeSubState(Enum stateDataSubState);
+    }
+
     public abstract class GameStateBase<TUIModel, TSubStateEnum> : IGameState, IInitializable
         where TUIModel : IUIModel<TSubStateEnum> where TSubStateEnum : Enum
     {
@@ -24,7 +31,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         protected readonly CompositeDisposable Disposables = new();
         private TSubStateEnum _subStateType;
         private ISubState _subState;
-        private ISubState CurrentSubState;
+        private ISubState _currentSubState;
 
         [Inject]
         private void Construct(IGameManager gameManager, IUIManager uiController, IPlayerModel playerModel,
@@ -74,13 +81,13 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
                 throw new KeyNotFoundException($"SubState: {_subStateType} not found! Base state: {GetType().Name}");
 
             _subState.Enter();
-            CurrentSubState = _subState;
+            _currentSubState = _subState;
         }
 
         public void Exit()
         {
-            CurrentSubState.Exit();
-            CurrentSubState = null;
+            _currentSubState.Exit();
+            _currentSubState = null;
             OnBaseStateExit();
             Debug.Log($"<color=red><b>[EXIT BASE]</b></color> {GetType().Name}");
         }
@@ -91,10 +98,10 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
             if (subState == null) throw new NullReferenceException("SubState is null.");
 
             Debug.Log("<color=darkblue>[CHANGE SUB]</color> To " + subState + " from " +
-                      CurrentSubState.GetType().Name);
+                      _currentSubState.GetType().Name);
 
-            CurrentSubState?.Exit();
-            CurrentSubState = SubStatesCache[subState];
+            _currentSubState?.Exit();
+            _currentSubState = SubStatesCache[subState];
             SubStatesCache[subState].Enter();
         }
 
