@@ -1,5 +1,4 @@
-﻿using System;
-using _Game._Scripts.Framework.Data.SO;
+﻿using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.Shelter;
 using Cysharp.Threading.Tasks;
@@ -19,13 +18,15 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         private ISettingsManager _settingsManager;
 
-        private ISaveSystem _iSaveSystem;
+        private ISaveSystem _saveSystem;
+
+        private bool _isAddedToAutoSave = false;
 
 
         [Inject]
         private void Construct(ISaveSystem iSaveSystem, ISettingsManager settingsManager)
         {
-            _iSaveSystem = iSaveSystem;
+            _saveSystem = iSaveSystem;
             _settingsManager = settingsManager;
         }
 
@@ -33,9 +34,8 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         {
             LoadModelSettings();
             var defaultModelData = GetDefaultModelData();
-            LoadData(SetModelData, defaultModelData);
+            _saveSystem.LoadDataAsync(SetNewModelData, defaultModelData).Forget();
         }
-
 
         private void LoadModelSettings()
         {
@@ -43,21 +43,20 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
         }
 
-        protected void SaveData(TSavableDto data, ESaveLogic saveLogic = ESaveLogic.Now)
+        public virtual void SetNewModelData(TSavableDto data)
         {
-            _iSaveSystem.Save(data, saveLogic);
-        }
+            Debug.LogWarning("End loading data: " + typeof(TSavableDto).Name);
 
-        protected void LoadData(Action<TSavableDto> onDataLoadedCallback, TSavableDto defaultModelData) =>
-            _iSaveSystem.LoadDataAsync(onDataLoadedCallback, defaultModelData).Forget();
-
-
-        protected virtual void SetModelData(TSavableDto data)
-        {
-            Debug.LogWarning($"set {typeof(TSavableDto).Name} model data");
             ModelData.Value = data;
-            SaveData(data);
+            ModelData.ForceNotify();
+
+            if (_isAddedToAutoSave) return;
+            ShowDebug();
+            _saveSystem.Save(data, ESaveLogic.Periodic);
+            _isAddedToAutoSave = true;
         }
+
+        protected abstract void ShowDebug();
 
         protected abstract TSavableDto GetDefaultModelData();
     }

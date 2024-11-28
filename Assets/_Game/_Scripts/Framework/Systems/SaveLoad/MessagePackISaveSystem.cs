@@ -27,7 +27,6 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Initialize()
         {
-            Debug.LogWarning("SaveLoadSystem initialized");
             _isRunning = true;
 
             RunSaveLoop().Forget();
@@ -35,22 +34,15 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Save<TSavableData>(TSavableData data, ESaveLogic saveLogic = ESaveLogic.Now)
         {
-            switch (saveLogic)
-            {
-                case ESaveLogic.Now:
-                    SaveNowAsync().Forget();
-                    break;
-                case ESaveLogic.Periodic:
-                    lock (_lock) _periodicSavableData[data.GetType()] = data;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(saveLogic), saveLogic, null);
-            }
+            lock (_lock) _periodicSavableData[data.GetType()] = data;
+
+            if (saveLogic == ESaveLogic.Now) SaveNowAsync().Forget();
         }
 
         public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback,
             TSavableData defaultData)
         {
+            Debug.LogWarning("Start loading data. " + typeof(TSavableData).Name + FileExtension);
             var filePath = _savePath + typeof(TSavableData).Name + FileExtension;
 
             if (!File.Exists(filePath))
@@ -61,7 +53,8 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                 return;
             }
 
-            await LoadFromFileAsync<TSavableData>(filePath);
+            Debug.LogWarning("File found. Loading data. " + typeof(TSavableData).Name + FileExtension);
+            // await LoadFromFileAsync<TSavableData>(filePath);
             try
             {
                 var loadedData = await LoadFromFileAsync<TSavableData>(filePath);
@@ -73,6 +66,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                 Debug.LogError($"Failed to load data: {ex.Message}");
             }
         }
+
 
         public void SavePeriodicalData()
         {
@@ -106,6 +100,8 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                 foreach (var savableData in dataToSave)
                 {
                     await SaveToFileAsync(savableData.Value, _savePath + savableData.Key.Name + FileExtension);
+
+                    Debug.LogWarning("Data saved successfully. Type: " + savableData.Key.Name);
                 }
             }
             finally
@@ -137,7 +133,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             await fileStream.WriteAsync(dataBytes, 0, dataBytes.Length);
         }
 
-        public async UniTask<T> LoadFromFileAsync<T>(string filePath)
+        private async UniTask<T> LoadFromFileAsync<T>(string filePath)
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException($"File not found: {filePath}");
 

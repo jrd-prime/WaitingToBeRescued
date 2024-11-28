@@ -1,37 +1,37 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using MessagePack;
+using UnityEngine;
 
 namespace _Game._Scripts.Framework.Manager.Shelter
 {
     public class GameTimeModel : SavableModelBase<GameTimerSettings, GameTimeDto>
     {
+        protected override void ShowDebug()
+        {
+            Debug.LogWarning($"Seted : {ModelData.CurrentValue.Day} / {ModelData.CurrentValue.RemainingTime}");
+        }
+
         protected override GameTimeDto GetDefaultModelData()
         {
-            throw new System.NotImplementedException();
+            // default game time data
+            var _gameTimeData = new GameTimeDto(ModelSettings.startDay, ModelSettings.gameDayInSeconds);
+
+
+            return _gameTimeData;
         }
     }
 
-    public class GameTimerSettings : SettingsSO
-    {
-        public override string Description => "GameTimerSettings";
-        public int startDay = 0;
-        public float gameDayInSeconds = 60;
-    }
-
     [MessagePackObject]
-    public class GameTimeDto
+    public struct GameTimeDto
     {
-        [Key(0)] public int Day { get; private set; }
-        [Key(1)] public float RemainingDayTime { get; private set; }
+        [Key(0)] public int Day { get; set; }
+        [Key(1)] public float RemainingTime { get; set; }
 
         public GameTimeDto(int day, float remainingTime)
         {
             Day = day;
-            RemainingDayTime = remainingTime;
+            RemainingTime = remainingTime;
         }
-
-        public void SetRemainingDayTime(float gameDayTime) => RemainingDayTime = gameDayTime;
-        public void SetDay(int gameDay) => Day = gameDay;
     }
 }

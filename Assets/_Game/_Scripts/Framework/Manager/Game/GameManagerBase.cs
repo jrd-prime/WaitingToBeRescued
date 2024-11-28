@@ -1,6 +1,7 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
+using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.Player.Interfaces;
 using Cysharp.Threading.Tasks;
@@ -26,7 +27,8 @@ namespace _Game._Scripts.Framework.Manager.Game
         private IObjectResolver _resolver;
         private readonly CompositeDisposable _disposables = new();
         private ISaveSystem _saveSystem;
-        private GameplaySettings _gameplaySettings;
+        private GameTimerSettings _gameplaySettings;
+        private GameTimeModel _gameTimeModel;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
@@ -35,35 +37,21 @@ namespace _Game._Scripts.Framework.Manager.Game
 
             _saveSystem = resolver.Resolve<ISaveSystem>();
             SettingsManager = _resolver.Resolve<ISettingsManager>();
+
+            _gameTimeModel = _resolver.Resolve<GameTimeModel>();
+
+            _gameplaySettings = SettingsManager.GetConfig<GameTimerSettings>();
         }
 
         public void Initialize()
         {
-            _gameplaySettings = SettingsManager.GetConfig<GameplaySettings>();
-
-            // default game time data
-            _gameTimeData = new GameTimeDto(_gameplaySettings.startDay, _gameplaySettings.gameDayInSeconds);
-
-            // load if there is saved data, or save and set default data
-            _saveSystem.LoadDataAsync(OnSavedDataLoaded, _gameTimeData).Forget();
-        }
-
-        private void OnSavedDataLoaded(GameTimeDto savedData)
-        {
-            Debug.LogWarning($"<b>On saved data loaded</b> From save: {savedData.Day} / {savedData.RemainingDayTime}");
-
-            // set saved or loaded data
-            _gameTimeData = savedData;
-            GameTimeData.Value = _gameTimeData;
-            // notify
-            UpdateGameTimeDto();
-            // Start game timer
-            _gameTimer = new GameTimer(_gameplaySettings.gameDayInSeconds, this, ref _gameTimeData).AddTo(_disposables);
-            _resolver.Inject(_gameTimer);
         }
 
         protected void Awake()
         {
+            _gameTimer = new GameTimer(_gameplaySettings.gameDayInSeconds, this).AddTo(_disposables);
+            _resolver.Inject(_gameTimer);
+
             PlayerModel = ResolverHelp.ResolveAndCheck<IPlayerModel>(_resolver);
 
             PlayerInitialHealth.Value = PlayerModel.CharSettings.health;
@@ -75,11 +63,6 @@ namespace _Game._Scripts.Framework.Manager.Game
                     _gameTimer.SetGameRunningState(isRunning);
                 })
                 .AddTo(_disposables);
-        }
-
-        public void UpdateGameTimeDto()
-        {
-            GameTimeData.ForceNotify();
         }
 
         public abstract void GameOver();

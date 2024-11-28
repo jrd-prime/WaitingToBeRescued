@@ -35,9 +35,9 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             ViewModel.AmbientTemperature.Subscribe(UpdateTemperatureData).AddTo(Disposables);
             ViewModel.GameTimeDto.Subscribe(x =>
             {
-                int minutes = Mathf.FloorToInt(x.RemainingDayTime / 60); // Получаем количество минут
+                int minutes = Mathf.FloorToInt(x.RemainingTime / 60); // Получаем количество минут
                 int seconds =
-                    Mathf.FloorToInt(x.RemainingDayTime % 60); // Получаем оставшиеся секунды (целые числа)
+                    Mathf.FloorToInt(x.RemainingTime % 60); // Получаем оставшиеся секунды (целые числа)
 
 // Форматируем строку без десятичных
                 string timeFormatted = string.Format("{0:D2}:{1:D2}", minutes, seconds);

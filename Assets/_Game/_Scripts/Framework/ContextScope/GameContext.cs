@@ -52,6 +52,9 @@ namespace _Game._Scripts.Framework.ContextScope
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
 
+            builder.Register<GameTimeModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
 
@@ -100,13 +103,6 @@ namespace _Game._Scripts.Framework.ContextScope
 
             builder.Register<ShelterEnergyModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
             builder.Register<AmbientTemperatureModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-        }
-
-        private void OnApplicationQuit()
-        {
-            var saveSystem = Container.Resolve<ISaveSystem>();
-            Debug.LogWarning("ON APPLICATION QUIT");
-            saveSystem.SavePeriodicalData();
         }
     }
 }

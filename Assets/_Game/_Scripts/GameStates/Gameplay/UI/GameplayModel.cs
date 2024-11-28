@@ -29,19 +29,21 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData => _shelterEnergyModel.ModelData;
         public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTemperature => _ambientTempModel.ModelData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
-        public ReadOnlyReactiveProperty<GameTimeDto> GameTimeDto => GameManager.GameTimeData;
+        public ReadOnlyReactiveProperty<GameTimeDto> GameTimeDto => _gameTimeModel.ModelData;
 
         public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTempData => _ambientTempModel.ModelData;
 
         private IMovementControlModel _movementModel;
         private ShelterEnergyModel _shelterEnergyModel;
         private AmbientTemperatureModel _ambientTempModel;
+        private GameTimeModel _gameTimeModel;
 
         public override void Initialize()
         {
             _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Resolver);
             _shelterEnergyModel = ResolverHelp.ResolveAndCheck<ShelterEnergyModel>(Resolver);
             _ambientTempModel = ResolverHelp.ResolveAndCheck<AmbientTemperatureModel>(Resolver);
+            _gameTimeModel = ResolverHelp.ResolveAndCheck<GameTimeModel>(Resolver);
         }
 
         public void OnDownEvent(PointerDownEvent evt) => _movementModel.OnDownEvent(evt);

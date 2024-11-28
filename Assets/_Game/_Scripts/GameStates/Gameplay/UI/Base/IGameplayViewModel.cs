@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Manager.Game;
+using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.UI.Base.ViewModel;

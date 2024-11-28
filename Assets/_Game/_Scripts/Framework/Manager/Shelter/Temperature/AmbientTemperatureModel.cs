@@ -14,6 +14,11 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Temperature
 
     public class AmbientTemperatureModel : SavableModelBase<TemperatureSettings, AmbientTempDto>
     {
+        protected override void ShowDebug()
+        {
+            
+        }
+
         protected override AmbientTempDto GetDefaultModelData()
         {
             return new AmbientTempDto

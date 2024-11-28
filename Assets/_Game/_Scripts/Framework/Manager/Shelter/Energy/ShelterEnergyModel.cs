@@ -13,6 +13,12 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 
     public class ShelterEnergyModel : SavableModelBase<EnergySettings, ShelterEnergyDto>
     {
+        protected override void ShowDebug()
+        {
+            
+            
+        }
+
         protected override ShelterEnergyDto GetDefaultModelData()
         {
             return new ShelterEnergyDto
