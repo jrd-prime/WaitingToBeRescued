@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 634e067d85fa4fd99c9a92837ad9e232, type: 3}
-  m_Name: character-settings
+  m_Script: {fileID: 11500000, guid: be6e93f8cda04fe0b026a49141c701dc, type: 3}
+  m_Name: def-energy-settings
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 180
-  health: 30
+  energyLimit: 100
+  dailyEnergyExpenditureMultiplier: 3

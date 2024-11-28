@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0154a0c729566c04c983aaf6055259a9, type: 3}
-  m_Name: movement-control-settings
+  m_Script: {fileID: 11500000, guid: 5b33bd1d8470493981854e5f8d69690c, type: 3}
+  m_Name: def-gameplay-settings
   m_EditorClassIdentifier: 
-  offsetForFullSpeed: 50
+  gameDayInSeconds: 77
+  baseDailyTemperatureDrop: 1
+  startDay: 0

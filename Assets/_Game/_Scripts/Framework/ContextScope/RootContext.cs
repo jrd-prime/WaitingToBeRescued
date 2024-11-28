@@ -33,7 +33,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(eventSystem).AsSelf();
             builder.RegisterComponent(mainSettings).AsSelf();
 
-            builder.Register<ISaveLoadSystem, MessagePackSaveLoadSystem>(Lifetime.Singleton)
+            builder.Register<ISaveSystem, MessagePackISaveSystem>(Lifetime.Singleton)
                 .As<IInitializable, IDisposable>();
 
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

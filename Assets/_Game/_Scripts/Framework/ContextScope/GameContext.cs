@@ -4,10 +4,13 @@ using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Energy;
+using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
 using _Game._Scripts.Framework.Systems;
+using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.GameStates.Gameover;
 using _Game._Scripts.GameStates.Gameplay;
 using _Game._Scripts.GameStates.Gameplay.State;
@@ -97,6 +100,13 @@ namespace _Game._Scripts.Framework.ContextScope
 
             builder.Register<ShelterEnergyModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
             builder.Register<AmbientTemperatureModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+        }
+
+        private void OnApplicationQuit()
+        {
+            var saveSystem = Container.Resolve<ISaveSystem>();
+            Debug.LogWarning("ON APPLICATION QUIT");
+            saveSystem.SavePeriodicalData();
         }
     }
 }

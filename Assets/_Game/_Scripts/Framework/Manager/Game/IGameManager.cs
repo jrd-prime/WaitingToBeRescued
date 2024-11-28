@@ -1,12 +1,17 @@
-﻿using R3;
+﻿using _Game._Scripts.Framework.Manager.Shelter;
+using MessagePack;
+using R3;
+using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.Manager.Game
 {
-    public interface IGameManager
+    public interface IGameManager : IInitializable
     {
         public ReactiveProperty<int> PlayerInitialHealth { get; }
         public ReadOnlyReactiveProperty<int> PlayerHealth { get; }
-        public ReactiveProperty<bool> IsGameStarted { get; }
+        public ReactiveProperty<bool> IsGameRunning { get; }
+        public ReactiveProperty<GameTimeDto> GameTimeData { get; }
+
 
         public void GameOver();
 
@@ -18,4 +23,6 @@ namespace _Game._Scripts.Framework.Manager.Game
 
         public void UnPause();
     }
+
+    
 }

@@ -12,13 +12,13 @@ using Debug = UnityEngine.Debug;
 
 namespace _Game._Scripts.Framework.Systems.SaveLoad
 {
-    public class MessagePackSaveLoadSystem : ISaveLoadSystem
+    public class MessagePackISaveSystem : ISaveSystem
     {
         public ReactiveProperty<int> LastSaveTime { get; } = new(0);
 
-        private readonly Dictionary<Type, object> _savableData = new();
+        private readonly Dictionary<Type, object> _periodicSavableData = new();
         private readonly object _lock = new();
-        private readonly int saveDelayMs = 5000;
+        private const int PeriodicSaveDelayMs = 10000;
         private readonly string _savePath = Application.dataPath + "/SaveData/";
         private const string FileExtension = ".dat";
 
@@ -33,23 +33,39 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             RunSaveLoop().Forget();
         }
 
-        public void Save<TSavableData>(TSavableData data, ESaveLogic saveLogic)
+        public void Save<TSavableData>(TSavableData data, ESaveLogic saveLogic = ESaveLogic.Now)
         {
-            lock (_lock) _savableData[data.GetType()] = data;
-
-            if (saveLogic == ESaveLogic.Now) SaveNowAsync().Forget();
+            switch (saveLogic)
+            {
+                case ESaveLogic.Now:
+                    SaveNowAsync().Forget();
+                    break;
+                case ESaveLogic.Periodic:
+                    lock (_lock) _periodicSavableData[data.GetType()] = data;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(saveLogic), saveLogic, null);
+            }
         }
 
-        public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback)
+        public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback,
+            TSavableData defaultData)
         {
             var filePath = _savePath + typeof(TSavableData).Name + FileExtension;
+
+            if (!File.Exists(filePath))
+            {
+                Debug.LogWarning(" File not found. Save default data. Using default data.");
+                await SaveToFileAsync(defaultData, filePath);
+                onDataLoadedCallback.Invoke(defaultData);
+                return;
+            }
 
             await LoadFromFileAsync<TSavableData>(filePath);
             try
             {
                 var loadedData = await LoadFromFileAsync<TSavableData>(filePath);
                 onDataLoadedCallback.Invoke(loadedData);
-
                 Debug.LogWarning("Data loaded successfully.");
             }
             catch (Exception ex)
@@ -58,11 +74,17 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             }
         }
 
+        public void SavePeriodicalData()
+        {
+            _isSaving = false;
+            SaveNowAsync().Forget();
+        }
+
         private async UniTaskVoid RunSaveLoop()
         {
             while (_isRunning)
             {
-                await UniTask.Delay(saveDelayMs);
+                await UniTask.Delay(PeriodicSaveDelayMs);
                 if (!_isSaving) await SaveNowAsync();
             }
         }
@@ -75,7 +97,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
             Dictionary<Type, object> dataToSave;
 
-            lock (_lock) dataToSave = new Dictionary<Type, object>(_savableData);
+            lock (_lock) dataToSave = new Dictionary<Type, object>(_periodicSavableData);
 
             Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -108,6 +130,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
             var options = MessagePackSerializerOptions.Standard.WithResolver(StandardResolver.Instance);
 
+            // Debug.LogWarning("Saving data for: " + data.GetType().Name);
 
             byte[] dataBytes = MessagePackSerializer.Serialize(data, options);
 
@@ -116,8 +139,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public async UniTask<T> LoadFromFileAsync<T>(string filePath)
         {
-            if (!File.Exists(filePath))
-                throw new FileNotFoundException($"File not found: {filePath}");
+            if (!File.Exists(filePath)) throw new FileNotFoundException($"File not found: {filePath}");
 
             await using var fileStream =
                 new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);

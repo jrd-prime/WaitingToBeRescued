@@ -1,6 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Energy;
+using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Model;
@@ -16,13 +19,19 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public void OnUpEvent(PointerUpEvent _);
         public void OnOutEvent(PointerOutEvent _);
         public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData { get; }
+        public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTemperature { get; }
+        public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
+        public ReadOnlyReactiveProperty<GameTimeDto> GameTimeDto { get; }
     }
 
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
         public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData => _shelterEnergyModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTemperature => _ambientTempModel.ModelData;
+        public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
+        public ReadOnlyReactiveProperty<GameTimeDto> GameTimeDto => GameManager.GameTimeData;
 
-        public ReadOnlyReactiveProperty<AmbientTempDTO> AmbientTempData => _ambientTempModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTempData => _ambientTempModel.ModelData;
 
         private IMovementControlModel _movementModel;
         private ShelterEnergyModel _shelterEnergyModel;
