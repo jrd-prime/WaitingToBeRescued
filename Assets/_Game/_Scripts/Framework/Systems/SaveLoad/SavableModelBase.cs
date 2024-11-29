@@ -1,6 +1,6 @@
-﻿using _Game._Scripts.Framework.Data.SO;
+﻿using System;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Manager.Settings;
-using _Game._Scripts.Framework.Manager.Shelter;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
@@ -9,19 +9,18 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.Systems.SaveLoad
 {
-    public abstract class SavableModelBase<TSettings, TSavableDto> : IInitializable where TSettings : SettingsSO
+    public abstract class SavableModelBase<TSettings, TSavableDto> : IInitializable, IDisposable
+        where TSettings : SettingsSO
     {
         public ReactiveProperty<TSavableDto> ModelData { get; } = new();
-
+        public ReactiveProperty<bool> IsModelLoaded { get; } = new(false);
         public TSettings ModelSettings { get; private set; }
         public GameplaySettings GameplaySettings { get; private set; }
 
         private ISettingsManager _settingsManager;
-
         private ISaveSystem _saveSystem;
-
-        private bool _isAddedToAutoSave = false;
-
+        private const float SaveDelay = 10f;
+        private DateTime _lastSaveTime;
 
         [Inject]
         private void Construct(ISaveSystem iSaveSystem, ISettingsManager settingsManager)
@@ -32,32 +31,52 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Initialize()
         {
-            LoadModelSettings();
-            var defaultModelData = GetDefaultModelData();
-            _saveSystem.LoadDataAsync(SetNewModelData, defaultModelData).Forget();
-        }
+            _lastSaveTime = DateTime.UtcNow;
 
-        private void LoadModelSettings()
-        {
             ModelSettings = _settingsManager.GetConfig<TSettings>();
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
+
+            var defaultModelData = GetDefaultModelData();
+            _saveSystem.LoadDataAsync(SetLoadedModelData, defaultModelData).Forget();
         }
 
-        public virtual void SetNewModelData(TSavableDto data)
-        {
-            Debug.LogWarning("End loading data: " + typeof(TSavableDto).Name);
+        public TSavableDto GetModelData() => ModelData.CurrentValue;
 
+        public void SetModelData(TSavableDto data)
+        {
             ModelData.Value = data;
             ModelData.ForceNotify();
 
-            if (_isAddedToAutoSave) return;
-            ShowDebug();
-            _saveSystem.Save(data, ESaveLogic.Periodic);
-            _isAddedToAutoSave = true;
+            var currentTime = DateTime.UtcNow;
+            var timeElapsed = (currentTime - _lastSaveTime).TotalSeconds;
+
+            if (!(timeElapsed >= SaveDelay)) return;
+            _lastSaveTime = currentTime;
+            _saveSystem.SaveToFileAsync(ModelData.CurrentValue).Forget();
         }
 
-        protected abstract void ShowDebug();
+        private void SetLoadedModelData(TSavableDto data)
+        {
+            SetModelData(data);
+            IsModelLoaded.Value = true;
+        }
+
+        private void ShowDebug() => Debug.LogWarning($"{typeof(TSavableDto).Name}: {GetDebugLine()}");
 
         protected abstract TSavableDto GetDefaultModelData();
+        protected abstract string GetDebugLine();
+
+        public async void Dispose()
+        {
+            try
+            {
+                await _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
+                ShowDebug();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Disposing failed. " + typeof(TSavableDto).Name + " / " + e.Message);
+            }
+        }
     }
 }

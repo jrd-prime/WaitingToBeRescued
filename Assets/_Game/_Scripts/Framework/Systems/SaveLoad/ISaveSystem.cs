@@ -9,8 +9,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
     public interface ISaveSystem : IInitializable, IDisposable
     {
         public ReactiveProperty<int> LastSaveTime { get; }
-        public void Save<TSavableData>(TSavableData data, ESaveLogic saveLogic = ESaveLogic.Now);
         public UniTask LoadDataAsync<T>(Action<T> setModelData, T defaultData);
-        public void SavePeriodicalData();
+        public  UniTask SaveToFileAsync<T>(T data);
     }
 }

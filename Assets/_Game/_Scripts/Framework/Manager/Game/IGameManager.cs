@@ -10,7 +10,7 @@ namespace _Game._Scripts.Framework.Manager.Game
         public ReactiveProperty<int> PlayerInitialHealth { get; }
         public ReadOnlyReactiveProperty<int> PlayerHealth { get; }
         public ReactiveProperty<bool> IsGameRunning { get; }
-        public ReactiveProperty<GameTimeDto> GameTimeData { get; }
+        public ReactiveProperty<GameTimerData> GameTimeData { get; }
 
 
         public void GameOver();

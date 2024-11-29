@@ -18,32 +18,32 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public void OnMoveEvent(PointerMoveEvent evt);
         public void OnUpEvent(PointerUpEvent _);
         public void OnOutEvent(PointerOutEvent _);
-        public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData { get; }
-        public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTemperature { get; }
+        public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData { get; }
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
-        public ReadOnlyReactiveProperty<GameTimeDto> GameTimeDto { get; }
+        public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto { get; }
     }
 
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
-        public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData => _shelterEnergyModel.ModelData;
-        public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTemperature => _ambientTempModel.ModelData;
+        public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData => _shelterEnergyModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature => _ambientTempModel.ModelData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
-        public ReadOnlyReactiveProperty<GameTimeDto> GameTimeDto => _gameTimeModel.ModelData;
+        public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto => _gameTimerModel.ModelData;
 
-        public ReadOnlyReactiveProperty<AmbientTempDto> AmbientTempData => _ambientTempModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData => _ambientTempModel.ModelData;
 
         private IMovementControlModel _movementModel;
         private ShelterEnergyModel _shelterEnergyModel;
         private AmbientTemperatureModel _ambientTempModel;
-        private GameTimeModel _gameTimeModel;
+        private GameTimerModel _gameTimerModel;
 
         public override void Initialize()
         {
             _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Resolver);
             _shelterEnergyModel = ResolverHelp.ResolveAndCheck<ShelterEnergyModel>(Resolver);
             _ambientTempModel = ResolverHelp.ResolveAndCheck<AmbientTemperatureModel>(Resolver);
-            _gameTimeModel = ResolverHelp.ResolveAndCheck<GameTimeModel>(Resolver);
+            _gameTimerModel = ResolverHelp.ResolveAndCheck<GameTimerModel>(Resolver);
         }
 
         public void OnDownEvent(PointerDownEvent evt) => _movementModel.OnDownEvent(evt);

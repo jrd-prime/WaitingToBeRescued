@@ -30,10 +30,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             ViewModel.ShelterEnergyData.Subscribe(UpdateShalterEnergy).AddTo(Disposables);
         }
 
-        private void UpdateShalterEnergy(ShelterEnergyDto shelterEnergyDto)
+        private void UpdateShalterEnergy(ShelterEnergyData shelterEnergyData)
         {
             // _timerSlider.style.width = new StyleLength(shelterEnergyData.ShelterEnergy / 10);
-            _timerLabel.text = $"{shelterEnergyDto.CurrentEnergy} / {shelterEnergyDto.MaxEnergy}";
+            _timerLabel.text = $"{shelterEnergyData.CurrentEnergy} / {shelterEnergyData.MaxEnergy}";
         }
     }
 }

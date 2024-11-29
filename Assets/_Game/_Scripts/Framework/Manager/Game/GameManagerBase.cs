@@ -2,9 +2,7 @@
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.Player.Interfaces;
-using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -16,53 +14,62 @@ namespace _Game._Scripts.Framework.Manager.Game
         public ReactiveProperty<int> PlayerInitialHealth { get; } = new();
         public ReadOnlyReactiveProperty<int> PlayerHealth => PlayerModel.Health;
         public ReactiveProperty<bool> IsGameRunning { get; } = new(false);
-        public ReactiveProperty<GameTimeDto> GameTimeData { get; } = new();
+        public ReactiveProperty<GameTimerData> GameTimeData { get; } = new();
 
         protected bool IsGamePaused;
         protected IPlayerModel PlayerModel;
         protected ISettingsManager SettingsManager;
 
-        private GameTimeDto _gameTimeData;
         private GameTimer _gameTimer;
         private IObjectResolver _resolver;
         private readonly CompositeDisposable _disposables = new();
-        private ISaveSystem _saveSystem;
         private GameTimerSettings _gameplaySettings;
-        private GameTimeModel _gameTimeModel;
+        private GameTimerModel _timerModel;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
             _resolver = resolver;
-
-            _saveSystem = resolver.Resolve<ISaveSystem>();
             SettingsManager = _resolver.Resolve<ISettingsManager>();
-
-            _gameTimeModel = _resolver.Resolve<GameTimeModel>();
-
+            _timerModel = _resolver.Resolve<GameTimerModel>();
             _gameplaySettings = SettingsManager.GetConfig<GameTimerSettings>();
         }
 
         public void Initialize()
         {
+            InitGameTimer();
         }
 
         protected void Awake()
         {
-            _gameTimer = new GameTimer(_gameplaySettings.gameDayInSeconds, this).AddTo(_disposables);
-            _resolver.Inject(_gameTimer);
-
             PlayerModel = ResolverHelp.ResolveAndCheck<IPlayerModel>(_resolver);
 
             PlayerInitialHealth.Value = PlayerModel.CharSettings.health;
 
-            IsGameRunning.DistinctUntilChanged()
-                .Subscribe(isRunning =>
-                {
-                    Debug.LogWarning("IsGameRunning: " + isRunning);
-                    _gameTimer.SetGameRunningState(isRunning);
-                })
+            IsGameRunning
+                .DistinctUntilChanged()
+                .Subscribe(_gameTimer.SetGameRunningState)
                 .AddTo(_disposables);
+
+            _timerModel.IsModelLoaded
+                .DistinctUntilChanged().Where(x => x)
+                .Take(1)
+                .Subscribe(_ => _gameTimer.OnModelDataLoaded())
+                .AddTo(_disposables);
+        }
+
+        private void InitGameTimer()
+        {
+            var timerOptions = new GameTimerOptions
+            {
+                DayCycleTime = _gameplaySettings.gameDayInSeconds,
+                SaveInterval = 1f,
+                UpdateInterval = .1f,
+                TimerModel = _timerModel,
+                MonoBehaviour = this
+            };
+            _gameTimer = new GameTimer(timerOptions).AddTo(_disposables);
+            _resolver.Inject(_gameTimer);
         }
 
         public abstract void GameOver();
@@ -70,11 +77,6 @@ namespace _Game._Scripts.Framework.Manager.Game
         public abstract void StartNewGame();
         public abstract void Pause();
         public abstract void UnPause();
-
-        private void OnApplicationPause(bool pauseStatus)
-        {
-            _saveSystem.Save(_gameTimeData);
-        }
 
         private void OnDestroy()
         {

@@ -47,11 +47,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             }).AddTo(Disposables);
         }
 
-        private void UpdateTemperatureData(AmbientTempDto ambientTemperatureDto)
+        private void UpdateTemperatureData(AmbientTempData ambientTemperatureData)
         {
-            _currentTemp.text = ambientTemperatureDto.Current.ToString();
-            _nextDrop.text = ambientTemperatureDto.NextChange.ToString();
-            _countDown.text = ambientTemperatureDto.TimeToNextChange.ToString();
+            _currentTemp.text = ambientTemperatureData.Current.ToString();
+            _nextDrop.text = ambientTemperatureData.NextChange.ToString();
         }
     }
 }

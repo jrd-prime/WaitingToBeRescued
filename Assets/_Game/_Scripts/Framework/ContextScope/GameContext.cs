@@ -52,7 +52,8 @@ namespace _Game._Scripts.Framework.ContextScope
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
 
-            builder.Register<GameTimeModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+            builder.Register<GameTimerModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
 
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
