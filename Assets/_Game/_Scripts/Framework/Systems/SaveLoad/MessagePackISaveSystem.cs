@@ -59,7 +59,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                     Directory.CreateDirectory(directoryPath);
 
             await using var fileStream =
-                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 4, true);
+                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 1024 * 4, true);
 
             var options = MessagePackSerializerOptions.Standard.WithResolver(StandardResolver.Instance);
 
@@ -98,7 +98,6 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Dispose()
         {
-            LastSaveTime?.Dispose();
         }
     }
 }

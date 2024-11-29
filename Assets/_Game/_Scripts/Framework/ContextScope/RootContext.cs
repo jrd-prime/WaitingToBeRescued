@@ -45,11 +45,25 @@ namespace _Game._Scripts.Framework.ContextScope
 
         private void OnApplicationQuit()
         {
-            Debug.LogWarning("On Application Quit");
-            Debug.LogWarning($"Total Allocated Memory: {Profiler.GetTotalAllocatedMemoryLong() / (1024 * 1024)} MB");
-            Debug.LogWarning($"Total Reserved Memory: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB");
-            Debug.LogWarning(
-                $"Total Unused Reserved Memory: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log("On Application Quit");
+            Debug.Log("<color=darkblue><b>=======================</b></color>");
+            var rendTex = (RenderTexture[])Resources.FindObjectsOfTypeAll(typeof(RenderTexture));
+
+            Debug.Log($"Render Textures: {rendTex.Length}");
+            var i = 0;
+            foreach (var t in rendTex)
+                if (t.name.StartsWith("Device Simulator"))
+                {
+                    Destroy(t);
+                    i++;
+                }
+
+            Debug.Log($"Render Textures Destroyed: {i}");
+            Debug.Log("<color=darkblue><b>=======================</b></color>");
+            Debug.Log($"Total Allocated: {Profiler.GetTotalAllocatedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log($"Total Reserved: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log($"Total Unused Reserved: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log("<color=darkblue><b>=======================</b></color>");
         }
     }
 }

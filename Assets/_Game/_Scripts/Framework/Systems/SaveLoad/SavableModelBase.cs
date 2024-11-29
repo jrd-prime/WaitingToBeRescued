@@ -70,7 +70,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         {
             try
             {
-                await _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
+                 _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
                 ModelData?.Dispose();
                 IsModelLoaded?.Dispose();
                 ShowDebug();
