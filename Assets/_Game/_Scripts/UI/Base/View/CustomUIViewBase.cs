@@ -7,7 +7,6 @@ using _Game._Scripts.UI.Base.ViewModel;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
-using VContainer.Unity;
 
 namespace _Game._Scripts.UI.Base.View
 {

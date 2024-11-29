@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.Data.SO;
+﻿using System;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.Shelter;
@@ -80,7 +81,13 @@ namespace _Game._Scripts.Framework.Manager.Game
 
         private void OnDestroy()
         {
-            _disposables.Dispose();
+            _gameTimer?.Dispose();
+            _resolver?.Dispose();
+            _disposables?.Dispose();
+            _timerModel?.Dispose();
+            PlayerInitialHealth?.Dispose();
+            IsGameRunning?.Dispose();
+            GameTimeData?.Dispose();
         }
     }
 }

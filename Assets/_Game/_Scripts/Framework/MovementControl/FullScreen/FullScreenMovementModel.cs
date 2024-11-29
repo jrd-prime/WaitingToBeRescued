@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.MovementControl.FullScreen
 {
-    public class FullScreenMovementModel : IFullScreenMovementModel, IInitializable
+    public class FullScreenMovementModel : IFullScreenMovementModel, IInitializable, IDisposable
     {
         public ReactiveProperty<Vector3> MoveDirection { get; } = new(Vector3.zero);
         public ReactiveProperty<bool> IsTouchPositionVisible { get; } = new(false);
@@ -69,6 +69,13 @@ namespace _Game._Scripts.Framework.MovementControl.FullScreen
             _moveInput = Vector2.zero;
 
             SetMoveDirection(Vector3.zero);
+        }
+
+        public void Dispose()
+        {
+            MoveDirection?.Dispose();
+            IsTouchPositionVisible?.Dispose();
+            RingPosition?.Dispose();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         public void ChangeSubState(Enum stateDataSubState);
     }
 
-    public abstract class GameStateBase<TUIModel, TSubStateEnum> : IGameState, IInitializable
+    public abstract class GameStateBase<TUIModel, TSubStateEnum> : IGameState, IInitializable, IDisposable
         where TUIModel : IUIModel<TSubStateEnum> where TSubStateEnum : Enum
     {
         protected IGameManager GameManager { get; private set; }
@@ -113,5 +113,10 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         protected abstract void InitCustomSubscribes();
         protected abstract void OnBaseStateEnter();
         protected abstract void OnBaseStateExit();
+
+        public void Dispose()
+        {
+            Disposables?.Dispose();
+        }
     }
 }

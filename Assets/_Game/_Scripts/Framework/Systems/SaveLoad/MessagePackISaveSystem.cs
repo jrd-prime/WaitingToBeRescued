@@ -98,6 +98,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Dispose()
         {
+            LastSaveTime?.Dispose();
         }
     }
 }

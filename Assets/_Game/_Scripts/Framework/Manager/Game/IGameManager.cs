@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.Manager.Shelter;
+﻿using System;
+using _Game._Scripts.Framework.Manager.Shelter;
 using MessagePack;
 using R3;
 using VContainer.Unity;

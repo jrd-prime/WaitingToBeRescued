@@ -61,12 +61,12 @@ namespace _Game._Scripts.Framework.ContextScope
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
-            builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton);
+            builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton).As<IDisposable>();
 
             builder.Register<FullScreenMovementModel>(Lifetime.Singleton)
-                .As<IMovementControlModel>().As<IInitializable>();
+                .As<IMovementControlModel, IInitializable, IDisposable>();
             builder.Register<FullScreenMovementViewModel>(Lifetime.Singleton)
-                .As<IMovementControlViewModel>();
+                .As<IMovementControlViewModel, IDisposable>();
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton);
 
@@ -76,9 +76,10 @@ namespace _Game._Scripts.Framework.ContextScope
 
 
             // Main menu
-            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
             // Gameplay UI
-            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton).As<IInitializable>();
+            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
+                .As<IInitializable, IDisposable>();
             // State models
             builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();

@@ -10,6 +10,7 @@ using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Profiling;
 using VContainer;
 using VContainer.Unity;
 
@@ -40,6 +41,15 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
             builder.Register<ISettingsManager, SettingsManager>(Lifetime.Singleton);
             builder.Register<ILocalizationManager, LocalizationManager>(Lifetime.Singleton);
+        }
+
+        private void OnApplicationQuit()
+        {
+            Debug.LogWarning("On Application Quit");
+            Debug.LogWarning($"Total Allocated Memory: {Profiler.GetTotalAllocatedMemoryLong() / (1024 * 1024)} MB");
+            Debug.LogWarning($"Total Reserved Memory: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB");
+            Debug.LogWarning(
+                $"Total Unused Reserved Memory: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
         }
     }
 }

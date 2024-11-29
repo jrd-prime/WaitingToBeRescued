@@ -28,29 +28,3 @@ namespace _Game._Scripts.GameStates.Menu.State
         }
     }
 }
-// private async UniTask RunGameTimerAsync(CancellationToken cancellationToken)
-// {
-//     float remainingTime = timerDuration - _elapsedTime; // Начинаем с оставшегося времени
-//
-//     while (remainingTime > 0)
-//     {
-//         remainingTime -= Time.deltaTime;
-//         _elapsedTime = timerDuration - remainingTime; // Обновляем прошедшее время
-//
-//         GameTimeDto.CurrentValue.RemainingDayTime = remainingTime;
-//         Debug.LogWarning($"Time left: {GameTimeDto.CurrentValue.RemainingDayTime:F2} seconds");
-//
-//         UpdateGameTimeDto();
-//         await UniTask.Yield(PlayerLoopTiming.FixedUpdate, cancellationToken); // Ожидаем следующий кадр
-//     }
-//
-//     // day++; // Обновляем день
-//     GameTimeDto.CurrentValue.SetDay(GameTimeDto.CurrentValue.Day + 1);
-//     UpdateGameTimeDto();
-//     Debug.LogWarning($"Day updated to: {GameTimeDto.CurrentValue.Day}");
-//
-//     _elapsedTime = 0f; // Сбрасываем прошедшее время, потому что день обновлен
-//
-//     // Запускаем новый таймер
-//     StartGameTimer();
-// }

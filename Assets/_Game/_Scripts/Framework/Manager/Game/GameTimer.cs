@@ -96,7 +96,6 @@ namespace _Game._Scripts.Framework.Manager.Game
 
         public void Dispose()
         {
-            _saveSystem?.Dispose();
         }
     }
 }
