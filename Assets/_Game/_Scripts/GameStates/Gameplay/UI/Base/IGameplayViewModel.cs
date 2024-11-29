@@ -13,8 +13,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
         public Subject<Unit> MenuBtnClicked { get; }
         public Subject<Unit> CloseBtnClicked { get; }
         public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData { get; }
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature { get; }
-        public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto { get; }
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData { get; }
+        public ReadOnlyReactiveProperty<GameTimerData> GameTimerData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
 
         public void OnDownEvent(PointerDownEvent evt);

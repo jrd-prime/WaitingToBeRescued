@@ -19,8 +19,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
         public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData => Model.ShelterEnergyData;
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature => Model.AmbientTemperature;
-        public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto  => Model.GameTimeDto;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData => Model.AmbientTemperature;
+        public ReadOnlyReactiveProperty<GameTimerData> GameTimerData  => Model.GameTimeDto;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => Model.IsGameRunning;
 
 

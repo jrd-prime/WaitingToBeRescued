@@ -105,6 +105,8 @@ namespace _Game._Scripts.Framework.ContextScope
 
             builder.Register<ShelterEnergyModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
             builder.Register<AmbientTemperatureModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+            builder.Register<GameCountdownsController>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }

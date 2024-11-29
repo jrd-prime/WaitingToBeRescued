@@ -26,5 +26,20 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Temperature
         {
             return $" current {ModelData.CurrentValue.Current} / next change {ModelData.CurrentValue.NextChange}";
         }
+
+        public void OnNewDay()
+        {
+            var newData = new AmbientTempData
+            {
+                Current = GetCurrentTemp() - GetNexChange(),
+                NextChange = GetNexChange()
+            };
+
+            SetModelData(newData);
+        }
+
+        private float GetNexChange() => ModelData.CurrentValue.NextChange;
+
+        private float GetCurrentTemp() => ModelData.CurrentValue.Current;
     }
 }

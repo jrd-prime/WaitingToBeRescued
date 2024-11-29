@@ -32,8 +32,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
         protected override void Init()
         {
-            ViewModel.AmbientTemperature.Subscribe(UpdateTemperatureData).AddTo(Disposables);
-            ViewModel.GameTimeDto.Subscribe(x =>
+            ViewModel.AmbientTemperatureData.Subscribe(UpdateTemperatureData).AddTo(Disposables);
+            ViewModel.GameTimerData.Subscribe(x =>
             {
                 int minutes = Mathf.FloorToInt(x.RemainingTime / 60); // Получаем количество минут
                 int seconds =
