@@ -3,6 +3,6 @@
     public enum ESaveLogic
     {
         Now,
-        Delayed
+        Periodic
     }
 }

@@ -13,19 +13,19 @@ namespace _Game._Scripts.Framework.Helpers.Debug
         [RequiredField] public TMP_Text fpsText;
         [RequiredField] public TMP_Text saveTimeText;
         private float _deltaTime;
-        private ISaveLoadSystem _saveLoadSystem;
+        private ISaveSystem _iSaveSystem;
 
         private readonly CompositeDisposable _disposables = new();
 
         [Inject]
-        private void Construct(ISaveLoadSystem saveLoadSystem)
+        private void Construct(ISaveSystem iSaveSystem)
         {
-            _saveLoadSystem = saveLoadSystem;
+            _iSaveSystem = iSaveSystem;
         }
 
         private void Awake()
         {
-            _saveLoadSystem.LastSaveTime.Subscribe(x => saveTimeText.text = $"{x} ms").AddTo(_disposables);
+            _iSaveSystem.LastSaveTime.Subscribe(x => saveTimeText.text = $"{x} ms").AddTo(_disposables);
         }
 
         private void Update()

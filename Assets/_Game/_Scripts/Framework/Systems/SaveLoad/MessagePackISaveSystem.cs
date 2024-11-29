@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using _Game._Scripts.Framework.Manager.Shelter;
 using Cysharp.Threading.Tasks;
 using MessagePack;
 using MessagePack.Resolvers;
@@ -12,45 +10,37 @@ using Debug = UnityEngine.Debug;
 
 namespace _Game._Scripts.Framework.Systems.SaveLoad
 {
-    public class MessagePackSaveLoadSystem : ISaveLoadSystem
+    public class MessagePackISaveSystem : ISaveSystem
     {
         public ReactiveProperty<int> LastSaveTime { get; } = new(0);
 
-        private readonly Dictionary<Type, object> _savableData = new();
         private readonly object _lock = new();
-        private readonly int saveDelayMs = 5000;
         private readonly string _savePath = Application.dataPath + "/SaveData/";
         private const string FileExtension = ".dat";
 
-        private bool _isRunning;
-        private bool _isSaving;
-
         public void Initialize()
         {
-            Debug.LogWarning("SaveLoadSystem initialized");
-            _isRunning = true;
-
-            RunSaveLoop().Forget();
         }
 
-        public void Save<TSavableData>(TSavableData data, ESaveLogic saveLogic)
-        {
-            lock (_lock) _savableData[data.GetType()] = data;
-
-            if (saveLogic == ESaveLogic.Now) SaveNowAsync().Forget();
-        }
-
-        public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback)
+        public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback,
+            TSavableData defaultData)
         {
             var filePath = _savePath + typeof(TSavableData).Name + FileExtension;
 
-            await LoadFromFileAsync<TSavableData>(filePath);
+            if (!File.Exists(filePath))
+            {
+                Debug.LogWarning(" File not found. Save default data. Using default data.");
+                await SaveToFileAsync(defaultData);
+                onDataLoadedCallback.Invoke(defaultData);
+                return;
+            }
+
             try
             {
+                // Debug.LogWarning("File found. Loading data. " + typeof(TSavableData).Name + FileExtension);
                 var loadedData = await LoadFromFileAsync<TSavableData>(filePath);
                 onDataLoadedCallback.Invoke(loadedData);
-
-                Debug.LogWarning("Data loaded successfully.");
+                // Debug.LogWarning("Data loaded successfully.");
             }
             catch (Exception ex)
             {
@@ -58,45 +48,10 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             }
         }
 
-        private async UniTaskVoid RunSaveLoop()
+        public async UniTask SaveToFileAsync<T>(T data)
         {
-            while (_isRunning)
-            {
-                await UniTask.Delay(saveDelayMs);
-                if (!_isSaving) await SaveNowAsync();
-            }
-        }
-
-        private async UniTask SaveNowAsync()
-        {
-            if (_isSaving) return;
-
-            _isSaving = true;
-
-            Dictionary<Type, object> dataToSave;
-
-            lock (_lock) dataToSave = new Dictionary<Type, object>(_savableData);
-
             Stopwatch stopwatch = Stopwatch.StartNew();
-
-            try
-            {
-                foreach (var savableData in dataToSave)
-                {
-                    await SaveToFileAsync(savableData.Value, _savePath + savableData.Key.Name + FileExtension);
-                }
-            }
-            finally
-            {
-                stopwatch.Stop();
-                LastSaveTime.Value = (int)stopwatch.ElapsedMilliseconds;
-
-                _isSaving = false;
-            }
-        }
-
-        private async UniTask SaveToFileAsync<T>(T data, string filePath)
-        {
+            var filePath = _savePath + typeof(T).Name + FileExtension;
             var directoryPath = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(directoryPath))
@@ -104,20 +59,20 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                     Directory.CreateDirectory(directoryPath);
 
             await using var fileStream =
-                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true);
+                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 4, true);
 
             var options = MessagePackSerializerOptions.Standard.WithResolver(StandardResolver.Instance);
 
-
-            byte[] dataBytes = MessagePackSerializer.Serialize(data, options);
+            var dataBytes = MessagePackSerializer.Serialize(data, options);
 
             await fileStream.WriteAsync(dataBytes, 0, dataBytes.Length);
+            stopwatch.Stop();
+            LastSaveTime.Value = (int)stopwatch.ElapsedMilliseconds;
         }
 
-        public async UniTask<T> LoadFromFileAsync<T>(string filePath)
+        private async UniTask<T> LoadFromFileAsync<T>(string filePath)
         {
-            if (!File.Exists(filePath))
-                throw new FileNotFoundException($"File not found: {filePath}");
+            if (!File.Exists(filePath)) throw new FileNotFoundException($"File not found: {filePath}");
 
             await using var fileStream =
                 new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);
@@ -143,7 +98,6 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Dispose()
         {
-            _isRunning = false;
         }
     }
 }

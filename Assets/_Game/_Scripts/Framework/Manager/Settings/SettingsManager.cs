@@ -9,7 +9,7 @@ namespace _Game._Scripts.Framework.Manager.Settings
 {
     public class SettingsManager : ISettingsManager
     {
-        public string Description => "Config Manager";
+        public string Description => "Settings Manager";
         public Dictionary<Type, object> ConfigsCache { get; } = new();
 
         private MainSettings _mainSettings;
@@ -22,8 +22,6 @@ namespace _Game._Scripts.Framework.Manager.Settings
             if (_mainSettings == null) throw new NullReferenceException("Main Settings is null");
 
             AddSettingsToCache();
-
-            Debug.Log("Settings added to cache: " + ConfigsCache.Count);
         }
 
         private void AddSettingsToCache()
@@ -38,9 +36,18 @@ namespace _Game._Scripts.Framework.Manager.Settings
 
                 if (!ConfigsCache.TryAdd(settings.GetType(), settings))
                     throw new Exception($"Error. When adding to cache {settings.GetType()}");
+
+                Debug.Log("Settings added to cache: " + settings.GetType().Name);
             }
+
+            Debug.Log("Settings count: " + ConfigsCache.Count);
         }
 
-        public T GetConfig<T>() where T : SettingsSO => ConfigsCache[typeof(T)] as T;
+        public T GetConfig<T>() where T : SettingsSO
+        {
+            if (!ConfigsCache.ContainsKey(typeof(T))) throw new Exception($"Settings {typeof(T).Name} not found");
+
+            return ConfigsCache[typeof(T)] as T;
+        }
     }
 }

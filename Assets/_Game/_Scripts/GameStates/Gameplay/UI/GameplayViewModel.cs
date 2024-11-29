@@ -1,10 +1,14 @@
 ﻿using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.JrdStateMachine.BaseState;
+using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Energy;
+using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI
@@ -13,13 +17,22 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
     {
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
-        public ReadOnlyReactiveProperty<ShelterEnergyDto> ShelterEnergyData => Model.ShelterEnergyData;
+        public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData => Model.ShelterEnergyData;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature => Model.AmbientTemperature;
+        public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto  => Model.GameTimeDto;
+        public ReadOnlyReactiveProperty<bool> IsGameRunning => Model.IsGameRunning;
 
 
         public override void Initialize()
         {
             MenuBtnClicked
-                .Subscribe(_ => Model.SetGameState(new StateData(EGameState.Menu)))
+                .Subscribe(
+                    _ =>
+                    {
+                        Model.SetGameState(new StateData(EGameState.Menu));
+                        Debug.LogWarning("menu button clicked");
+                    }
+                )
                 .AddTo(Disposables);
 
             CloseBtnClicked

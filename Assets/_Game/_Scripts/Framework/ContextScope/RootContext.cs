@@ -4,6 +4,7 @@ using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Input;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.Framework.Manager.Settings;
+using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Providers.AssetProvider;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Framework.Systems.SaveLoad;
@@ -33,7 +34,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(eventSystem).AsSelf();
             builder.RegisterComponent(mainSettings).AsSelf();
 
-            builder.Register<ISaveLoadSystem, MessagePackSaveLoadSystem>(Lifetime.Singleton)
+            builder.Register<ISaveSystem, MessagePackISaveSystem>(Lifetime.Singleton)
                 .As<IInitializable, IDisposable>();
 
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

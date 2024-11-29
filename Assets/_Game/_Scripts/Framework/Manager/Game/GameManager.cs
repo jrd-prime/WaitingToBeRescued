@@ -6,32 +6,39 @@ namespace _Game._Scripts.Framework.Manager.Game
     {
         public override void GameOver()
         {
-            IsGameStarted.Value = false;
+            IsGameRunning.Value = false;
         }
 
         public override void StopTheGame()
         {
-            IsGameStarted.Value = false;
+            IsGameRunning.Value = false;
         }
 
         public override void StartNewGame()
         {
-            if (IsGameStarted.CurrentValue) return;
+            if (IsGameRunning.CurrentValue) return;
 
-            IsGameStarted.Value = true;
+            Debug.LogWarning("GAME STARTED");
+
+            IsGameRunning.Value = true;
+            IsGamePaused = false;
             PlayerModel.ResetPlayer();
         }
 
         public override void Pause()
         {
+            Debug.LogWarning("Game Paused");
+            IsGameRunning.Value = false;
             IsGamePaused = true;
-            Time.timeScale = 0;
+            // Time.timeScale = 0;
         }
 
         public override void UnPause()
         {
+            Debug.LogWarning("Game Unpaused");
+            IsGameRunning.Value = true;
             IsGamePaused = false;
-            Time.timeScale = 1;
+            // Time.timeScale = 1;
         }
     }
 }

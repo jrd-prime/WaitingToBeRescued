@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4afa99f8694543b58fe6067852aa6612, type: 3}
-  m_Name: main-settings
+  m_Name: def-main-settings
   m_EditorClassIdentifier: 
-  uiViewSettings: {fileID: 11400000, guid: 19b506246a281444584d753ebe0087a5, type: 2}
   characterSettings: {fileID: 11400000, guid: a855f417d5714e84a9c0d298b1ae1339, type: 2}
   movementControlSettings: {fileID: 11400000, guid: c17fb1cc0249a4f4c8e75ac0c3dcbb1a, type: 2}
+  gameplaySettings: {fileID: 11400000, guid: 15faff7a24193734795def16a6d27a52, type: 2}
+  energySettings: {fileID: 11400000, guid: 6871cee2821229542b93c447ab1b026d, type: 2}
+  temperatureSettings: {fileID: 11400000, guid: a97adff9293f53c46adc1bf3c24f5624, type: 2}
+  GameTimerSettings: {fileID: 11400000, guid: c1f090bd84c74fd45b8863819e588fc5, type: 2}

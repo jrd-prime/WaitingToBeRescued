@@ -58,11 +58,11 @@ namespace _Game._Scripts.Framework.JrdStateMachine
 
             if (_currentState != null) return;
 
-            var defStateData = new StateData { State = EGameState.Gameplay, SubState = default };
+            var defStateData = new StateData { State = EGameState.Menu, SubState = default };
 
             ChangeBaseState(defStateData);
 
-            _gameManager.IsGameStarted
+            _gameManager.IsGameRunning
                 .Subscribe(value => isGameStarted = value)
                 .AddTo(_disposables);
             _ra.StateData

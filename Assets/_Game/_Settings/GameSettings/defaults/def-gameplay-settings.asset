@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 634e067d85fa4fd99c9a92837ad9e232, type: 3}
-  m_Name: character-settings
+  m_Script: {fileID: 11500000, guid: 5b33bd1d8470493981854e5f8d69690c, type: 3}
+  m_Name: def-gameplay-settings
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 180
-  health: 30
+  gameDayInSeconds: 7
+  baseDailyTemperatureDrop: 1
+  startDay: 0

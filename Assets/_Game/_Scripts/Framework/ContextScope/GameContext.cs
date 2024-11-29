@@ -4,10 +4,13 @@ using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Energy;
+using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
 using _Game._Scripts.Framework.Systems;
+using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.GameStates.Gameover;
 using _Game._Scripts.GameStates.Gameplay;
 using _Game._Scripts.GameStates.Gameplay.State;
@@ -48,6 +51,10 @@ namespace _Game._Scripts.Framework.ContextScope
             Debug.Log("<color=cyan>Game context</color>");
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
+
+
+            builder.Register<GameTimerModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
 
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
