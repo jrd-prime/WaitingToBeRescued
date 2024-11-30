@@ -1,6 +1,5 @@
 ﻿using System;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
@@ -8,7 +7,6 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.Components
@@ -17,9 +15,9 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
     {
         private const float Epsilon = 0.001f;
         private const float AnimationDuration = 0.5f;
-        private VisualElement _timerSlider;
-        private Label _timerLabel;
-        private bool isFullEnergyBarWidthSet;
+        private VisualElement _energyBar;
+        private Label _energyLabel;
+        private bool _isFullEnergyBarWidthSet;
         private float _fullEnergyWidth;
         private float _pxPerPointEnergy;
         private float _currentEnergyBarWidth;
@@ -35,44 +33,43 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
         protected override void InitElements()
         {
-            _timerSlider = Root.Q<VisualElement>("timer-slider").CheckOnNull();
-            _timerLabel = Root.Q<Label>("timer-label").CheckOnNull();
-            _timerSlider.RegisterCallback<GeometryChangedEvent>(
-                _ => SetEnergyBarWidth(_timerSlider.resolvedStyle.width));
+            _energyBar = Root.Q<VisualElement>("timer-slider").CheckOnNull();
+            _energyLabel = Root.Q<Label>("timer-label").CheckOnNull();
+            _energyBar.RegisterCallback<GeometryChangedEvent>(
+                _ => InitEnergyBar(_energyBar.resolvedStyle.width));
         }
 
-        private void SetEnergyBarWidth(float width)
+        private void InitEnergyBar(float width)
         {
-            if (isFullEnergyBarWidthSet) return;
-            isFullEnergyBarWidthSet = true;
+            if (_isFullEnergyBarWidthSet) return;
+            _isFullEnergyBarWidthSet = true;
             _fullEnergyWidth = width;
             _pxPerPointEnergy = _fullEnergyWidth / _energyInitial;
             _currentEnergyBarWidth = _fullEnergyWidth;
             UpdateEnergyBar(_energyInitial);
         }
 
-        private void UpdateEnergyBar(float health)
+        private void UpdateEnergyBar(float value)
         {
-            var energy = $"{health:F1}";
-            _timerLabel.text = $"{energy} / {_energyInitial}";
+            _energyLabel.text = $"{value:F1} / {_energyInitial}";
 
-            if (!isFullEnergyBarWidthSet) return;
+            if (!_isFullEnergyBarWidthSet) return;
 
-            var targetWidth = _pxPerPointEnergy * health;
+            var targetWidth = GetTargetWidth(value);
 
             if (Math.Abs(targetWidth - _currentEnergyBarWidth) < Epsilon) return;
 
             _healthTween.Kill();
-            _healthTween = DOTween.To(
-                () => _currentEnergyBarWidth,
-                x =>
-                {
-                    _currentEnergyBarWidth = x;
-                    _timerSlider.style.width = x;
-                },
-                targetWidth,
-                AnimationDuration
-            );
+            _healthTween = DOTween.To(GetBarWidth, SetBarWidth, targetWidth, AnimationDuration);
+        }
+
+        private float GetTargetWidth(float value) => _pxPerPointEnergy * value;
+        private float GetBarWidth() => _currentEnergyBarWidth;
+
+        private void SetBarWidth(float x)
+        {
+            _currentEnergyBarWidth = x;
+            _energyBar.style.width = x;
         }
 
         protected override void Init()
