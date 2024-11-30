@@ -3,6 +3,7 @@ using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;

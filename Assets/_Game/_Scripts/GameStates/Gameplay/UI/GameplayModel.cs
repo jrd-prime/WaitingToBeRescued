@@ -4,6 +4,7 @@ using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
+using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Model;
@@ -22,6 +23,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
         public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto { get; }
+        public void AddEnergy();
     }
 
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
@@ -30,6 +32,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature => _ambientTempModel.ModelData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
         public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto => _gameTimerModel.ModelData;
+        public void AddEnergy() => _shelterEnergyModel.AddEnergy(30);
 
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData => _ambientTempModel.ModelData;
 

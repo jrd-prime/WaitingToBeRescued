@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b33bd1d8470493981854e5f8d69690c, type: 3}
   m_Name: def-gameplay-settings
   m_EditorClassIdentifier: 
-  gameDayInSeconds: 7
+  gameDayInSeconds: 60
   baseDailyTemperatureDrop: 1
   startDay: 0

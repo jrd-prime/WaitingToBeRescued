@@ -800,6 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsText: {fileID: 173492519}
   saveTimeText: {fileID: 1666789255}
+  addEnergyBtn: {fileID: 0}
 --- !u!1 &800472959
 GameObject:
   m_ObjectHideFlags: 0

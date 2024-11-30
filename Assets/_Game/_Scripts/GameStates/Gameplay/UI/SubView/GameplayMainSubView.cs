@@ -15,12 +15,14 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
         private HealthBar _healthBarComponent;
         private ExperienceBar _experienceBarComponent;
         private Movement _movementComponent;
-        private ShelterEnergyTimer _shelterEnergyTimer;
-        private AmbientTemperatureTimer _ambientTemperatureTimer;
+        private ShelterEnergyTimerView _shelterEnergyTimerView;
+        private AmbientTempTimerView _ambientTempTimerView;
+        private Button _addEnergyBtn;
 
         protected override void InitializeView()
         {
             _menuBtn = ContentContainer.Q<Button>("menu-btn").CheckOnNull();
+            _addEnergyBtn = ContentContainer.Q<Button>("add-energy-btn").CheckOnNull();
         }
 
         protected override void CreateAndInitComponents()
@@ -28,8 +30,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
             if (ViewModel == null) throw new NullReferenceException("ViewModel is null");
 
             _movementComponent = new Movement(ViewModel, ContentContainer, Disposables);
-            _shelterEnergyTimer = new ShelterEnergyTimer(ViewModel, ContentContainer, Disposables);
-            _ambientTemperatureTimer = new AmbientTemperatureTimer(ViewModel, ContentContainer, Disposables);
+            _shelterEnergyTimerView = new ShelterEnergyTimerView(ViewModel, ContentContainer, Disposables);
+            _ambientTempTimerView = new AmbientTempTimerView(ViewModel, ContentContainer, Disposables);
         }
 
         protected override void Localize()
@@ -39,6 +41,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
         protected override void InitializeCallbacks()
         {
             CallbacksCache.TryAdd(_menuBtn, _ => ViewModel.MenuBtnClicked.OnNext(Unit.Default));
+            CallbacksCache.TryAdd(_addEnergyBtn, _ => ViewModel.AddEnergyBtnClicked.OnNext(Unit.Default));
         }
     }
 }

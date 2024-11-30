@@ -16,6 +16,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         public ReactiveProperty<bool> IsModelLoaded { get; } = new(false);
         public TSettings ModelSettings { get; private set; }
         public GameplaySettings GameplaySettings { get; private set; }
+        public GameTimerSettings GameTimerSettings { get; private set; }
 
         private ISettingsManager _settingsManager;
         private ISaveSystem _saveSystem;
@@ -35,6 +36,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
             ModelSettings = _settingsManager.GetConfig<TSettings>();
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
+            GameTimerSettings = _settingsManager.GetConfig<GameTimerSettings>();
 
             var defaultModelData = GetDefaultModelData();
             _saveSystem.LoadDataAsync(SetLoadedModelData, defaultModelData).Forget();
@@ -70,7 +72,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         {
             try
             {
-                 _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
+                _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
                 ModelData?.Dispose();
                 IsModelLoaded?.Dispose();
                 ShowDebug();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using _Game._Scripts.Framework.Data.Constants;
 using Cysharp.Threading.Tasks;
 using MessagePack;
 using MessagePack.Resolvers;
@@ -15,8 +16,6 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         public ReactiveProperty<int> LastSaveTime { get; } = new(0);
 
         private readonly object _lock = new();
-        private readonly string _savePath = Application.dataPath + "/SaveData/";
-        private const string FileExtension = ".dat";
 
         public void Initialize()
         {
@@ -25,7 +24,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback,
             TSavableData defaultData)
         {
-            var filePath = _savePath + typeof(TSavableData).Name + FileExtension;
+            var filePath = JPath.SavePath + typeof(TSavableData).Name + JPath.FileExtension;
 
             if (!File.Exists(filePath))
             {
@@ -51,7 +50,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         public async UniTask SaveToFileAsync<T>(T data)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            var filePath = _savePath + typeof(T).Name + FileExtension;
+            var filePath = JPath.SavePath + typeof(T).Name + JPath.FileExtension;
             var directoryPath = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(directoryPath))

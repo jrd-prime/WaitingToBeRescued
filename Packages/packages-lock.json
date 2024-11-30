@@ -114,7 +114,7 @@
       "dependencies": {
         "com.unity.mobile.android-logcat": "1.4.3",
         "com.unity.adaptiveperformance": "5.1.0",
-        "com.unity.mobile.notifications": "2.3.2"
+        "com.unity.mobile.notifications": "2.4.0"
       }
     },
     "com.unity.ide.rider": {
@@ -172,7 +172,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.notifications": {
-      "version": "2.3.2",
+      "version": "2.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -311,7 +311,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.4",
+      "version": "1.9.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {

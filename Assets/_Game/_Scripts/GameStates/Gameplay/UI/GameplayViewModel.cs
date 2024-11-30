@@ -6,6 +6,7 @@ using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
+using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
@@ -18,6 +19,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
     {
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
+        public Subject<Unit> AddEnergyBtnClicked { get; } = new();
         public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData => Model.ShelterEnergyData;
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData => Model.AmbientTemperature;
         public ReadOnlyReactiveProperty<GameTimerData> GameTimerData  => Model.GameTimeDto;
@@ -39,6 +41,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
             CloseBtnClicked
                 .Subscribe(_ => Model.SetPreviousState())
                 .AddTo(Disposables);
+            
+            AddEnergyBtnClicked.Subscribe(_ => Model.AddEnergy()).AddTo(Disposables);
         }
 
         public void OnDownEvent(PointerDownEvent evt) => Model.OnDownEvent(evt);

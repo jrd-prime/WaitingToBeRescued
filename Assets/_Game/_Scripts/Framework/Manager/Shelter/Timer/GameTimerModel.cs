@@ -1,9 +1,8 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using MessagePack;
-using UnityEngine;
 
-namespace _Game._Scripts.Framework.Manager.Shelter
+namespace _Game._Scripts.Framework.Manager.Shelter.Timer
 {
     public class GameTimerModel : SavableModelBase<GameTimerSettings, GameTimerData>
     {

@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 {
-    public sealed class AmbientTemperatureTimer : SubViewComponentBase<IGameplayViewModel>
+    public sealed class AmbientTempTimerView : SubViewComponentBase<IGameplayViewModel>
     {
         private VisualElement _movementRoot;
         private Label _currentTemp;
@@ -16,7 +16,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         private Label _countDown;
         private Label _day;
 
-        public AmbientTemperatureTimer(IGameplayViewModel viewModel, in VisualElement root,
+        public AmbientTempTimerView(IGameplayViewModel viewModel, in VisualElement root,
             in CompositeDisposable disposables)
             : base(viewModel, root, disposables)
         {
@@ -35,12 +35,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             ViewModel.AmbientTemperatureData.Subscribe(UpdateTemperatureData).AddTo(Disposables);
             ViewModel.GameTimerData.Subscribe(x =>
             {
-                int minutes = Mathf.FloorToInt(x.RemainingTime / 60); // Получаем количество минут
-                int seconds =
-                    Mathf.FloorToInt(x.RemainingTime % 60); // Получаем оставшиеся секунды (целые числа)
+                var minutes = Mathf.FloorToInt(x.RemainingTime / 60);
+                var seconds = Mathf.FloorToInt(x.RemainingTime % 60);
 
-// Форматируем строку без десятичных
-                string timeFormatted = string.Format("{0:D2}:{1:D2}", minutes, seconds);
+                string timeFormatted = $"{minutes:D2}:{seconds:D2}";
 
                 _countDown.text = timeFormatted;
                 _day.text = x.Day.ToString();
@@ -49,7 +47,15 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
         private void UpdateTemperatureData(AmbientTempData ambientTemperatureData)
         {
-            _currentTemp.text = ambientTemperatureData.Current.ToString();
+            var temp = ambientTemperatureData.Current;
+            var curr = temp switch
+            {
+                > 0 => $"+{temp}",
+                < 0 => $"{temp}",
+                _ => $"{temp}"
+            };
+
+            _currentTemp.text = curr;
             _nextDrop.text = ambientTemperatureData.NextChange.ToString();
         }
     }

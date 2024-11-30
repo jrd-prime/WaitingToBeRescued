@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
