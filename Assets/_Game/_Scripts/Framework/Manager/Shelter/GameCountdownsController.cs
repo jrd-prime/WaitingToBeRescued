@@ -10,7 +10,8 @@ namespace _Game._Scripts.Framework.Manager.Shelter
 {
     public class GameCountdownsController : IInitializable, IDisposable
     {
-        private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        private readonly CompositeDisposable _disposables = new();
+
         private int _currentDay;
         private GameTimerModel _timerModel;
         private AmbientTemperatureModel _ambientTemperatureModel;
@@ -31,13 +32,13 @@ namespace _Game._Scripts.Framework.Manager.Shelter
 
         private void OnTimerModelChanged(GameTimerData timerData)
         {
-            if (_currentDay != timerData.Day)
-            {
-                _currentDay = timerData.Day;
-                _ambientTemperatureModel.OnNewDay();
-            }
-
-            _shelterEnergyModel.OnTimeTicked(timerData.RemainingTime);
+            // if (_currentDay != timerData.Day)
+            // {
+            //     _currentDay = timerData.Day;
+            //     _ambientTemperatureModel.OnNewDay();
+            // }
+            //
+            // _shelterEnergyModel.OnTimeTicked(timerData.RemainingTime);
         }
 
         public void Dispose() => _disposables?.Dispose();

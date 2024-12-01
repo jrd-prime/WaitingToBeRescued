@@ -52,7 +52,7 @@ namespace _Game._Scripts.UI.PopUpText
             }
             else popUpText.transform.DOMoveY(1f, duration).SetRelative().SetEase(Ease.OutQuad);
 
-            popUpText.DOFade(0, duration);
+            // popUpText.DOFade(0, duration);
         }
 
         private void SetText(string text) => popUpText.text = text;

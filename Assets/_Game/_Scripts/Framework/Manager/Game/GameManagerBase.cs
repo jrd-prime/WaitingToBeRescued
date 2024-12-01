@@ -25,7 +25,7 @@ namespace _Game._Scripts.Framework.Manager.Game
         private GameTimer _gameTimer;
         private IObjectResolver _resolver;
         private readonly CompositeDisposable _disposables = new();
-        private GameTimerSettings _gameplaySettings;
+        private GameTimerSettings _gameTimerSettings;
         private GameTimerModel _timerModel;
 
         [Inject]
@@ -34,7 +34,7 @@ namespace _Game._Scripts.Framework.Manager.Game
             _resolver = resolver;
             SettingsManager = _resolver.Resolve<ISettingsManager>();
             _timerModel = _resolver.Resolve<GameTimerModel>();
-            _gameplaySettings = SettingsManager.GetConfig<GameTimerSettings>();
+            _gameTimerSettings = SettingsManager.GetConfig<GameTimerSettings>();
         }
 
         public void Initialize()
@@ -64,7 +64,7 @@ namespace _Game._Scripts.Framework.Manager.Game
         {
             var timerOptions = new GameTimerOptions
             {
-                DayCycleTime = _gameplaySettings.gameDayInSeconds,
+                DayCycleTime = _gameTimerSettings.gameDayInSeconds,
                 SaveInterval = 1f,
                 UpdateInterval = .1f,
                 TimerModel = _timerModel,

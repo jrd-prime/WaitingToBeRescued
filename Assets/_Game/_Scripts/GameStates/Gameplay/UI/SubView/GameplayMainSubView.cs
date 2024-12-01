@@ -15,9 +15,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
         private HealthBar _healthBarComponent;
         private ExperienceBar _experienceBarComponent;
         private Movement _movementComponent;
-        private ShelterEnergyTimerView _shelterEnergyTimerView;
+        private EnergyTimerView _energyTimerView;
         private AmbientTempTimerView _ambientTempTimerView;
         private Button _addEnergyBtn;
+        private DayCountdownTimerView _dayCountdownTimerView;
 
         protected override void InitializeView()
         {
@@ -30,8 +31,9 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
             if (ViewModel == null) throw new NullReferenceException("ViewModel is null");
 
             _movementComponent = new Movement(ViewModel, ContentContainer, Disposables);
-            _shelterEnergyTimerView = new ShelterEnergyTimerView(ViewModel, ContentContainer, Disposables);
+            _energyTimerView = new EnergyTimerView(ViewModel, ContentContainer, Disposables);
             _ambientTempTimerView = new AmbientTempTimerView(ViewModel, ContentContainer, Disposables);
+            _dayCountdownTimerView = new DayCountdownTimerView(ViewModel, ContentContainer, Disposables);
         }
 
         protected override void Localize()

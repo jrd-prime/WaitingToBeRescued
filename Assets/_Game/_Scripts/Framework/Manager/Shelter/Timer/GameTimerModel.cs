@@ -8,7 +8,10 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
     {
         protected override GameTimerData GetDefaultModelData()
         {
-            return new GameTimerData(ModelSettings.startDay, ModelSettings.gameDayInSeconds);
+            return new GameTimerData(
+                ModelSettings.startDay,
+                ModelSettings.gameDayInSeconds,
+                GameTimerSettings.gameDayInSeconds);
         }
 
         protected override string GetDebugLine() => $"day {GetDay()} / remaining time {GetRemainingTime()}";
@@ -16,6 +19,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
         public int GetDay() => ModelData.CurrentValue.Day;
 
         public float GetRemainingTime() => ModelData.CurrentValue.RemainingTime;
+        public float GetDayDuration() => ModelData.CurrentValue.DayDuration;
     }
 
     [MessagePackObject]
@@ -23,11 +27,13 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
     {
         [Key(0)] public int Day { get; set; }
         [Key(1)] public float RemainingTime { get; set; }
+        [Key(2)] public float DayDuration { get; set; }
 
-        public GameTimerData(int day, float remainingTime)
+        public GameTimerData(int day, float remainingTime, float dayDuration)
         {
             Day = day;
             RemainingTime = remainingTime;
+            DayDuration = dayDuration;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using Cysharp.Threading.Tasks;
@@ -67,13 +66,14 @@ namespace _Game._Scripts.Framework.Manager.Game
 
                     if (elapsedTime >= _updateInterval)
                     {
-                        UpdateTimerData(_timerModel.GetDay(), _timeRemaining <= 0 ? _dayCycleTime : _timeRemaining);
+                        UpdateTimerData(_timerModel.GetDay(), _timeRemaining <= 0 ? _dayCycleTime : _timeRemaining,
+                            _dayCycleTime);
                         elapsedTime = 0f;
                     }
 
                     if (_timeRemaining <= 0)
                     {
-                        UpdateTimerData(_timerModel.GetDay() + 1, _timerModel.GetRemainingTime());
+                        UpdateTimerData(_timerModel.GetDay() + 1, _timerModel.GetRemainingTime(), _dayCycleTime);
                         _timeRemaining = _dayCycleTime;
                     }
 
@@ -89,8 +89,8 @@ namespace _Game._Scripts.Framework.Manager.Game
             }
         }
 
-        private void UpdateTimerData(int day, float remainingTime) =>
-            _timerModel.SetModelData(new GameTimerData(day, remainingTime));
+        private void UpdateTimerData(int day, float remainingTime, float dayDuration) =>
+            _timerModel.SetModelData(new GameTimerData(day, remainingTime, dayDuration));
 
         private void StartGameTimer() => _isRunning = true;
         private void PauseGameTimer() => _isRunning = false;
