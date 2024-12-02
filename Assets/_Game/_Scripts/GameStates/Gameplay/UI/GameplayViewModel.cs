@@ -4,9 +4,9 @@ using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
-using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
@@ -17,6 +17,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 {
     public class GameplayViewModel : UIViewModelBase<IGameplayModel, EGameplaySubState>, IGameplayViewModel
     {
+        private float _currentEnergyMax;
+        private string _currentRemainingTime;
+        private float _currentDayDuration;
+        private int _currentDay;
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
         public Subject<Unit> AddEnergyBtnClicked { get; } = new();
@@ -45,7 +49,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
                 .Subscribe(_ => Model.AddEnergy())
                 .AddTo(Disposables);
 
-            Model.GameTimeData
+            Model.DayCountdownData
                 .Subscribe(OnGameTimerUpdate)
                 .AddTo(Disposables);
 
@@ -56,31 +60,52 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 
         private void OnShelterEnergyUpdate(ShelterEnergyData shelterEnergyData)
         {
+            var current = shelterEnergyData.Current;
+            var max = shelterEnergyData.Max;
+
+
             Debug.LogWarning("On shelter energy update");
-            if (Math.Abs(EnergyMax.CurrentValue - shelterEnergyData.Max) > JMathConst.Epsilon)
-                EnergyMax.Value = shelterEnergyData.Max;
+            if (Math.Abs(_currentEnergyMax - max) > JMathConst.Epsilon)
+            {
+                _currentEnergyMax = max;
+                EnergyMax.Value = max;
+            }
 
-            EnergyBarWidthPercent.Value = shelterEnergyData.Current / shelterEnergyData.Max;
+            EnergyBarWidthPercent.Value = current / max;
 
-            Debug.LogWarning("energy percent = " + (shelterEnergyData.Current / shelterEnergyData.Max));
-
-
-            Debug.LogWarning(shelterEnergyData.Current / shelterEnergyData.Max);
+            Debug.LogWarning("energy percent = " + (current / max));
         }
 
-        private void OnGameTimerUpdate(GameTimerData gameTimerData)
+        private void OnGameTimerUpdate(DayTimerData gameTimerData)
         {
-            if (Day.CurrentValue != gameTimerData.Day) Day.Value = gameTimerData.Day;
+            var day = gameTimerData.Day;
+            var dayDuration = gameTimerData.DayDuration;
+            var remainingTime = gameTimerData.RemainingTime;
 
-            if (Math.Abs(DayDuration.CurrentValue - gameTimerData.DayDuration) > JMathConst.Epsilon)
-                DayDuration.Value = gameTimerData.DayDuration;
+            if (_currentDay != day)
+            {
+                _currentDay = day;
+                Day.Value = day;
+            }
 
-            DayBarWidthPercent.Value = gameTimerData.RemainingTime / gameTimerData.DayDuration;
+            if (Math.Abs(_currentDayDuration - dayDuration) > JMathConst.Epsilon)
+            {
+                _currentDayDuration = dayDuration;
+                DayDuration.Value = dayDuration;
+            }
+
+            DayBarWidthPercent.Value = remainingTime / dayDuration;
 
 
-            var minutes = Mathf.FloorToInt(gameTimerData.RemainingTime / 60);
-            var seconds = Mathf.FloorToInt(gameTimerData.RemainingTime % 60);
-            RemainingTime.Value = $"{minutes:D2}:{seconds:D2}";
+            var minutes = Mathf.FloorToInt(remainingTime / 60);
+            var seconds = Mathf.FloorToInt(remainingTime % 60);
+
+            var formatted = $"{minutes:D2}:{seconds:D2}";
+            if (_currentRemainingTime != formatted)
+            {
+                _currentRemainingTime = formatted;
+                RemainingTime.Value = formatted;
+            }
         }
 
 

@@ -11,7 +11,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Temperature
         [Key(1)] public float NextChange;
     }
 
-    public class AmbientTemperatureModel : SavableModelBase<TemperatureSettings, AmbientTempData>
+    public class AmbientTemperatureDataModel : SavableDataModelBase<TemperatureSettings, AmbientTempData>
     {
         protected override AmbientTempData GetDefaultModelData()
         {
@@ -35,7 +35,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Temperature
                 NextChange = GetNexChange()
             };
 
-            SetModelData(newData);
+            OnModelDataUpdated(newData);
         }
 
         private float GetNexChange() => ModelData.CurrentValue.NextChange;

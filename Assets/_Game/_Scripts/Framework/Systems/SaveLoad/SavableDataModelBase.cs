@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Manager.Settings;
 using Cysharp.Threading.Tasks;
@@ -9,19 +10,21 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.Systems.SaveLoad
 {
-    public abstract class SavableModelBase<TSettings, TSavableDto> : IInitializable, IDisposable
+    public abstract class SavableDataModelBase<TSettings, TSavableDto> : IInitializable, IDisposable
         where TSettings : SettingsSO
     {
         public ReactiveProperty<TSavableDto> ModelData { get; } = new();
         public ReactiveProperty<bool> IsModelLoaded { get; } = new(false);
-        public TSettings ModelSettings { get; private set; }
-        public GameplaySettings GameplaySettings { get; private set; }
-        public GameTimerSettings GameTimerSettings { get; private set; }
+        protected TSettings ModelSettings { get; private set; }
+        protected GameplaySettings GameplaySettings { get; private set; }
+        protected GameTimerSettings GameTimerSettings { get; private set; }
 
         private ISettingsManager _settingsManager;
         private ISaveSystem _saveSystem;
         private const float SaveDelay = 10f;
         private DateTime _lastSaveTime;
+        private TSavableDto _defaultModelData;
+        protected TSavableDto CurrentModelData;
 
         [Inject]
         private void Construct(ISaveSystem iSaveSystem, ISettingsManager settingsManager)
@@ -32,34 +35,55 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
         public void Initialize()
         {
+            if (_saveSystem == null) throw new NullReferenceException("SaveSystem is null");
+            if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null");
+
             _lastSaveTime = DateTime.UtcNow;
 
             ModelSettings = _settingsManager.GetConfig<TSettings>();
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
             GameTimerSettings = _settingsManager.GetConfig<GameTimerSettings>();
 
-            var defaultModelData = GetDefaultModelData();
-            _saveSystem.LoadDataAsync(SetLoadedModelData, defaultModelData).Forget();
+            _defaultModelData = GetDefaultModelData();
+            _saveSystem.LoadDataAsync(SetLoadedModelData, _defaultModelData).Forget();
         }
 
-        public TSavableDto GetModelData() => ModelData.CurrentValue;
-
-        public void SetModelData(TSavableDto data)
+        protected void OnModelDataUpdated(TSavableDto data)
         {
-            ModelData.Value = data;
-            ModelData.ForceNotify();
+            Type dataType = data.GetType();
 
+            if (dataType.IsClass)
+            {
+                // Debug.LogWarning("data is a class.");
+                CurrentModelData = data;
+                Notify();
+            }
+            else if (dataType.IsValueType)
+            {
+                // Debug.LogWarning("data is a struct.");
+                CurrentModelData = data;
+                ModelData.Value = data;
+            }
+
+            AutoSave();
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void AutoSave()
+        {
             var currentTime = DateTime.UtcNow;
             var timeElapsed = (currentTime - _lastSaveTime).TotalSeconds;
 
             if (!(timeElapsed >= SaveDelay)) return;
             _lastSaveTime = currentTime;
-            _saveSystem.SaveToFileAsync(ModelData.CurrentValue).Forget();
+            _saveSystem.SaveToFileAsync(CurrentModelData).Forget();
         }
+
+        protected void Notify() => ModelData.ForceNotify();
 
         private void SetLoadedModelData(TSavableDto data)
         {
-            SetModelData(data);
+            OnModelDataUpdated(data);
             IsModelLoaded.Value = true;
         }
 
@@ -72,7 +96,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         {
             try
             {
-                _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
+                await _saveSystem.SaveToFileAsync(CurrentModelData);
                 ModelData?.Dispose();
                 IsModelLoaded?.Dispose();
                 ShowDebug();

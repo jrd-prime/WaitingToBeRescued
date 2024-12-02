@@ -3,13 +3,14 @@ using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
-using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Model;
 using R3;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI
@@ -23,38 +24,43 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReactiveProperty<ShelterEnergyData> EnergyData { get; }
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
-        public ReactiveProperty<GameTimerData> GameTimeData { get; }
+        public ReactiveProperty<DayTimerData> DayCountdownData { get; }
         public void AddEnergy();
     }
 
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature => _ambientTempModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature => _ambientTempDataModel.ModelData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
-        public ReactiveProperty<GameTimerData> GameTimeData { get; } = new();
+        public ReactiveProperty<DayTimerData> DayCountdownData { get; } = new();
         public ReactiveProperty<ShelterEnergyData> EnergyData { get; } = new();
-        public void AddEnergy() => _shelterEnergyModel.AddEnergy(30);
+        public void AddEnergy() => _energyDataModel.AddEnergy(30);
 
 
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData => _ambientTempModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData => _ambientTempDataModel.ModelData;
 
         private IMovementControlModel _movementModel;
-        private ShelterEnergyModel _shelterEnergyModel;
-        private AmbientTemperatureModel _ambientTempModel;
-        private GameTimerModel _gameTimerModel;
+        private EnergyDataModel _energyDataModel;
+        private AmbientTemperatureDataModel _ambientTempDataModel;
+        private DayTimerDataModel _dayTimerDataModel;
 
         public override void Initialize()
         {
             _movementModel = ResolverHelp.ResolveAndCheck<IMovementControlModel>(Resolver);
-            _shelterEnergyModel = ResolverHelp.ResolveAndCheck<ShelterEnergyModel>(Resolver);
-            _ambientTempModel = ResolverHelp.ResolveAndCheck<AmbientTemperatureModel>(Resolver);
-            _gameTimerModel = ResolverHelp.ResolveAndCheck<GameTimerModel>(Resolver);
+            _energyDataModel = ResolverHelp.ResolveAndCheck<EnergyDataModel>(Resolver);
+            _ambientTempDataModel = ResolverHelp.ResolveAndCheck<AmbientTemperatureDataModel>(Resolver);
+            _dayTimerDataModel = ResolverHelp.ResolveAndCheck<DayTimerDataModel>(Resolver);
 
-            _gameTimerModel.ModelData
-                .Subscribe(x => GameTimeData.Value = x).AddTo(Disposables);
+            _dayTimerDataModel.ModelData
+                .Subscribe(x =>
+                {
+                    DayCountdownData.Value = x;
+                })
+                .AddTo(Disposables);
 
-            _shelterEnergyModel.ModelData
-                .Subscribe(x => EnergyData.Value = x).AddTo(Disposables);
+            _energyDataModel.ModelData
+                .Subscribe(x => EnergyData.Value = x)
+                .AddTo(Disposables);
         }
 
 

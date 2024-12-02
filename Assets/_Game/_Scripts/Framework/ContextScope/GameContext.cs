@@ -4,9 +4,9 @@ using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
-using _Game._Scripts.Framework.Manager.Shelter.Timer;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
@@ -51,7 +51,7 @@ namespace _Game._Scripts.Framework.ContextScope
             if (uiManager == null) throw new NullReferenceException("UIController is null");
 
 
-            builder.Register<GameTimerModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<DayTimerDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
 
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
@@ -101,10 +101,11 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
 
 
-            builder.Register<ShelterEnergyModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
-            builder.Register<AmbientTemperatureModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<EnergyDataModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
+            builder.Register<AmbientTemperatureDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
-            builder.Register<GameCountdownsController>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<GameCountdownsController>(Lifetime.Singleton)
+                .As<IGameCountdownsController, IInitializable, IDisposable>();
         }
     }
 }

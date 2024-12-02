@@ -1,6 +1,10 @@
 ﻿using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -14,8 +18,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         private VisualElement _dayBar;
 
         private bool _isDayBarWidthSet;
-        private JTweenAnim _dayCountdownBarTween;
         private const float AnimationDuration = 0.5f;
+        private TweenerCore<float, float, FloatOptions> _dayBarTween;
 
         public DayCountdownTimerView(IGameplayViewModel viewModel, in VisualElement root,
             in CompositeDisposable disposables)
@@ -44,17 +48,31 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         {
             if (_isDayBarWidthSet) return;
             Debug.LogWarning("Init day bar width of bar");
+            _dayBar.UnregisterCallback<GeometryChangedEvent>(_ => InitDayCountdownBar(_dayBar.resolvedStyle.width));
             _isDayBarWidthSet = true;
-
-            _dayCountdownBarTween = new JTweenAnim(in _dayBar, width, AnimationDuration);
-
+            _visualElementWidth = width;
+            _currentWidth = width;
             UpdateEnergyBar(1);
         }
+
+        private float _visualElementWidth;
+        private float _animationDuration;
+        private float _currentWidth;
 
         private void UpdateEnergyBar(float percent)
         {
             if (!_isDayBarWidthSet) return;
-            _dayCountdownBarTween.RunTween(percent);
+
+            var targetWidth = _visualElementWidth * percent;
+            if (Mathf.Abs(targetWidth - _currentWidth) < JMathConst.Epsilon) return;
+            _dayBarTween?.Kill();
+            _dayBarTween = DOTween.To(() => _currentWidth, SetBarWidth, targetWidth, AnimationDuration);
+        }
+
+        private void SetBarWidth(float width)
+        {
+            _currentWidth = width;
+            _dayBar.style.width = width;
         }
     }
 }

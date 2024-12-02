@@ -1,7 +1,5 @@
-﻿using System;
-using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Manager.Shelter.Timer;
-using MessagePack;
+﻿using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
 using R3;
 using VContainer.Unity;
 
@@ -12,7 +10,7 @@ namespace _Game._Scripts.Framework.Manager.Game
         public ReactiveProperty<int> PlayerInitialHealth { get; }
         public ReadOnlyReactiveProperty<int> PlayerHealth { get; }
         public ReactiveProperty<bool> IsGameRunning { get; }
-        public ReactiveProperty<GameTimerData> GameTimeData { get; }
+        public ReactiveProperty<DayTimerDataModel> GameTimeData { get; }
 
 
         public void GameOver();

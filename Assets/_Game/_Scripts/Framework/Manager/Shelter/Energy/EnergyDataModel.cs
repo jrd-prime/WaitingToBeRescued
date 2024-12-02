@@ -13,7 +13,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
         [Key(2)] public float ConsumptionPerSecond;
     }
 
-    public class ShelterEnergyModel : SavableModelBase<EnergySettings, ShelterEnergyData>
+    public class EnergyDataModel : SavableDataModelBase<EnergySettings, ShelterEnergyData>
     {
         private float _lastTimeRemaining;
 
@@ -21,7 +21,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
         {
             var newEnergy = Mathf.Clamp(GetCurrent() + amount, 0, GetMax());
 
-            SetModelData(new ShelterEnergyData
+            OnModelDataUpdated(new ShelterEnergyData
             {
                 Current = newEnergy,
                 Max = GetMax(),
@@ -29,27 +29,26 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
             });
         }
 
-
-        public void OnTimeTicked(float timeRemaining)
+        public void OnTimerTick(float timeRemaining)
         {
             var dayBase = GameTimerSettings.gameDayInSeconds;
-
+            
             var current = GetCurrent();
             var max = GetMax();
-
+            
             var consumptionPerSecond = GetMax() * ModelSettings.dailyEnergyExpenditureMultiplier / dayBase;
-
+            
             var timeDelta = _lastTimeRemaining - timeRemaining;
-
+            
             var energyUsed = timeDelta * consumptionPerSecond;
-
+            
             current -= energyUsed;
-
+            
             current = Mathf.Clamp(current, 0, max);
-
+            
             _lastTimeRemaining = timeRemaining;
-
-            SetModelData(new ShelterEnergyData
+            
+            OnModelDataUpdated(new ShelterEnergyData
             {
                 Current = current,
                 Max = max,
@@ -73,10 +72,8 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 
         protected override string GetDebugLine()
         {
-            return
-                $"current energy {ModelData.CurrentValue.Current} / max energy {ModelData.CurrentValue.Max}";
+            return $"current energy {ModelData.CurrentValue.Current} / max energy {ModelData.CurrentValue.Max}";
         }
-
 
         private float GetMax() => ModelData.CurrentValue.Max;
         private float GetCurrent() => ModelData.CurrentValue.Current;

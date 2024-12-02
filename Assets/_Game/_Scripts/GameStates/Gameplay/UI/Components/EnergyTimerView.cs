@@ -1,12 +1,6 @@
-﻿using System;
-using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
+﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
-using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -24,7 +18,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         private float _currentEnergyBarWidth;
         private float _energyInitial;
 
-        private JTweenAnim _energyCountdownBarTween;
+        // private JTweenAnim _energyCountdownBarTween;
 
         public EnergyTimerView(IGameplayViewModel viewModel, in VisualElement root,
             in CompositeDisposable disposables)
@@ -56,7 +50,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             _currentEnergyBarWidth = _fullEnergyWidth;
             Debug.LogWarning($"Init energy bar {width}");
 
-            _energyCountdownBarTween = new JTweenAnim(in _energyBar, width, AnimationDuration);
+            // _energyCountdownBarTween = new JTweenAnim(in _energyBar, width, AnimationDuration);
 
             UpdateEnergyBar(1);
         }
@@ -68,7 +62,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
             if (!_isFullEnergyBarWidthSet) return;
             Debug.LogWarning("energy percent = " + value);
-            _energyCountdownBarTween.RunTween(value);
+            // _energyCountdownBarTween.RunTween(value);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers;
 using System.Diagnostics;
 using System.IO;
 using _Game._Scripts.Framework.Data.Constants;
@@ -47,6 +48,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             }
         }
 
+        //TODO optimize
         public async UniTask SaveToFileAsync<T>(T data)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -57,6 +59,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                 if (directoryPath != null)
                     Directory.CreateDirectory(directoryPath);
 
+
             await using var fileStream =
                 new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 1024 * 4, true);
 
@@ -65,6 +68,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             var dataBytes = MessagePackSerializer.Serialize(data, options);
 
             await fileStream.WriteAsync(dataBytes, 0, dataBytes.Length);
+
             stopwatch.Stop();
             LastSaveTime.Value = (int)stopwatch.ElapsedMilliseconds;
         }
