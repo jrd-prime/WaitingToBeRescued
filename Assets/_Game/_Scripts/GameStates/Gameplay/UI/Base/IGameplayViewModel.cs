@@ -11,13 +11,14 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
         public Subject<Unit> MenuBtnClicked { get; }
         public Subject<Unit> CloseBtnClicked { get; }
         public Subject<Unit> AddEnergyBtnClicked { get; }
-        public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData { get; }
+        public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData { get; }
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
 
 
         public ReactiveProperty<float> DayDuration { get; }
-        public ReactiveProperty<string> RemainingTime { get; }
+        public ReactiveProperty<string> RemainingTimeFormatted { get; }
+        public ReactiveProperty<string> EnergyValueFormatted { get; }
         public ReactiveProperty<int> Day { get; }
         public ReactiveProperty<float> DayBarWidthPercent { get; }
         public ReactiveProperty<float> EnergyBarWidthPercent { get; }

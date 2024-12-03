@@ -36,7 +36,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
         protected override void Init()
         {
-            ViewModel.RemainingTime.Subscribe(x => _countDown.text = x).AddTo(Disposables);
+            ViewModel.RemainingTimeFormatted.Subscribe(x => _countDown.text = x).AddTo(Disposables);
             ViewModel.Day.Subscribe(x => _day.text = x.ToString()).AddTo(Disposables);
             ViewModel.DayBarWidthPercent.Subscribe(UpdateEnergyBar).AddTo(Disposables);
 

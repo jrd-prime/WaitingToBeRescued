@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using UnityEngine;
 
 namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
 {
@@ -19,5 +20,10 @@ namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
         public void AddDay() => Day++;
         public void SetRemainingTime(float remainingTime) => RemainingTime = remainingTime;
         public void SetDayDuration(float dayDuration) => DayDuration = dayDuration;
+
+        public void ShowDebug()
+        {
+            Debug.LogWarning($"day {Day} / remaining time {RemainingTime} / day duration {DayDuration}");
+        }
     }
 }

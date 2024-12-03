@@ -10,6 +10,7 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Framework.Systems.SaveLoad
 {
+    // TODO : refact, optimize & etc
     public abstract class SavableDataModelBase<TSettings, TSavableDto> : IInitializable, IDisposable
         where TSettings : SettingsSO
     {
@@ -24,7 +25,9 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         private const float SaveDelay = 10f;
         private DateTime _lastSaveTime;
         private TSavableDto _defaultModelData;
-        protected TSavableDto CurrentModelData;
+
+        protected TSavableDto CachedModelData;
+        private Type _modelDataType;
 
         [Inject]
         private void Construct(ISaveSystem iSaveSystem, ISettingsManager settingsManager)
@@ -39,31 +42,22 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null");
 
             _lastSaveTime = DateTime.UtcNow;
+            _modelDataType = typeof(TSavableDto);
 
             ModelSettings = _settingsManager.GetConfig<TSettings>();
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
             GameTimerSettings = _settingsManager.GetConfig<GameTimerSettings>();
 
+            InitModel();
             _defaultModelData = GetDefaultModelData();
-            _saveSystem.LoadDataAsync(SetLoadedModelData, _defaultModelData).Forget();
+            _saveSystem.LoadDataAsync(OnModelDataLoaded, _defaultModelData).Forget();
         }
 
-        protected void OnModelDataUpdated(TSavableDto data)
-        {
-            Type dataType = data.GetType();
 
-            if (dataType.IsClass)
-            {
-                // Debug.LogWarning("data is a class.");
-                CurrentModelData = data;
-                Notify();
-            }
-            else if (dataType.IsValueType)
-            {
-                // Debug.LogWarning("data is a struct.");
-                CurrentModelData = data;
-                ModelData.Value = data;
-            }
+        protected void OnModelDataUpdated()
+        {
+            ModelData.Value = CachedModelData;
+            if (_modelDataType.IsClass) Notify(); // notify if it is a class
 
             AutoSave();
         }
@@ -76,27 +70,28 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
 
             if (!(timeElapsed >= SaveDelay)) return;
             _lastSaveTime = currentTime;
-            _saveSystem.SaveToFileAsync(CurrentModelData).Forget();
+            _saveSystem.SaveToFileAsync(CachedModelData).Forget();
         }
 
-        protected void Notify() => ModelData.ForceNotify();
+        private void Notify() => ModelData.ForceNotify();
 
-        private void SetLoadedModelData(TSavableDto data)
+        private void OnModelDataLoaded(TSavableDto data)
         {
-            OnModelDataUpdated(data);
+            CachedModelData = data;
+            OnModelDataUpdated();
             IsModelLoaded.Value = true;
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private void ShowDebug() => Debug.LogWarning($"{typeof(TSavableDto).Name}: {GetDebugLine()}");
 
-        protected abstract TSavableDto GetDefaultModelData();
-        protected abstract string GetDebugLine();
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public async void Dispose()
         {
             try
             {
-                await _saveSystem.SaveToFileAsync(CurrentModelData);
+                await _saveSystem.SaveToFileAsync(ModelData.CurrentValue);
                 ModelData?.Dispose();
                 IsModelLoaded?.Dispose();
                 ShowDebug();
@@ -106,5 +101,9 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
                 Debug.LogWarning("Disposing failed. " + typeof(TSavableDto).Name + " / " + e.Message);
             }
         }
+
+        protected abstract void InitModel();
+        protected abstract TSavableDto GetDefaultModelData();
+        protected abstract string GetDebugLine();
     }
 }

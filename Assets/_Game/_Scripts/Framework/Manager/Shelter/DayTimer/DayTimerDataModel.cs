@@ -6,35 +6,44 @@ namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
 {
     public class DayTimerDataModel : SavableDataModelBase<GameTimerSettings, DayTimerData>
     {
+        private int _startDay;
+        private float _dayDuration;
+
+        protected override void InitModel()
+        {
+            _startDay = GameplaySettings.startDay;
+            _dayDuration = ModelSettings.gameDayInSeconds;
+        }
+
         protected override DayTimerData GetDefaultModelData() =>
-            new(GameplaySettings.startDay, ModelSettings.gameDayInSeconds, GameTimerSettings.gameDayInSeconds);
+            new(_startDay, _dayDuration, _dayDuration);
 
         protected override string GetDebugLine()
         {
             return
-                $"day {CurrentModelData.Day} / remaining time {CurrentModelData.RemainingTime} / day duration {CurrentModelData.DayDuration}";
+                $"day {CachedModelData.Day} / remaining time {CachedModelData.RemainingTime} / day duration {CachedModelData.DayDuration}";
         }
 
         public void SetRemainingTime(float value)
         {
-            if (!(Math.Abs(CurrentModelData.RemainingTime - value) > JMathConst.Epsilon)) return;
+            if (!(Math.Abs(CachedModelData.RemainingTime - value) > JMathConst.Epsilon)) return;
 
-            CurrentModelData.SetRemainingTime(value);
-            OnModelDataUpdated(CurrentModelData);
+            CachedModelData.SetRemainingTime(value);
+            OnModelDataUpdated();
         }
 
         public void AddDay()
         {
-            CurrentModelData.AddDay();
-            OnModelDataUpdated(CurrentModelData);
+            CachedModelData.AddDay();
+            OnModelDataUpdated();
         }
 
         public void SetDayDuration(float value)
         {
-            CurrentModelData.SetDayDuration(value);
-            OnModelDataUpdated(CurrentModelData);
+            CachedModelData.SetDayDuration(value);
+            OnModelDataUpdated();
         }
 
-        public float GetRemainingTime() => CurrentModelData.RemainingTime;
+        public float GetRemainingTime() => CachedModelData.RemainingTime;
     }
 }

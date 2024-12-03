@@ -70,7 +70,11 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
                         elapsedTime = 0f;
                     }
 
-                    if (_timeRemaining <= 0) _timeRemaining = _dayDuration;
+                    if (_timeRemaining <= 0)
+                    {
+                        _countdownsController.AddDay();
+                        _timeRemaining = _dayDuration;
+                    }
                 }
 
                 yield return new WaitForFixedUpdate();

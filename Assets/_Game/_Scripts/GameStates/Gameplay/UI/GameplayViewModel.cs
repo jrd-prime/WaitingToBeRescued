@@ -1,8 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.JrdStateMachine.BaseState;
-using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
 using _Game._Scripts.Framework.Manager.Shelter.Energy;
@@ -17,23 +15,27 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 {
     public class GameplayViewModel : UIViewModelBase<IGameplayModel, EGameplaySubState>, IGameplayViewModel
     {
-        private float _currentEnergyMax;
-        private string _currentRemainingTime;
-        private float _currentDayDuration;
-        private int _currentDay;
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
         public Subject<Unit> AddEnergyBtnClicked { get; } = new();
-        public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData => Model.EnergyData;
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData => Model.AmbientTemperature;
+        public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData => Model.EnergyData;
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData => Model.AmbientTempData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => Model.IsGameRunning;
 
         public ReactiveProperty<int> Day { get; } = new();
         public ReactiveProperty<float> DayDuration { get; } = new();
-        public ReactiveProperty<string> RemainingTime { get; } = new();
+        public ReactiveProperty<string> RemainingTimeFormatted { get; } = new();
+        public ReactiveProperty<string> EnergyValueFormatted { get; } = new();
         public ReactiveProperty<float> DayBarWidthPercent { get; } = new();
         public ReactiveProperty<float> EnergyBarWidthPercent { get; } = new();
         public ReactiveProperty<float> EnergyMax { get; } = new();
+
+        private float _currentEnergyMax;
+        private string _currentRemainingTime;
+        private float _currentDayDuration;
+        private int _currentDay;
+        private float _energyUILastUpdateTime;
+        private float _dayTimerUILastUpdateTime;
 
         public override void Initialize()
         {
@@ -49,35 +51,48 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
                 .Subscribe(_ => Model.AddEnergy())
                 .AddTo(Disposables);
 
-            Model.DayCountdownData
-                .Subscribe(OnGameTimerUpdate)
+            Model.CountdownData
+                .Subscribe(OnGameTimerUpdated)
                 .AddTo(Disposables);
 
             Model.EnergyData
-                .Subscribe(OnShelterEnergyUpdate)
+                .Subscribe(OnEnergyDataUpdated)
                 .AddTo(Disposables);
         }
 
-        private void OnShelterEnergyUpdate(ShelterEnergyData shelterEnergyData)
+        private void OnEnergyDataUpdated(EnergyData energyData)
         {
-            var current = shelterEnergyData.Current;
-            var max = shelterEnergyData.Max;
+            var time = Time.time;
 
+            if (time - _energyUILastUpdateTime <= 1f) return;
 
-            Debug.LogWarning("On shelter energy update");
-            if (Math.Abs(_currentEnergyMax - max) > JMathConst.Epsilon)
+            _energyUILastUpdateTime = time;
+            var current = energyData.Current;
+            var max = energyData.Max;
+
+            SetEnergyValueText(current, max);
+
+            if (current <= 0)
             {
                 _currentEnergyMax = max;
                 EnergyMax.Value = max;
             }
 
             EnergyBarWidthPercent.Value = current / max;
-
-            Debug.LogWarning("energy percent = " + (current / max));
         }
 
-        private void OnGameTimerUpdate(DayTimerData gameTimerData)
+        private void SetEnergyValueText(float current, float max)
         {
+            var formatted = $"{current:F1} / {max}";
+            EnergyValueFormatted.Value = formatted;
+        }
+
+        private void OnGameTimerUpdated(DayTimerData gameTimerData)
+        {
+            var time = Time.time;
+            if (time - _dayTimerUILastUpdateTime <= 1f) return;
+            _dayTimerUILastUpdateTime = time;
+            
             var day = gameTimerData.Day;
             var dayDuration = gameTimerData.DayDuration;
             var remainingTime = gameTimerData.RemainingTime;
@@ -96,16 +111,18 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 
             DayBarWidthPercent.Value = remainingTime / dayDuration;
 
+            SetDayTimeText(remainingTime);
+        }
 
-            var minutes = Mathf.FloorToInt(remainingTime / 60);
-            var seconds = Mathf.FloorToInt(remainingTime % 60);
+        private void SetDayTimeText(float value)
+        {
+            var minutes = Mathf.FloorToInt(value / 60);
+            var seconds = Mathf.FloorToInt(value % 60);
 
             var formatted = $"{minutes:D2}:{seconds:D2}";
-            if (_currentRemainingTime != formatted)
-            {
-                _currentRemainingTime = formatted;
-                RemainingTime.Value = formatted;
-            }
+            if (_currentRemainingTime == formatted) return;
+            _currentRemainingTime = formatted;
+            RemainingTimeFormatted.Value = formatted;
         }
 
 

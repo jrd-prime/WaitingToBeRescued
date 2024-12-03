@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
@@ -49,8 +50,11 @@ namespace _Game._Scripts.Framework.ContextScope
             Debug.Log("<color=cyan>Game context</color>");
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
-
-
+   
+            builder.Register<GameCountdownsController>(Lifetime.Singleton)
+                .As<IGameCountdownsController, IInitializable, IDisposable>();
+            builder.Register<EnergyDataModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
+            builder.Register<AmbientTempDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<DayTimerDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
 
@@ -73,18 +77,17 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(popUpTextManager).AsSelf().AsImplementedInterfaces();
 
 
-            // Main menu
-            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
-            // Gameplay UI
-            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
-                .As<IInitializable, IDisposable>();
             // State models
             builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameoverModel, GameoverModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IPauseModel, PauseModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IWinModel, WinModel>(Lifetime.Singleton).As<IInitializable>();
-
+            
+            // View models 
+            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
+            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
+                .As<IInitializable, IDisposable>();
 
             // State machine
             builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton).As<IStartable>();
@@ -99,13 +102,6 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
-
-
-            builder.Register<EnergyDataModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
-            builder.Register<AmbientTemperatureDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-
-            builder.Register<GameCountdownsController>(Lifetime.Singleton)
-                .As<IGameCountdownsController, IInitializable, IDisposable>();
         }
     }
 }

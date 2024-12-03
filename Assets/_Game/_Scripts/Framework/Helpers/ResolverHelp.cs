@@ -3,12 +3,11 @@ using VContainer;
 
 namespace _Game._Scripts.Framework.Helpers
 {
-    // TODO inject container
     public static class ResolverHelp
     {
-        public static T ResolveAndCheck<T>(IObjectResolver container) where T : class
+        public static T ResolveAndCheck<T>(IObjectResolver resolver) where T : class
         {
-            var obj = container.Resolve<T>();
+            var obj = resolver.Resolve<T>();
             Assert.IsNotNull(obj, $"{typeof(T).Name} is null.");
             return obj;
         }

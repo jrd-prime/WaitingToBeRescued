@@ -6,77 +6,81 @@ using UnityEngine;
 namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 {
     [MessagePackObject]
-    public struct ShelterEnergyData
+    public sealed class EnergyData
     {
-        [Key(0)] public float Max;
-        [Key(1)] public float Current;
-        [Key(2)] public float ConsumptionPerSecond;
+        [Key(0)] public float Max { get; private set; }
+        [Key(1)] public float Current { get; private set; }
+        [Key(2)] public float ConsumptionPerSecond { get; private set; }
+
+        public EnergyData(float max, float current, float consumptionPerSecond)
+        {
+            Max = max;
+            Current = current;
+            ConsumptionPerSecond = consumptionPerSecond;
+        }
+
+        public void SetCurrent(float value) => Current = value;
+        public void SetEnergyLimit(float value) => Max = value;
+        public void SetConsumptionPerSecond(float value) => ConsumptionPerSecond = value;
     }
 
-    public class EnergyDataModel : SavableDataModelBase<EnergySettings, ShelterEnergyData>
+    public class EnergyDataModel : SavableDataModelBase<EnergySettings, EnergyData>
     {
         private float _lastTimeRemaining;
+        private float _max;
+        private float _consumptionPerSecond;
+        private float _multiplier;
+        private float _dayDuration;
+
+        protected override void InitModel()
+        {
+            _max = ModelSettings.energyLimit;
+            _multiplier = ModelSettings.dailyEnergyExpenditureMultiplier;
+            _dayDuration = GameTimerSettings.gameDayInSeconds;
+            _consumptionPerSecond = _max * _multiplier / _dayDuration;
+        }
+
+        protected override EnergyData GetDefaultModelData() => new(_max, _max, _consumptionPerSecond);
 
         public void AddEnergy(float amount)
         {
             var newEnergy = Mathf.Clamp(GetCurrent() + amount, 0, GetMax());
 
-            OnModelDataUpdated(new ShelterEnergyData
-            {
-                Current = newEnergy,
-                Max = GetMax(),
-                ConsumptionPerSecond = GetConsumptionPerSecond()
-            });
+            CachedModelData.SetCurrent(newEnergy);
+            OnModelDataUpdated();
         }
 
         public void OnTimerTick(float timeRemaining)
         {
-            var dayBase = GameTimerSettings.gameDayInSeconds;
-            
-            var current = GetCurrent();
-            var max = GetMax();
-            
-            var consumptionPerSecond = GetMax() * ModelSettings.dailyEnergyExpenditureMultiplier / dayBase;
-            
+            // Debug.LogWarning("Energy timer tick");
+            var current = CachedModelData.Current;
             var timeDelta = _lastTimeRemaining - timeRemaining;
-            
-            var energyUsed = timeDelta * consumptionPerSecond;
-            
+            var energyUsed = timeDelta * _consumptionPerSecond;
             current -= energyUsed;
-            
-            current = Mathf.Clamp(current, 0, max);
-            
+            current = Mathf.Clamp(current, 0, _max);
             _lastTimeRemaining = timeRemaining;
-            
-            OnModelDataUpdated(new ShelterEnergyData
-            {
-                Current = current,
-                Max = max,
-                ConsumptionPerSecond = consumptionPerSecond
-            });
+
+            CachedModelData.SetCurrent(current);
+            OnModelDataUpdated();
         }
 
-        protected override ShelterEnergyData GetDefaultModelData()
+        public void IncreaseEnergyLimitTo(float value)
         {
-            var max = ModelSettings.energyLimit;
-            var consumptionPerSecond = max * ModelSettings.dailyEnergyExpenditureMultiplier /
-                                       GameTimerSettings.gameDayInSeconds;
-
-            return new ShelterEnergyData
-            {
-                Current = max,
-                Max = max,
-                ConsumptionPerSecond = consumptionPerSecond
-            };
+            _max = value;
+            _consumptionPerSecond = _max * _multiplier / _dayDuration;
+            CachedModelData.SetEnergyLimit(_max);
+            CachedModelData.SetConsumptionPerSecond(_consumptionPerSecond);
+            OnModelDataUpdated();
         }
 
         protected override string GetDebugLine()
         {
-            return $"current energy {ModelData.CurrentValue.Current} / max energy {ModelData.CurrentValue.Max}";
+            return
+                $"current energy {CachedModelData.Current} / max energy {CachedModelData.Max} / consumption per second {CachedModelData.ConsumptionPerSecond}";
         }
 
-        private float GetMax() => ModelData.CurrentValue.Max;
-        private float GetCurrent() => ModelData.CurrentValue.Current;
-        private float GetConsumptionPerSecond() => ModelData.CurrentValue.ConsumptionPerSecond;
+        private float GetMax() => CachedModelData.Max;
+        private float GetCurrent() => CachedModelData.Current;
+        private float GetConsumptionPerSecond() => CachedModelData.ConsumptionPerSecond;
     }
 }
