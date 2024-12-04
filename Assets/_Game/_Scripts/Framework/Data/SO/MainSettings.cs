@@ -1,8 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Data.SO

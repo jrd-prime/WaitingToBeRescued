@@ -1,13 +1,13 @@
 ﻿using System;
-using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
+using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Energy;
+using _Game._Scripts.Framework.Shelter.Temperature;
 using R3;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Game._Scripts.Framework.Manager.Shelter
+namespace _Game._Scripts.Framework.Shelter
 {
     public sealed class GameCountdownsController : IGameCountdownsController, IInitializable, IDisposable
     {
@@ -41,28 +41,20 @@ namespace _Game._Scripts.Framework.Manager.Shelter
 
         public float GetDayRemainingTime() => _dayTimerDataModel.GetRemainingTime();
 
-        public void SetDayRemainingTime(float value)
-        {
-            _dayTimerDataModel.SetRemainingTime(value);
-            OnRemainingTimeUpdate(value);
-        }
+        public void SetDayRemainingTime(float value) => _dayTimerDataModel.SetRemainingTime(value);
+
 
         private void OnDayTimerDataChanged(DayTimerData timerData)
         {
-            DayDuration.Value = timerData.DayDuration;
+            if (!Mathf.Approximately(DayDuration.CurrentValue, timerData.DayDuration))
+                DayDuration.Value = timerData.DayDuration;
 
-
-            // if (_currentDay != timerData.Day)
-            // {
-            //     _currentDay = timerData.Day;
-            //     _ambientTemperatureModel.OnNewDay();
-            // }
-
-            // _energyDataModel.OnTimerTick(timerData.RemainingTime);
+            OnRemainingTimeUpdate(timerData.RemainingTime);
         }
 
         private void OnNewDay()
         {
+            _ambientTempDataModel.OnNewDay();
         }
 
         private void OnRemainingTimeUpdate(float remainingTime)
@@ -73,7 +65,6 @@ namespace _Game._Scripts.Framework.Manager.Shelter
         public void AddDay()
         {
             _dayTimerDataModel.AddDay();
-            Debug.LogWarning("add day");
             OnNewDay();
         }
 

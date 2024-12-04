@@ -1,6 +1,6 @@
-﻿using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
+﻿using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Energy;
+using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
 using UnityEngine.UIElements;
@@ -18,6 +18,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
 
         public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; }
         public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; }
+        public ReactiveProperty<PreparedTemperatureData> PreparedTemperatureData { get; }
 
         public void OnDownEvent(PointerDownEvent evt);
         public void OnMoveEvent(PointerMoveEvent evt);

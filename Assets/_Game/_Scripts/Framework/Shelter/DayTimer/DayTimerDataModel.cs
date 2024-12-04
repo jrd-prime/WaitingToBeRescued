@@ -2,7 +2,7 @@
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
+namespace _Game._Scripts.Framework.Shelter.DayTimer
 {
     public class DayTimerDataModel : SavableDataModelBase<GameTimerSettings, DayTimerData>
     {

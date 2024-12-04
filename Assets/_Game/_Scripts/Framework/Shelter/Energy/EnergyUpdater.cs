@@ -1,8 +1,8 @@
 ﻿using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
-using R3;
+using _Game._Scripts.Framework.Shelter.DayTimer;
+using UnityEngine;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.Energy
+namespace _Game._Scripts.Framework.Shelter.Energy
 {
     public class PreparedEnergyData
     {
@@ -13,7 +13,6 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 
     public class EnergyUpdater : UpdaterBase<EnergyData, PreparedEnergyData>
     {
-        private float _currentEnergyMax;
 
         public override PreparedEnergyData Update(EnergyData data)
         {
@@ -24,7 +23,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 
             if (current <= 0)
             {
-                _currentEnergyMax = max;
+                Debug.LogWarning("NO ENERGY");
                 PreparedData.EnergyMax = max;
             }
 

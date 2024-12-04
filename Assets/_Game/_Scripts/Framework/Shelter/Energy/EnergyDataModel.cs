@@ -2,7 +2,7 @@
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.Energy
+namespace _Game._Scripts.Framework.Shelter.Energy
 {
     public class EnergyDataModel : SavableDataModelBase<EnergySettings, EnergyData>
     {
@@ -32,13 +32,17 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 
         public void OnTimerTick(float timeRemaining)
         {
+            Debug.LogWarning("time remaining: " + timeRemaining);
             var current = CachedModelData.Current;
             var timeDelta = _lastTimeRemaining - timeRemaining;
             var energyUsed = timeDelta * _consumptionPerSecond;
+
+            Debug.LogWarning("energy used: " + energyUsed);
             current -= energyUsed;
-            current = Mathf.Clamp(current, 0, _max);
+            // current = Mathf.Clamp(current, 0, _max);
             _lastTimeRemaining = timeRemaining;
 
+            Debug.LogWarning("set current: " + current);
             CachedModelData.SetCurrent(current);
             OnModelDataUpdated();
         }

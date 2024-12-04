@@ -1,9 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.Framework.MovementControl;
+using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Energy;
+using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.UI.Base.Model;
 using R3;
 using UnityEngine.UIElements;

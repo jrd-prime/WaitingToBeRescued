@@ -1,6 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Helpers.Extensions;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.UI.Base.ViewModel;
 using UnityEngine.UIElements;

@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.Timer
+namespace _Game._Scripts.Framework.Shelter.Timer
 {
     public struct GameTimerOptions
     {

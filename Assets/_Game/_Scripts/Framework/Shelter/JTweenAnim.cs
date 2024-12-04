@@ -4,7 +4,7 @@ using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.Framework.Manager.Shelter
+namespace _Game._Scripts.Framework.Shelter
 {
     public class JTweenAnim
     {

@@ -1,9 +1,9 @@
 ﻿using MessagePack;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.Temperature
+namespace _Game._Scripts.Framework.Shelter.Temperature
 {
     [MessagePackObject]
-    public sealed class AmbientTempData
+    public sealed class AmbientTempData : IDataComponent
     {
         [Key(0)] public float Current { get; private set; }
         [Key(1)] public float NextChange { get; private set; }

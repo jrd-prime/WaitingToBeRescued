@@ -1,9 +1,10 @@
 ﻿using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
+using _Game._Scripts.Framework.Helpers.Extensions;
+using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Energy;
+using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
@@ -26,22 +27,23 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData => Model.EnergyData;
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData => Model.AmbientTempData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => Model.IsGameRunning;
-
-
         public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; } = new();
         public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; } = new();
-
+        public ReactiveProperty<PreparedTemperatureData> PreparedTemperatureData { get; } = new();
 
         private DayCountdownUpdater _dayCountdownUpdater;
         private EnergyUpdater _energyUpdater;
+        private TemperatureUpdater _temperatureUpdater;
 
         public override void Initialize()
         {
             _dayCountdownUpdater = new DayCountdownUpdater();
             _energyUpdater = new EnergyUpdater();
+            _temperatureUpdater = new TemperatureUpdater();
 
             Model.CountdownData.Subscribe(UpdateDayTimerData).AddTo(Disposables);
             Model.EnergyData.Subscribe(UpdateEnergyData).AddTo(Disposables);
+            Model.AmbientTempData.Subscribe(UpdateTemperatureData).AddTo(Disposables);
 
             // Buttons
             MenuBtnClicked.Subscribe(_ => Model.SetGameState(new StateData(EGameState.Menu))).AddTo(Disposables);
@@ -52,14 +54,19 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         private void UpdateDayTimerData(DayTimerData data)
         {
             PreparedDayTimerData.Value = _dayCountdownUpdater.Update(data);
-
-            if (data.GetType().IsClass) PreparedDayTimerData.ForceNotify();
+            PreparedDayTimerData.NotifyIfDataIsClass();
         }
 
         private void UpdateEnergyData(EnergyData data)
         {
             PreparedEnergyData.Value = _energyUpdater.Update(data);
-            if (data.GetType().IsClass) PreparedEnergyData.ForceNotify();
+            PreparedEnergyData.NotifyIfDataIsClass();
+        }
+
+        private void UpdateTemperatureData(AmbientTempData data)
+        {
+            PreparedTemperatureData.Value = _temperatureUpdater.Update(data);
+            PreparedTemperatureData.NotifyIfDataIsClass();
         }
 
         #region Move
@@ -71,4 +78,5 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 
         #endregion
     }
+
 }

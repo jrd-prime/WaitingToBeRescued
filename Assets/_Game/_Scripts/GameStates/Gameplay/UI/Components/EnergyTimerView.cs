@@ -1,6 +1,7 @@
 ﻿using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
+using _Game._Scripts.Framework.Helpers.Extensions;
+using _Game._Scripts.Framework.Shelter;
+using _Game._Scripts.Framework.Shelter.Energy;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
 using R3;

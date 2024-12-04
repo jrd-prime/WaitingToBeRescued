@@ -1,6 +1,6 @@
 ﻿using MessagePack;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.Energy
+namespace _Game._Scripts.Framework.Shelter.Energy
 {
     [MessagePackObject]
     public sealed class EnergyData : IDataComponent

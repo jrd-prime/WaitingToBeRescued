@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.Framework.Helpers
+namespace _Game._Scripts.Framework.Helpers.Extensions
 {
     public static class VisualElementExtension
     {

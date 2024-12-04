@@ -1,10 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using R3;
-using UnityEngine;
 
-namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
+namespace _Game._Scripts.Framework.Shelter.DayTimer
 {
     public class PreparedDayTimerData
     {
@@ -16,10 +13,6 @@ namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
 
     public class DayCountdownUpdater : UpdaterBase<DayTimerData, PreparedDayTimerData>
     {
-        private string _currentRemainingTime;
-        private float _currentDayDuration;
-        private int _currentDay;
-
         public override PreparedDayTimerData Update(DayTimerData rawData)
         {
             if (rawData == null) throw new ArgumentNullException(nameof(rawData));
