@@ -98,12 +98,16 @@ namespace _Game._Scripts.Player
 
         public void Dispose()
         {
+            _disposables?.Dispose();
             Position?.Dispose();
             Rotation?.Dispose();
             MoveDirection?.Dispose();
             MoveSpeed?.Dispose();
             RotationSpeed?.Dispose();
             IsMoving?.Dispose();
+            Health?.Dispose();
+            IsShooting?.Dispose();
+            IsGameStarted?.Dispose();
         }
     }
 }

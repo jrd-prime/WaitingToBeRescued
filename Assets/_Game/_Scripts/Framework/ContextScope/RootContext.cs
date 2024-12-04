@@ -4,12 +4,12 @@ using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Input;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.Framework.Manager.Settings;
-using _Game._Scripts.Framework.Manager.Shelter;
 using _Game._Scripts.Framework.Providers.AssetProvider;
 using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Profiling;
 using VContainer;
 using VContainer.Unity;
 
@@ -40,6 +40,29 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
             builder.Register<ISettingsManager, SettingsManager>(Lifetime.Singleton);
             builder.Register<ILocalizationManager, LocalizationManager>(Lifetime.Singleton);
+        }
+
+        private void OnApplicationQuit()
+        {
+            Debug.Log("On Application Quit");
+            Debug.Log("<color=darkblue><b>=======================</b></color>");
+            var rendTex = (RenderTexture[])Resources.FindObjectsOfTypeAll(typeof(RenderTexture));
+
+            Debug.Log($"Render Textures: {rendTex.Length}");
+            var i = 0;
+            foreach (var t in rendTex)
+                if (t.name.StartsWith("Device Simulator"))
+                {
+                    Destroy(t);
+                    i++;
+                }
+
+            Debug.Log($"Render Textures Destroyed: {i}");
+            Debug.Log("<color=darkblue><b>=======================</b></color>");
+            Debug.Log($"Total Allocated: {Profiler.GetTotalAllocatedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log($"Total Reserved: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log($"Total Unused Reserved: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
+            Debug.Log("<color=darkblue><b>=======================</b></color>");
         }
     }
 }

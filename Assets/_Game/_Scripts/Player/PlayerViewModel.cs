@@ -1,11 +1,12 @@
-﻿using _Game._Scripts.Player.Interfaces;
+﻿using System;
+using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
 using VContainer;
 
 namespace _Game._Scripts.Player
 {
-    public class PlayerViewModel : IPlayerViewModel
+    public class PlayerViewModel : IPlayerViewModel, IDisposable
     {
         public ReadOnlyReactiveProperty<Vector3> Position => _model.Position;
         public ReadOnlyReactiveProperty<Quaternion> Rotation => _model.Rotation;
@@ -26,5 +27,11 @@ namespace _Game._Scripts.Player
 
         public void SetModelPosition(Vector3 value) => _model.SetPosition(value);
         public void SetModelRotation(Quaternion value) => _model.SetRotation(value);
+
+        public void Dispose()
+        {
+            CharacterAction?.Dispose();
+            IsInAction?.Dispose();
+        }
     }
 }

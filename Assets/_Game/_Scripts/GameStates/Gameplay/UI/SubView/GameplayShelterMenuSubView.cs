@@ -1,6 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Helpers.Extensions;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.GameStates.Gameplay.UI.Components;
 using _Game._Scripts.UI.Base.View;
@@ -15,7 +16,6 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
 
         private HealthBar _healthBarComponent;
         private ExperienceBar _experienceBarComponent;
-        private Movement _movementComponent;
 
         protected override void InitializeView()
         {

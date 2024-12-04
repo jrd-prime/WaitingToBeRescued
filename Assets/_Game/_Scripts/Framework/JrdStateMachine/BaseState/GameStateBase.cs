@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Game._Scripts.Framework.JrdStateMachine.SubState;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
+using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.Base.Model;
 using R3;
@@ -19,7 +20,7 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         public void ChangeSubState(Enum stateDataSubState);
     }
 
-    public abstract class GameStateBase<TUIModel, TSubStateEnum> : IGameState, IInitializable
+    public abstract class GameStateBase<TUIModel, TSubStateEnum> : IGameState, IInitializable, IDisposable
         where TUIModel : IUIModel<TSubStateEnum> where TSubStateEnum : Enum
     {
         protected IGameManager GameManager { get; private set; }
@@ -32,15 +33,17 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         private TSubStateEnum _subStateType;
         private ISubState _subState;
         private ISubState _currentSubState;
+        private MovementUIController _move;
 
         [Inject]
         private void Construct(IGameManager gameManager, IUIManager uiController, IPlayerModel playerModel,
-            TUIModel dataModel)
+            TUIModel dataModel, MovementUIController moveController)
         {
             GameManager = gameManager;
             UIManager = uiController;
             _playerModel = playerModel;
             _model = dataModel;
+            _move = moveController;
         }
 
         public void Initialize()
@@ -105,6 +108,9 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
             SubStatesCache[subState].Enter();
         }
 
+        protected void ShowMove() => _move.Show();
+        protected void HideMove() => _move.Hide();
+
         /// <summary>
         /// Initialize SubStates and add to cache <see cref="SubStatesCache"/>
         /// </summary>
@@ -113,5 +119,10 @@ namespace _Game._Scripts.Framework.JrdStateMachine.BaseState
         protected abstract void InitCustomSubscribes();
         protected abstract void OnBaseStateEnter();
         protected abstract void OnBaseStateExit();
+
+        public void Dispose()
+        {
+            Disposables?.Dispose();
+        }
     }
 }

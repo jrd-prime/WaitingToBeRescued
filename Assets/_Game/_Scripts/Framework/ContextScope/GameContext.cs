@@ -1,22 +1,22 @@
 ﻿using System;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
-using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
+using _Game._Scripts.Framework.Shelter;
+using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Energy;
+using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.Framework.Systems;
-using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.GameStates.Gameover;
-using _Game._Scripts.GameStates.Gameplay;
 using _Game._Scripts.GameStates.Gameplay.State;
 using _Game._Scripts.GameStates.Gameplay.UI;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
-using _Game._Scripts.GameStates.Menu;
+using _Game._Scripts.GameStates.Gameplay.UI.Components;
 using _Game._Scripts.GameStates.Menu.State;
 using _Game._Scripts.GameStates.Menu.UI;
 using _Game._Scripts.GameStates.Menu.UI.Base;
@@ -42,6 +42,7 @@ namespace _Game._Scripts.Framework.ContextScope
         [RequiredField, SerializeField] private CameraManagerBase cameraManager;
         [RequiredField, SerializeField] private GameManager gameManager;
         [RequiredField, SerializeField] private PopUpTextManager popUpTextManager;
+        [RequiredField, SerializeField] private MovementUIController movementController;
 
         [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
         private UIManagerBase uiManager;
@@ -52,21 +53,25 @@ namespace _Game._Scripts.Framework.ContextScope
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
 
-
-            builder.Register<GameTimerModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<GameCountdownsController>(Lifetime.Singleton)
+                .As<IGameCountdownsController, IInitializable, IDisposable>();
+            builder.Register<EnergyDataModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
+            builder.Register<AmbientTempDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<DayTimerDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
 
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
+            builder.RegisterComponent(movementController).AsSelf();
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
-            builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton);
+            builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton).As<IDisposable>();
 
             builder.Register<FullScreenMovementModel>(Lifetime.Singleton)
-                .As<IMovementControlModel>().As<IInitializable>();
+                .As<IMovementControlModel, IInitializable, IDisposable>();
             builder.Register<FullScreenMovementViewModel>(Lifetime.Singleton)
-                .As<IMovementControlViewModel>();
+                .As<IMovementControlViewModel, IDisposable>();
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton);
 
@@ -75,10 +80,6 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(popUpTextManager).AsSelf().AsImplementedInterfaces();
 
 
-            // Main menu
-            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable>();
-            // Gameplay UI
-            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton).As<IInitializable>();
             // State models
             builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IGameplayModel, GameplayModel>(Lifetime.Singleton).As<IInitializable>();
@@ -86,6 +87,10 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IPauseModel, PauseModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IWinModel, WinModel>(Lifetime.Singleton).As<IInitializable>();
 
+            // View models 
+            builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
+            builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)
+                .As<IInitializable, IDisposable>();
 
             // State machine
             builder.Register<IStateMachine, StateMachine>(Lifetime.Singleton).As<IStartable>();
@@ -100,10 +105,6 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
-
-
-            builder.Register<ShelterEnergyModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
-            builder.Register<AmbientTemperatureModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }

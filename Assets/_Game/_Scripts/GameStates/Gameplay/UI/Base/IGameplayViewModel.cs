@@ -1,7 +1,6 @@
-﻿using _Game._Scripts.Framework.Manager.Game;
-using _Game._Scripts.Framework.Manager.Shelter;
-using _Game._Scripts.Framework.Manager.Shelter.Energy;
-using _Game._Scripts.Framework.Manager.Shelter.Temperature;
+﻿using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Energy;
+using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
 using UnityEngine.UIElements;
@@ -12,10 +11,14 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
     {
         public Subject<Unit> MenuBtnClicked { get; }
         public Subject<Unit> CloseBtnClicked { get; }
-        public ReadOnlyReactiveProperty<ShelterEnergyData> ShelterEnergyData { get; }
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperature { get; }
-        public ReadOnlyReactiveProperty<GameTimerData> GameTimeDto { get; }
+        public Subject<Unit> AddEnergyBtnClicked { get; }
+        public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData { get; }
+        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
+
+        public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; }
+        public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; }
+        public ReactiveProperty<PreparedTemperatureData> PreparedTemperatureData { get; }
 
         public void OnDownEvent(PointerDownEvent evt);
         public void OnMoveEvent(PointerMoveEvent evt);

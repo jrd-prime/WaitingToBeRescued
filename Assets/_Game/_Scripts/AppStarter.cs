@@ -19,7 +19,6 @@ namespace _Game._Scripts
         private ISettingsManager _settingsManager;
         private ILocalizationManager _localizationManager;
 
-
         [Inject]
         private void Construct(IObjectResolver container)
         {

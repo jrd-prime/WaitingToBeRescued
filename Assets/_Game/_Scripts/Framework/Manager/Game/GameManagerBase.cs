@@ -1,7 +1,10 @@
-﻿using _Game._Scripts.Framework.Data.SO;
+﻿using System;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
-using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Shelter;
+using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Shelter.Timer;
 using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
@@ -14,7 +17,7 @@ namespace _Game._Scripts.Framework.Manager.Game
         public ReactiveProperty<int> PlayerInitialHealth { get; } = new();
         public ReadOnlyReactiveProperty<int> PlayerHealth => PlayerModel.Health;
         public ReactiveProperty<bool> IsGameRunning { get; } = new(false);
-        public ReactiveProperty<GameTimerData> GameTimeData { get; } = new();
+        public ReactiveProperty<DayTimerDataModel> GameTimeData { get; } = new();
 
         protected bool IsGamePaused;
         protected IPlayerModel PlayerModel;
@@ -23,16 +26,16 @@ namespace _Game._Scripts.Framework.Manager.Game
         private GameTimer _gameTimer;
         private IObjectResolver _resolver;
         private readonly CompositeDisposable _disposables = new();
-        private GameTimerSettings _gameplaySettings;
-        private GameTimerModel _timerModel;
+        private GameTimerSettings _gameTimerSettings;
+        private IGameCountdownsController _countdownsController;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
             _resolver = resolver;
             SettingsManager = _resolver.Resolve<ISettingsManager>();
-            _timerModel = _resolver.Resolve<GameTimerModel>();
-            _gameplaySettings = SettingsManager.GetConfig<GameTimerSettings>();
+            _countdownsController = _resolver.Resolve<IGameCountdownsController>();
+            _gameTimerSettings = SettingsManager.GetConfig<GameTimerSettings>();
         }
 
         public void Initialize()
@@ -51,7 +54,7 @@ namespace _Game._Scripts.Framework.Manager.Game
                 .Subscribe(_gameTimer.SetGameRunningState)
                 .AddTo(_disposables);
 
-            _timerModel.IsModelLoaded
+            _countdownsController.IsDayTimerDataModelLoaded
                 .DistinctUntilChanged().Where(x => x)
                 .Take(1)
                 .Subscribe(_ => _gameTimer.OnModelDataLoaded())
@@ -62,10 +65,9 @@ namespace _Game._Scripts.Framework.Manager.Game
         {
             var timerOptions = new GameTimerOptions
             {
-                DayCycleTime = _gameplaySettings.gameDayInSeconds,
-                SaveInterval = 1f,
+                DayDuration = _gameTimerSettings.gameDayInSeconds,
                 UpdateInterval = .1f,
-                TimerModel = _timerModel,
+                CountdownsController = _countdownsController,
                 MonoBehaviour = this
             };
             _gameTimer = new GameTimer(timerOptions).AddTo(_disposables);
@@ -80,7 +82,12 @@ namespace _Game._Scripts.Framework.Manager.Game
 
         private void OnDestroy()
         {
-            _disposables.Dispose();
+            _gameTimer?.Dispose();
+            _resolver?.Dispose();
+            _disposables?.Dispose();
+            PlayerInitialHealth?.Dispose();
+            IsGameRunning?.Dispose();
+            GameTimeData?.Dispose();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using _Game._Scripts.Framework.Manager.Shelter;
 using Cysharp.Threading.Tasks;
 using R3;
 using VContainer.Unity;

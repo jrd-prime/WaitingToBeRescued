@@ -2,7 +2,6 @@
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.UI.Base.View;
 using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Menu.UI.SubView

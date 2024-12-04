@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609b7618af3e49fb945ff92c0f0ed37d, type: 3}
   m_Name: def-temperature-settings
   m_EditorClassIdentifier: 
+  startTempInCelsius: 33
+  baseDailyTemperatureDrop: 1

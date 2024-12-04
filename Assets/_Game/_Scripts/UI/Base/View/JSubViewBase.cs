@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using R3;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VContainer.Unity;
 
 namespace _Game._Scripts.UI.Base.View
 {
@@ -78,6 +77,11 @@ namespace _Game._Scripts.UI.Base.View
             if (!IsInitialized) throw new Exception("View is not initialized. " + name);
 
             return Template ?? throw new NullReferenceException("Template is null. " + name);
+        }
+
+        private void OnDestroy()
+        {
+            Disposables?.Dispose();
         }
     }
 }

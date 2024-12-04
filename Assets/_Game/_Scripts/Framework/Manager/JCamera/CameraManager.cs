@@ -66,5 +66,10 @@ namespace _Game._Scripts.Framework.Manager.JCamera
                 .Subscribe(SetCameraPosition)
                 .AddTo(_disposables);
         }
+
+        private void OnDestroy()
+        {
+            _disposables?.Dispose();
+        }
     }
 }

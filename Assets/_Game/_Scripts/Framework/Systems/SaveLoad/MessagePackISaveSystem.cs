@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Buffers;
 using System.Diagnostics;
 using System.IO;
+using _Game._Scripts.Framework.Data.Constants;
 using Cysharp.Threading.Tasks;
 using MessagePack;
 using MessagePack.Resolvers;
@@ -15,8 +17,6 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         public ReactiveProperty<int> LastSaveTime { get; } = new(0);
 
         private readonly object _lock = new();
-        private readonly string _savePath = Application.dataPath + "/SaveData/";
-        private const string FileExtension = ".dat";
 
         public void Initialize()
         {
@@ -25,7 +25,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         public async UniTask LoadDataAsync<TSavableData>(Action<TSavableData> onDataLoadedCallback,
             TSavableData defaultData)
         {
-            var filePath = _savePath + typeof(TSavableData).Name + FileExtension;
+            var filePath = JPath.SavePath + typeof(TSavableData).Name + JPath.FileExtension;
 
             if (!File.Exists(filePath))
             {
@@ -48,24 +48,27 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             }
         }
 
+        //TODO optimize
         public async UniTask SaveToFileAsync<T>(T data)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            var filePath = _savePath + typeof(T).Name + FileExtension;
+            var filePath = JPath.SavePath + typeof(T).Name + JPath.FileExtension;
             var directoryPath = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(directoryPath))
                 if (directoryPath != null)
                     Directory.CreateDirectory(directoryPath);
 
+
             await using var fileStream =
-                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 4, true);
+                new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 1024 * 4, true);
 
             var options = MessagePackSerializerOptions.Standard.WithResolver(StandardResolver.Instance);
 
             var dataBytes = MessagePackSerializer.Serialize(data, options);
 
             await fileStream.WriteAsync(dataBytes, 0, dataBytes.Length);
+
             stopwatch.Stop();
             LastSaveTime.Value = (int)stopwatch.ElapsedMilliseconds;
         }

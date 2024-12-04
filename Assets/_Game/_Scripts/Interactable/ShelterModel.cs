@@ -1,6 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using _Game._Scripts.GameStates.Gameplay.UI;
 using R3;
 using VContainer;

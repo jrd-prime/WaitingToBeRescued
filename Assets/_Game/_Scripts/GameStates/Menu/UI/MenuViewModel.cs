@@ -1,6 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Base.ViewModel;

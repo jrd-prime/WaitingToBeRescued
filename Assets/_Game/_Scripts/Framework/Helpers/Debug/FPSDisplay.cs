@@ -1,5 +1,4 @@
 ﻿using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using R3;
 using TMPro;
@@ -28,6 +27,7 @@ namespace _Game._Scripts.Framework.Helpers.Debug
             _iSaveSystem.LastSaveTime.Subscribe(x => saveTimeText.text = $"{x} ms").AddTo(_disposables);
         }
 
+
         private void Update()
         {
             _deltaTime += (Time.deltaTime - _deltaTime) * 0.1f;
@@ -35,6 +35,9 @@ namespace _Game._Scripts.Framework.Helpers.Debug
             fpsText.text = $"{fps:0.}";
         }
 
-        private void OnDestroy() => _disposables.Dispose();
+        private void OnDestroy()
+        {
+            _disposables.Dispose();
+        }
     }
 }
