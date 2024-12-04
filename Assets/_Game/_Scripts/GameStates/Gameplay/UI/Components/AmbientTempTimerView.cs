@@ -33,7 +33,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
         protected override void Init()
         {
-            ViewModel.AmbientTemperatureData.Subscribe(UpdateTemperatureData).AddTo(Disposables);
+            // ViewModel.AmbientTemperatureData.Subscribe(UpdateTemperatureData).AddTo(Disposables);
        
         }
 

@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.Manager.Shelter.Energy;
+﻿using _Game._Scripts.Framework.Manager.Shelter.DayTimer;
+using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.Framework.Manager.Shelter.Temperature;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
@@ -15,14 +16,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
 
-
-        public ReactiveProperty<float> DayDuration { get; }
-        public ReactiveProperty<string> RemainingTimeFormatted { get; }
-        public ReactiveProperty<string> EnergyValueFormatted { get; }
-        public ReactiveProperty<int> Day { get; }
-        public ReactiveProperty<float> DayBarWidthPercent { get; }
-        public ReactiveProperty<float> EnergyBarWidthPercent { get; }
-        public ReactiveProperty<float> EnergyMax { get; }
+        public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; }
+        public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; }
 
         public void OnDownEvent(PointerDownEvent evt);
         public void OnMoveEvent(PointerMoveEvent evt);

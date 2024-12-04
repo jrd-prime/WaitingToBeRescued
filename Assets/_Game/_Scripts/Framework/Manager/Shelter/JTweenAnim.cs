@@ -14,7 +14,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter
         private float _currentWidth;
         private TweenerCore<float, float, FloatOptions> _tween;
 
-        public JTweenAnim(in VisualElement visualElement, float visualElementWidth, float animationDuration)
+        public JTweenAnim(VisualElement visualElement, float visualElementWidth, float animationDuration)
         {
             UnityEngine.Debug.LogWarning("JTweenAnim");
             _visualElement = visualElement;
@@ -27,8 +27,9 @@ namespace _Game._Scripts.Framework.Manager.Shelter
         {
             var targetWidth = _visualElementWidth * widthPercent;
             if (Mathf.Abs(targetWidth - _currentWidth) < JMathConst.Epsilon) return;
-            _tween.Kill();
+            _tween?.Kill();
             _tween = DOTween.To(() => _currentWidth, SetBarWidth, targetWidth, _animationDuration);
+     
         }
 
         private void SetBarWidth(float width)

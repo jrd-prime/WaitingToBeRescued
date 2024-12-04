@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
             _dayDuration = options.DayDuration;
             _updateInterval = options.UpdateInterval;
             _countdownsController = options.CountdownsController;
-            options.MonoBehaviour.StartCoroutine(GameTimerCoroutine());
+            // options.MonoBehaviour.StartCoroutine(GameTimerCoroutine());
             Debug.Log("Game timer started. Day cycle time: " + _dayDuration);
 
             _countdownsController.DayDuration.Subscribe(x =>
@@ -40,6 +41,8 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
                 Debug.LogWarning("Day duration changed: " + x);
                 _dayDuration = x;
             }).AddTo(_disposables);
+
+            tt();
         }
 
         public void SetGameRunningState(bool running)
@@ -50,7 +53,39 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
             else PauseGameTimer();
         }
 
-        public void OnModelDataLoaded() => _timeRemaining = _countdownsController.GetDayRemainingTime();
+        public void OnModelDataLoaded()
+        {
+            Debug.LogWarning("timer time remaining: " + _timeRemaining);
+            _timeRemaining = _countdownsController.GetDayRemainingTime();
+        }
+
+        private async void tt()
+        {
+            var elapsedTime = 0f;
+            while (!_cancel)
+            {
+                if (_isRunning)
+                {
+                    var deltaTime = Time.deltaTime;
+                    _timeRemaining -= deltaTime;
+                    elapsedTime += deltaTime;
+
+                    if (elapsedTime >= _updateInterval)
+                    {
+                        _countdownsController.SetDayRemainingTime(_timeRemaining <= 0 ? _dayDuration : _timeRemaining);
+                        elapsedTime = 0f;
+                    }
+
+                    if (_timeRemaining <= 0)
+                    {
+                        _countdownsController.AddDay();
+                        _timeRemaining = _dayDuration;
+                    }
+                }
+
+                await UniTask.WaitForFixedUpdate();
+            }
+        }
 
         private IEnumerator GameTimerCoroutine()
         {
@@ -77,7 +112,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Timer
                     }
                 }
 
-                yield return new WaitForFixedUpdate();
+                yield return null;
             }
         }
 

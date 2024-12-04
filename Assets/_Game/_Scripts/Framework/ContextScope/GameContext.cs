@@ -16,6 +16,7 @@ using _Game._Scripts.GameStates.Gameover;
 using _Game._Scripts.GameStates.Gameplay.State;
 using _Game._Scripts.GameStates.Gameplay.UI;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
+using _Game._Scripts.GameStates.Gameplay.UI.Components;
 using _Game._Scripts.GameStates.Menu.State;
 using _Game._Scripts.GameStates.Menu.UI;
 using _Game._Scripts.GameStates.Menu.UI.Base;
@@ -41,6 +42,7 @@ namespace _Game._Scripts.Framework.ContextScope
         [RequiredField, SerializeField] private CameraManagerBase cameraManager;
         [RequiredField, SerializeField] private GameManager gameManager;
         [RequiredField, SerializeField] private PopUpTextManager popUpTextManager;
+        [RequiredField, SerializeField] private MovementUIController movementController;
 
         [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
         private UIManagerBase uiManager;
@@ -50,7 +52,7 @@ namespace _Game._Scripts.Framework.ContextScope
             Debug.Log("<color=cyan>Game context</color>");
 
             if (uiManager == null) throw new NullReferenceException("UIController is null");
-   
+
             builder.Register<GameCountdownsController>(Lifetime.Singleton)
                 .As<IGameCountdownsController, IInitializable, IDisposable>();
             builder.Register<EnergyDataModel>(Lifetime.Singleton).AsSelf().As<IInitializable>();
@@ -60,6 +62,7 @@ namespace _Game._Scripts.Framework.ContextScope
 
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
+            builder.RegisterComponent(movementController).AsSelf();
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
@@ -83,7 +86,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<IGameoverModel, GameoverModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IPauseModel, PauseModel>(Lifetime.Singleton).As<IInitializable>();
             builder.Register<IWinModel, WinModel>(Lifetime.Singleton).As<IInitializable>();
-            
+
             // View models 
             builder.Register<IMenuViewModel, MenuViewModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
             builder.Register<IGameplayViewModel, GameplayViewModel>(Lifetime.Singleton)

@@ -1,6 +1,7 @@
 ﻿using _Game._Scripts.UI.Base.ViewModel;
 using R3;
 using UnityEngine.UIElements;
+using VContainer.Unity;
 
 namespace _Game._Scripts.UI.Base.Component
 {

@@ -1,5 +1,6 @@
 ﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Shelter;
+using _Game._Scripts.Framework.Manager.Shelter.Energy;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
 using R3;
@@ -39,16 +40,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
 
         protected override void Init()
         {
-            ViewModel.EnergyMax.Subscribe(x =>
-            {
-                // Debug.LogWarning("Set energy max to " + x);
-                _energyInitial = x;
-            }).AddTo(Disposables);
-            // ViewModel.RemainingTime.Subscribe(x => _countDown.text = x).AddTo(Disposables);
-            // ViewModel.Day.Subscribe(x => _day.text = x.ToString()).AddTo(Disposables);
-
-            ViewModel.EnergyBarWidthPercent.Subscribe(UpdateEnergyBar).AddTo(Disposables);
-            ViewModel.EnergyValueFormatted.Subscribe(UpdateEnergyText).AddTo(Disposables);
+            ViewModel.PreparedEnergyData.Subscribe(UpdateEnergyBar).AddTo(Disposables);
         }
 
         private void InitEnergyBar(float width)
@@ -57,21 +49,16 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             _isFullEnergyBarWidthSet = true;
             _fullEnergyWidth = width;
             _currentEnergyBarWidth = _fullEnergyWidth;
-            _energyCountdownBarTween = new JTweenAnim(in _energyBar, width, AnimationDuration);
+            _energyCountdownBarTween = new JTweenAnim(_energyBar, width, AnimationDuration);
 
-            UpdateEnergyBar(1);
             _energyBar.UnregisterCallback(_energyBarCallback);
         }
 
-        private void UpdateEnergyText(string value)
+        private void UpdateEnergyBar(PreparedEnergyData data)
         {
-            _energyLabel.text = value;
-        }
-
-        private void UpdateEnergyBar(float value)
-        {
+            _energyLabel.text = data.EnergyValueFormatted;
             if (!_isFullEnergyBarWidthSet) return;
-            _energyCountdownBarTween.RunTween(value);
+            _energyCountdownBarTween.RunTween(data.EnergyBarWidthPercent);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace _Game._Scripts.Framework.Manager.UI.Viewer
         {
             var view = subViewDto.Template;
             if (view == null) throw new NullReferenceException("View is null.");
+            view.pickingMode = PickingMode.Ignore;
 
             if (subViewDto.InSafeZone) ToSafe();
 

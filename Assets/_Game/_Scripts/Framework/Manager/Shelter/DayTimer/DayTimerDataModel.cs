@@ -15,13 +15,10 @@ namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
             _dayDuration = ModelSettings.gameDayInSeconds;
         }
 
-        protected override DayTimerData GetDefaultModelData() =>
-            new(_startDay, _dayDuration, _dayDuration);
-
         protected override string GetDebugLine()
         {
             return
-                $"day {CachedModelData.Day} / remaining time {CachedModelData.RemainingTime} / day duration {CachedModelData.DayDuration}";
+                $"day: {CachedModelData.Day} / remaining: {CachedModelData.RemainingTime} / day duration {CachedModelData.DayDuration}";
         }
 
         public void SetRemainingTime(float value)
@@ -45,5 +42,6 @@ namespace _Game._Scripts.Framework.Manager.Shelter.DayTimer
         }
 
         public float GetRemainingTime() => CachedModelData.RemainingTime;
+        protected override DayTimerData GetDefaultModelData() => new(_startDay, _dayDuration, _dayDuration);
     }
 }

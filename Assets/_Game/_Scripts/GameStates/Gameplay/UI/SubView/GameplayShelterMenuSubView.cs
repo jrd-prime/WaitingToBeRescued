@@ -15,7 +15,6 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.SubView
 
         private HealthBar _healthBarComponent;
         private ExperienceBar _experienceBarComponent;
-        private Movement _movementComponent;
 
         protected override void InitializeView()
         {

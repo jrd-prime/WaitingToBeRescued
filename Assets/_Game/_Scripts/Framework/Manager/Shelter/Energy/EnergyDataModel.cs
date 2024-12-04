@@ -1,29 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Systems.SaveLoad;
-using MessagePack;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 {
-    [MessagePackObject]
-    public sealed class EnergyData
-    {
-        [Key(0)] public float Max { get; private set; }
-        [Key(1)] public float Current { get; private set; }
-        [Key(2)] public float ConsumptionPerSecond { get; private set; }
-
-        public EnergyData(float max, float current, float consumptionPerSecond)
-        {
-            Max = max;
-            Current = current;
-            ConsumptionPerSecond = consumptionPerSecond;
-        }
-
-        public void SetCurrent(float value) => Current = value;
-        public void SetEnergyLimit(float value) => Max = value;
-        public void SetConsumptionPerSecond(float value) => ConsumptionPerSecond = value;
-    }
-
     public class EnergyDataModel : SavableDataModelBase<EnergySettings, EnergyData>
     {
         private float _lastTimeRemaining;
@@ -52,7 +32,6 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
 
         public void OnTimerTick(float timeRemaining)
         {
-            // Debug.LogWarning("Energy timer tick");
             var current = CachedModelData.Current;
             var timeDelta = _lastTimeRemaining - timeRemaining;
             var energyUsed = timeDelta * _consumptionPerSecond;
@@ -76,7 +55,7 @@ namespace _Game._Scripts.Framework.Manager.Shelter.Energy
         protected override string GetDebugLine()
         {
             return
-                $"current energy {CachedModelData.Current} / max energy {CachedModelData.Max} / consumption per second {CachedModelData.ConsumptionPerSecond}";
+                $"current: {CachedModelData.Current} / max: {CachedModelData.Max} / -{CachedModelData.ConsumptionPerSecond}/sec";
         }
 
         private float GetMax() => CachedModelData.Max;

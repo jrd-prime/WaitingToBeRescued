@@ -21,11 +21,13 @@ namespace _Game._Scripts.GameStates.Gameplay.State
 
         protected override void OnBaseStateEnter()
         {
+            ShowMove();
             GameManager.StartNewGame();
         }
 
         protected override void OnBaseStateExit()
         {
+            HideMove();
             GameManager.Pause();
         }
     }

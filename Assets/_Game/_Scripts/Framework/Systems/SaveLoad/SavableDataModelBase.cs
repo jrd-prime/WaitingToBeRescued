@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Manager.Settings;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -57,7 +58,9 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         protected void OnModelDataUpdated()
         {
             ModelData.Value = CachedModelData;
-            if (_modelDataType.IsClass) Notify(); // notify if it is a class
+
+            if (_modelDataType.IsClass) Notify();
+            // notify if it is a class
 
             AutoSave();
         }
