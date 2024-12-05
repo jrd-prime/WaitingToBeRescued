@@ -5,6 +5,7 @@ using _Game._Scripts.Framework.Shelter.Energy;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
 using R3;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.Components
@@ -17,7 +18,6 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         private bool _isFullEnergyBarWidthSet;
         private float _fullEnergyWidth;
         private float _pxPerPointEnergy;
-        private float _currentEnergyBarWidth;
         private float _energyInitial;
 
         private EventCallback<GeometryChangedEvent> _energyBarCallback;
@@ -49,15 +49,16 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             if (_isFullEnergyBarWidthSet) return;
             _isFullEnergyBarWidthSet = true;
             _fullEnergyWidth = width;
-            _currentEnergyBarWidth = _fullEnergyWidth;
             _energyCountdownBarTween = new JTweenAnim(_energyBar, width, AnimationDuration);
 
             _energyBar.UnregisterCallback(_energyBarCallback);
+            UpdateEnergyBar(ViewModel.PreparedEnergyData.CurrentValue);
         }
 
         private void UpdateEnergyBar(PreparedEnergyData data)
         {
             _energyLabel.text = data.EnergyValueFormatted;
+
             if (!_isFullEnergyBarWidthSet) return;
             _energyCountdownBarTween.RunTween(data.EnergyBarWidthPercent);
         }

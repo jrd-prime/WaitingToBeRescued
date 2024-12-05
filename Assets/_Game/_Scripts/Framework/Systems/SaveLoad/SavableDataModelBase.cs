@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Helpers.Extensions;
 using _Game._Scripts.Framework.Manager.Settings;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -59,7 +60,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         {
             ModelData.Value = CachedModelData;
 
-            if (_modelDataType.IsClass) Notify();
+            ModelData.NotifyIfDataIsClass();
             // notify if it is a class
 
             AutoSave();
@@ -81,6 +82,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
         private void OnModelDataLoaded(TSavableDto data)
         {
             CachedModelData = data;
+            Debug.LogWarning($"Loaded {GetDebugLine()}");
             OnModelDataUpdated();
             IsModelLoaded.Value = true;
         }
