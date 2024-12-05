@@ -63,6 +63,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             _visualElementWidth = width;
 
             _dayCountdownBarTween = new JTweenAnim(_dayBar, width, AnimationDuration);
+            
+            UpdateDayBar(ViewModel.PreparedDayTimerData.CurrentValue);
         }
 
         private void UpdateDayBar(PreparedDayTimerData data)

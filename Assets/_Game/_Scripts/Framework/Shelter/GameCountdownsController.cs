@@ -55,6 +55,7 @@ namespace _Game._Scripts.Framework.Shelter
         private void OnNewDay()
         {
             _ambientTempDataModel.OnNewDay();
+            _energyDataModel.OnNewDay();
         }
 
         private void OnRemainingTimeUpdate(float remainingTime)

@@ -30,7 +30,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReadOnlyReactiveProperty<DayTimerData> CountdownData => _dayTimerDataModel.ModelData;
         public ReadOnlyReactiveProperty<EnergyData> EnergyData => _energyDataModel.ModelData;
 
-        public void AddEnergy() => _energyDataModel.AddEnergy(30);
+        public void AddEnergy() => _energyDataModel.IncreaseEnergy(30);
 
 
         private IMovementControlModel _movementModel;

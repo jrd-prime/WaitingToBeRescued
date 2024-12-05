@@ -1,7 +1,6 @@
 ﻿using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Temperature;
 
-namespace _Game._Scripts.GameStates.Gameplay.UI
+namespace _Game._Scripts.Framework.Shelter.Temperature
 {
     public class PreparedTemperatureData
     {

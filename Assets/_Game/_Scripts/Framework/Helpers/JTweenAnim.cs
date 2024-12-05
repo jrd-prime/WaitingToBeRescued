@@ -21,6 +21,7 @@ namespace _Game._Scripts.Framework.Shelter
             _visualElementWidth = visualElementWidth;
             _currentWidth = _visualElementWidth;
             _animationDuration = animationDuration;
+            _animationDuration = .8f; //TODO remove
         }
 
         public void RunTween(float widthPercent)
