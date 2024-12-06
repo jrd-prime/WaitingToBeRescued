@@ -9,7 +9,6 @@ namespace _Game._Scripts.Framework.Data.SO
         order = 100)]
     public class EnergySettings : SettingsSO
     {
-        public override string Description => "Energy settings";
 
         [Header("Defaults")] [Range(100, 1000)]
         public float energyLimit = 100;

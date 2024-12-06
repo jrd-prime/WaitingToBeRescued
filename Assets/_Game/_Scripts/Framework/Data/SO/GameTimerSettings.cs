@@ -9,7 +9,6 @@ namespace _Game._Scripts.Framework.Data.SO
         order = 100)]
     public class GameTimerSettings : SettingsSO
     {
-        public override string Description => "Game Timer Settings";
         public int startDay = 0;
         public float gameDayInSeconds = 60;
     }

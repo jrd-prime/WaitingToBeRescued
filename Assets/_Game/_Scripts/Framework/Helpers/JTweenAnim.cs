@@ -1,10 +1,11 @@
-﻿using DG.Tweening;
+﻿using _Game._Scripts.Framework.Data.Constants;
+using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace _Game._Scripts.Framework.Shelter
+namespace _Game._Scripts.Framework.Helpers
 {
     public class JTweenAnim
     {

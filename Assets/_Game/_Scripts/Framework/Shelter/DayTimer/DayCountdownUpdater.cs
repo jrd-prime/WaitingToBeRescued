@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Helpers;
 
 namespace _Game._Scripts.Framework.Shelter.DayTimer

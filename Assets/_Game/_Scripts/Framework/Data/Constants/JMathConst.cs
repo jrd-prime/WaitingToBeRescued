@@ -1,4 +1,4 @@
-﻿namespace _Game._Scripts.Framework.Shelter
+﻿namespace _Game._Scripts.Framework.Data.Constants
 {
     public static class JMathConst
     {

@@ -9,7 +9,6 @@ namespace _Game._Scripts.Framework.Data.SO
         order = 100)]
     public class MovementControlSettings : SettingsSO
     {
-        public override string Description => "movement-control-settings";
         public float offsetForFullSpeed = 100;
     }
 }

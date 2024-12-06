@@ -3,12 +3,14 @@ using _Game._Scripts.Framework.Data.Constants;
 using UnityEditor;
 using UnityEngine;
 
-namespace Edtr
+namespace _Game._Scripts.Framework.Helpers.Editor
 {
     public class DeleteSavesMenu
     {
+#if UNITY_EDITOR
         [MenuItem("Game Tools/Delete saves")]
-        private static void DeleteSaves()
+#endif
+        public static void DeleteSaves()
         {
             var directory = JPath.SavePath;
             if (Directory.Exists(directory))
@@ -16,12 +18,13 @@ namespace Edtr
                 var files = Directory.GetFiles(directory);
                 foreach (var file in files) File.Delete(file);
 
-                Debug.LogWarning("All saves deleted.");
+                UnityEngine.Debug.LogWarning("All saves deleted.");
             }
-            else Debug.LogWarning($"Directory {directory} not exists.");
+            else UnityEngine.Debug.LogWarning($"Directory {directory} not exists.");
         }
-
+#if UNITY_EDITOR
         [MenuItem("Game Tools/Reset Settings", true)]
         private static bool ValidateDeleteSaves() => Application.isPlaying == false;
+#endif
     }
 }

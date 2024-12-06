@@ -13,8 +13,6 @@ namespace _Game._Scripts.Framework.Data.SO
         order = 100)]
     public class MainSettings : SettingsSO
     {
-        public override string Description => "Main Settings";
-
         [Header("Character")] [RequiredField] public CharacterSettings characterSettings;
         [RequiredField] public MovementControlSettings movementControlSettings;
 

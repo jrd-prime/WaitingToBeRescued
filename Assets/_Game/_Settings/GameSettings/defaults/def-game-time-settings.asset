@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: def-game-time-settings
   m_EditorClassIdentifier: 
   startDay: 0
-  gameDayInSeconds: 10
+  gameDayInSeconds: 60

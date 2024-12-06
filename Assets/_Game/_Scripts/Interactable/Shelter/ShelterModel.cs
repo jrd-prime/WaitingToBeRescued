@@ -1,11 +1,12 @@
 ﻿using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.GameStates.Gameplay.UI;
+using _Game._Scripts.Interactable._Base;
 using R3;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Game._Scripts.Interactable
+namespace _Game._Scripts.Interactable.Shelter
 {
     public class ShelterModel : IInteractableModel, IInitializable
     {

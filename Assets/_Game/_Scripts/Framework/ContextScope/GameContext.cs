@@ -23,6 +23,8 @@ using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
 using _Game._Scripts.Interactable;
+using _Game._Scripts.Interactable._Base;
+using _Game._Scripts.Interactable.Shelter;
 using _Game._Scripts.Player;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.UI.Base.Model;

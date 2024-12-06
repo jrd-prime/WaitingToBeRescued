@@ -9,7 +9,6 @@ namespace _Game._Scripts.Framework.Data.SO
         order = 100)]
     public class GameplaySettings : SettingsSO
     {
-        public override string Description => "Gameplay Settings";
 
         public float baseDailyTemperatureDrop = 1f;
         public int startDay = 0;

@@ -2,7 +2,7 @@
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.Interactable
+namespace _Game._Scripts.Interactable._Base
 {
     public abstract class TriggerZoneBase<TInteractableModel> : MonoBehaviour
         where TInteractableModel : IInteractableModel

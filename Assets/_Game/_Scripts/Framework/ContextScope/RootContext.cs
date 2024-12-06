@@ -1,11 +1,11 @@
 using System;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Helpers.Editor;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Input;
 using _Game._Scripts.Framework.Manager.Localization;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Providers.AssetProvider;
-using _Game._Scripts.Framework.Systems;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -63,6 +63,7 @@ namespace _Game._Scripts.Framework.ContextScope
             Debug.Log($"Total Reserved: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB");
             Debug.Log($"Total Unused Reserved: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
             Debug.Log("<color=darkblue><b>=======================</b></color>");
+            DeleteSavesMenu.DeleteSaves();
         }
     }
 }
