@@ -7,7 +7,7 @@ namespace _Game._Scripts.Framework.Data.SO.Interactable
         fileName = "worldObjectSettings",
         menuName = SOPathConst.WorldObject + "world-object-settings",
         order = 100)]
-    public class ResourceWorldObjectSettings : WorldObjectSettings<ResourceSettings>
+    public class ResourceWorldItemSettings : WorldItemSettings<GameItemSettings>
     {
     }
 }

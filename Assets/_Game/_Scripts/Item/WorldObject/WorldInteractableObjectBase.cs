@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Game._Scripts.Interactable.WorldObject
 {
-    public abstract class WorldInteractableObjectBase<TSettings> : MonoBehaviour where TSettings : WorldObjectSettingsBase
+    public abstract class WorldInteractableObjectBase<TSettings> : MonoBehaviour where TSettings : WorldItemSettingsBase
     {
         
     }

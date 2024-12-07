@@ -1,6 +1,6 @@
 ﻿namespace _Game._Scripts.Framework.Data.SO.Interactable
 {
-    public abstract class WorldObjectSettingsBase : SettingsSO
+    public abstract class WorldItemSettingsBase : SettingsSO
     {
         public EWorldObjectType worldObjectType = default;
     }

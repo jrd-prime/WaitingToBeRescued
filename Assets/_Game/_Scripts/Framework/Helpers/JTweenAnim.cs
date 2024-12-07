@@ -17,12 +17,10 @@ namespace _Game._Scripts.Framework.Helpers
 
         public JTweenAnim(VisualElement visualElement, float visualElementWidth, float animationDuration)
         {
-            UnityEngine.Debug.LogWarning("JTweenAnim");
             _visualElement = visualElement;
             _visualElementWidth = visualElementWidth;
             _currentWidth = _visualElementWidth;
             _animationDuration = animationDuration;
-            _animationDuration = .8f; //TODO remove
         }
 
         public void RunTween(float widthPercent)
