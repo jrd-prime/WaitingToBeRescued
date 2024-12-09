@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
+using _Game._Scripts.Framework.Data.SO.View;
 using UnityEngine;
 
 namespace _Game._Scripts.UI.Base.View

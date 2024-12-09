@@ -1,8 +1,9 @@
 ﻿using System;
+using _Game._Scripts.Framework.Helpers.Extensions;
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.Interactable._Base
+namespace _Game._Scripts.Item._Base
 {
     public abstract class TriggerZoneBase<TInteractableModel> : MonoBehaviour
         where TInteractableModel : IInteractableModel
@@ -24,7 +25,7 @@ namespace _Game._Scripts.Interactable._Base
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsRightLayer(other)) return;
+            if (!other.IsRightLayer(layerForTrigger)) return;
 
             Debug.LogWarning($"Entered trigger zone. {name}");
             _model.InteractOnEnter();
@@ -32,18 +33,16 @@ namespace _Game._Scripts.Interactable._Base
 
         private void OnTriggerStay(Collider other)
         {
-            if (!IsRightLayer(other)) return;
+            if (!other.IsRightLayer(layerForTrigger)) return;
             _model.InteractOnStay();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!IsRightLayer(other)) return;
-            
+            if (!other.IsRightLayer(layerForTrigger)) return;
+
             Debug.LogWarning($"Exit trigger zone. {name}");
             _model.InteractOnExit();
         }
-
-        private bool IsRightLayer(Collider other) => ((1 << other.gameObject.layer) & layerForTrigger) != 0;
     }
 }

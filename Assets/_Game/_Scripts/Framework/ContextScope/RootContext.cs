@@ -1,5 +1,6 @@
 using System;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Game;
 using _Game._Scripts.Framework.Helpers.Editor;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Input;

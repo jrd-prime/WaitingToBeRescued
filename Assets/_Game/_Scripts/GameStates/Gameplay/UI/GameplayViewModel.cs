@@ -1,5 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
+using _Game._Scripts.Framework.Data.SO.State;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Extensions;
 using _Game._Scripts.Framework.Shelter.DayTimer;

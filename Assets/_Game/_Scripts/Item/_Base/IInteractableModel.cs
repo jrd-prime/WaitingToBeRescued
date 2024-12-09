@@ -1,4 +1,4 @@
-﻿namespace _Game._Scripts.Interactable._Base
+﻿namespace _Game._Scripts.Item._Base
 {
     public interface IInteractableModel
     {
