@@ -7,10 +7,13 @@
         private const string Config = "settings/";
         private const string UI = "ui/";
         private const string Character = "character/";
+        private const string Interactable = "interactable/";
 
         // Paths
         public const string ConfigPath = MainMenu + Config;
         public const string CharacterPath = MainMenu + Config + Character;
         public const string UIPath = MainMenu + Config + UI;
+        public const string WorldObject = MainMenu + Config + Interactable + "WorldObject/";
+        public const string Resource = MainMenu + Config + "Resource/";
     }
 }

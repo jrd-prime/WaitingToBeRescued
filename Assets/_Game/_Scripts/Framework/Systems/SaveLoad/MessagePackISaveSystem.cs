@@ -55,10 +55,22 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             var filePath = JPath.SavePath + typeof(T).Name + JPath.FileExtension;
             var directoryPath = Path.GetDirectoryName(filePath);
 
-            if (!Directory.Exists(directoryPath))
-                if (directoryPath != null)
-                    Directory.CreateDirectory(directoryPath);
+            // if (!Directory.Exists(directoryPath))
+            //     if (directoryPath != null)
+            //         Directory.CreateDirectory(directoryPath);
+            if (directoryPath != null)
+            {
+                if (File.Exists(directoryPath))
+                {
+                    Debug.LogError($"Path {directoryPath} is a file, not a directory.");
+                    return;
+                }
 
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+            }
 
             await using var fileStream =
                 new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 1024 * 4, true);

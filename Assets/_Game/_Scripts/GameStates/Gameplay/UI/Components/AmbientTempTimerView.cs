@@ -3,6 +3,7 @@ using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
 using R3;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.Components

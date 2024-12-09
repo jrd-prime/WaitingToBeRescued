@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Game;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
@@ -46,11 +47,9 @@ namespace _Game._Scripts.Framework.Shelter.Energy
 
         public void OnTimerTick(float timeRemaining)
         {
-            Debug.LogWarning("time remaining: " + timeRemaining);
             if (CachedModelData.OutOfEnergy)
             {
                 _previousTimeRemaining = timeRemaining;
-                Debug.LogWarning("Энергии нет.");
                 return;
             }
 
@@ -59,6 +58,7 @@ namespace _Game._Scripts.Framework.Shelter.Energy
                 : _previousTimeRemaining - timeRemaining;
 
             float energyConsumed = _consumptionPerSecond * timePassed;
+            Debug.LogWarning("consumption: " + _consumptionPerSecond);
             DecreaseEnergy(energyConsumed);
             _previousTimeRemaining = timeRemaining;
             OnModelDataUpdated();
