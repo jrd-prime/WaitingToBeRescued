@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6345694204050835544}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.9499998, y: 0, z: 1.7799997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,7 +49,22 @@ MonoBehaviour:
   layerForTrigger:
     serializedVersion: 2
     m_Bits: 2147483648
-  item: {fileID: 11400000, guid: 774a681ce9f37364caee4211749e10d3, type: 2}
+  settingsDto:
+    objReturns:
+      resources:
+      - itemSettings: {fileID: 11400000, guid: ad1032c3c6071ef4c81c1b35375bb1de, type: 2}
+        value: 1
+      tools: []
+      stuff: []
+    objRequirements:
+      resources: []
+      buildings: []
+      skills:
+      - itemSettings: {fileID: 11400000, guid: 5a31544a383d1ec48a68326671450ead, type: 2}
+        value: 1
+      tools:
+      - itemSettings: {fileID: 11400000, guid: 8c916abaa18a02f4bbf3d8c8cb09caa7, type: 2}
+        value: 1
 --- !u!65 &3276043752463850505
 BoxCollider:
   m_ObjectHideFlags: 0

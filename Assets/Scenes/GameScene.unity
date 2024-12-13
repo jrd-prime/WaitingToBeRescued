@@ -3395,34 +3395,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: fc8865fe715eb2b4bb9a17098e07962d, type: 2}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: settings.loot.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: returns.returns.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: settingsDto.resources.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: settingsDto.LootableItemReturns.resources.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: settingsDto.lootableItemReturns.resources.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: settingsDto.lootableItemReturns.resources.Array.data[0].itemSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: fc8865fe715eb2b4bb9a17098e07962d, type: 2}
     - target: {fileID: 3855373855472955655, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
       propertyPath: m_Name
       value: Stick
