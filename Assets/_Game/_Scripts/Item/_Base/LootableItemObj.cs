@@ -48,6 +48,6 @@ namespace _Game._Scripts.Item._Base
     public struct LootableItemSettingsDto : IItemDto
     {
         public List<CustomItemValue<LootableItemSettings>> loot;
-        public List<LootableItemRequirements> requirements;
+        public List<LootableObjRequirements> requirements;
     }
 }
