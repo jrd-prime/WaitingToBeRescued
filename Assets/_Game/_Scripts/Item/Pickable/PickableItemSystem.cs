@@ -1,26 +1,23 @@
-﻿using _Game._Scripts.Framework.Data.SO._Base;
-using _Game._Scripts.Framework.Data.SO.Item;
+﻿using _Game._Scripts.Item._Base;
 using UnityEngine;
 
 namespace _Game._Scripts.Item.Pickable
 {
-    public class PickableItemSystem : IInteractableItemSystem
+    public class PickableItemSystem : LootableItemSystemBase
     {
-        private GameItemSettings _currentItemSettings;
-
-        public void OnEnter(GameItemSettings itemSettings)
+        public override void OnEnter(IItemDto item)
         {
-            _currentItemSettings = itemSettings;
-            Debug.LogWarning("PickableItemSystem.OnEnter / " + _currentItemSettings.name);
+            Settings = (LootableItemSettingsDto)item;
+            Debug.LogWarning("PickableItemSystem.OnEnter / " + Settings);
         }
 
-        public void OnStay()
+        public override void OnStay()
         {
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
-            Debug.LogWarning("PickableItemSystem.OnExit / " + _currentItemSettings.name);
+            Debug.LogWarning("PickableItemSystem.OnExit / " + Settings);
         }
     }
 }

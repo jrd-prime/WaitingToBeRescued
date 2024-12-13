@@ -1,6 +1,4 @@
-﻿using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Data.SO.Game;
-using _Game._Scripts.Framework.Helpers;
+﻿using _Game._Scripts.Framework.Data.SO.Game;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 

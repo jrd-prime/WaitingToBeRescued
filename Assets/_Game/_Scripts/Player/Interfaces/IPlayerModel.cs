@@ -1,8 +1,6 @@
-﻿using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Data.SO.Game;
+﻿using _Game._Scripts.Framework.Data.SO.Game;
 using _Game._Scripts.Framework.Manager;
 using R3;
-using UnityEngine;
 
 namespace _Game._Scripts.Player.Interfaces
 {

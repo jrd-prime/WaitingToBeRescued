@@ -1,5 +1,4 @@
-﻿using System;
-using _Game._Scripts.Bootstrap;
+﻿using _Game._Scripts.Bootstrap;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.UI.Bootstrap;
 using UnityEngine;

@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -75,7 +76,7 @@ namespace _Game._Scripts.Framework.Helpers.Editor.Attributes
 
             if (fieldValue is string stringValue && string.IsNullOrEmpty(stringValue)) return true;
 
-            if (fieldValue is System.Collections.IEnumerable enumerable)
+            if (fieldValue is IEnumerable enumerable)
             {
                 foreach (var item in enumerable)
                 {

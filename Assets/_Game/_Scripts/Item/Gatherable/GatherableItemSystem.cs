@@ -1,23 +1,24 @@
-﻿using _Game._Scripts.Framework.Data.SO._Base;
-using _Game._Scripts.Framework.Data.SO.Item;
+﻿using _Game._Scripts.Item._Base;
+using UnityEngine;
 
 namespace _Game._Scripts.Item.Gatherable
 {
-    public class GatherableItemSystem : IInteractableItemSystem
+    public class GatherableItemSystem : LootableItemSystemBase
     {
-        public void OnEnter(GameItemSettings itemSettings)
+        public override void OnEnter(IItemDto settings)
         {
-            throw new System.NotImplementedException();
+            Settings = (LootableItemSettingsDto)settings;
+
+            Debug.LogWarning("GatherableItemSystem.OnEnter / " + Settings);
         }
 
-        public void OnStay()
+        public override void OnStay()
         {
-            throw new System.NotImplementedException();
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
-            throw new System.NotImplementedException();
+            Debug.LogWarning("GatherableItemSystem.OnExit / " + Settings);
         }
     }
 }

@@ -2,7 +2,6 @@
 using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Manager.UI;
-using UnityEngine;
 
 namespace _Game._Scripts.Framework.JrdStateMachine.SubState
 {
