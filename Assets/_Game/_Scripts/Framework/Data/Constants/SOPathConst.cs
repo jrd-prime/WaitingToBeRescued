@@ -14,6 +14,6 @@
         public const string CharacterPath = MainMenu + Config + Character;
         public const string UIPath = MainMenu + Config + UI;
         public const string WorldObject = MainMenu + Config + Interactable + "WorldObject/";
-        public const string Resource = MainMenu + Config + "Resource/";
+        public const string InGameItem = MainMenu  + "In Game Item/";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Item.Pickable;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Data.SO.Game

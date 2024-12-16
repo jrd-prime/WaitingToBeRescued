@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Data.SO.View;
 using UnityEngine;

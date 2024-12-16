@@ -1,5 +1,4 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.SO.State;
 using R3;
 using UnityEngine;

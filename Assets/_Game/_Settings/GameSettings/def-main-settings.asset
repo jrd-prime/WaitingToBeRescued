@@ -18,3 +18,4 @@ MonoBehaviour:
   energySettings: {fileID: 11400000, guid: 6871cee2821229542b93c447ab1b026d, type: 2}
   temperatureSettings: {fileID: 11400000, guid: a97adff9293f53c46adc1bf3c24f5624, type: 2}
   GameTimerSettings: {fileID: 11400000, guid: c1f090bd84c74fd45b8863819e588fc5, type: 2}
+  backpackSettings: {fileID: 11400000, guid: 5b497d3ca7c060743baef5564ed1b262, type: 2}

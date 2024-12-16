@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Data.SO.State;
 using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.GameStates.Gameover;
-using _Game._Scripts.GameStates.Gameplay;
 using _Game._Scripts.GameStates.Gameplay.State;
-using _Game._Scripts.GameStates.Menu;
 using _Game._Scripts.GameStates.Menu.State;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;

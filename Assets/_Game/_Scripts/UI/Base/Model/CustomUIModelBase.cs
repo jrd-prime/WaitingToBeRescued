@@ -1,7 +1,5 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.SO.State;
-using _Game._Scripts.Framework.JrdStateMachine.BaseState;
 using UnityEngine;
 
 namespace _Game._Scripts.UI.Base.Model

@@ -1,6 +1,5 @@
 ﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Extensions;
-using _Game._Scripts.Framework.Shelter;
 using _Game._Scripts.Framework.Shelter.DayTimer;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;

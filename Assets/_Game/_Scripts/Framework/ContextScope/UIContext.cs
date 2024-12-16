@@ -1,5 +1,4 @@
-﻿using _Game._Scripts.Framework.Manager.UI;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 

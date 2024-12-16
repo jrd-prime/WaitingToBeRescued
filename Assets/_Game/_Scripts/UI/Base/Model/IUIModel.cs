@@ -1,10 +1,6 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data;
 using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Data.SO.State;
-using _Game._Scripts.Framework.JrdStateMachine.BaseState;
-using R3;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace _Game._Scripts.UI.Base.Model

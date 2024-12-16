@@ -24,5 +24,7 @@ namespace _Game._Scripts.Framework.Data.SO.Game
 
         [RequiredField] public TemperatureSettings temperatureSettings;
         [RequiredField] public GameTimerSettings GameTimerSettings;
+        
+        [RequiredField] public BackpackSettings backpackSettings;
     }
 }
