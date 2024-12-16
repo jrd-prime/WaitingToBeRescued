@@ -1,7 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.Item.Pickable;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Data.SO.Game
@@ -25,5 +24,7 @@ namespace _Game._Scripts.Framework.Data.SO.Game
 
         [RequiredField] public TemperatureSettings temperatureSettings;
         [RequiredField] public GameTimerSettings GameTimerSettings;
+        
+        [RequiredField] public BackpackSettings backpackSettings;
     }
 }

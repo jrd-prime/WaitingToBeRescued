@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10663da55ad4cbc89752ae1722b48a8, type: 3}
-  m_Name: cooper-ore
+  m_Script: {fileID: 11500000, guid: bd5862ce42974e37a9d97bc1ffd13918, type: 3}
+  m_Name: 3301_Axe
   m_EditorClassIdentifier: 
+  nameIdForLocalization: not_set
+  itemId: 3301

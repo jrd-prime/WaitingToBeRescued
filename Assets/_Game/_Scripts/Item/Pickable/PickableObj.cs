@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Data.SO.Item.Lootable;
 using _Game._Scripts.Framework.Data.SO.Item.NonLootable;
 using _Game._Scripts.Item._Base;
 
 namespace _Game._Scripts.Item.Pickable
 {
-    public class PickableObj : LootableItemObj<PickableItemSystem, PickableItemDto>
+    public class PickableObj : LootableObj<PickableObjSystem, PickableObjSettings>
     {
+        protected override void OnStartInitialization()
+        {
+        }
     }
 
     [Serializable]

@@ -1,4 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.SO._Base;
 using UnityEngine;
 
@@ -8,8 +9,7 @@ namespace _Game._Scripts.Framework.Data.SO.Item.NonLootable
         fileName = "newBuildingSettings",
         menuName = SOPathConst.InGameItem + "New Building Settings",
         order = 100)]
-    public class BuildingSettings : NonLootableItemSettings
+    public class BuildingSettings : NonLootableItemSettings<GameItemTypes.EBuildingItem>
     {
-        public override string ItemNameId => "Not Set";
     }
 }

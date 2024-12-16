@@ -20,6 +20,7 @@ using _Game._Scripts.GameStates.Menu.UI;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
+using _Game._Scripts.Inventory;
 using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player;
 using _Game._Scripts.Player.Interfaces;
@@ -104,6 +105,9 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
+            
+            
+            builder.Register<Backpack>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }
 }

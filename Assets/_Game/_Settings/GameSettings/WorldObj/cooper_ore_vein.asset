@@ -9,6 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fadedcde33fc47d392f00636ced604f8, type: 3}
-  m_Name: wooden-box
+  m_Script: {fileID: 11500000, guid: b62db68d00994087b0b4cab399054eea, type: 3}
+  m_Name: cooper_ore_vein
   m_EditorClassIdentifier: 
+  nameIdForLocalization: cooper_ore_vein
+  objReturns:
+    resources: []
+    tools: []
+    stuff: []

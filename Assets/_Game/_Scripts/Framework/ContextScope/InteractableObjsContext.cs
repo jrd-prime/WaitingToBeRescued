@@ -12,13 +12,13 @@ namespace _Game._Scripts.Framework.ContextScope
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<PickableItemSystem>(Lifetime.Singleton).AsSelf();
-            builder.Register<GatherableItemSystem>(Lifetime.Singleton).AsSelf();
+            builder.Register<PickableObjSystem>(Lifetime.Singleton).AsSelf();
+            builder.Register<GatherableObjSystem>(Lifetime.Singleton).AsSelf();
         }
 
         private void Start()
         {
-            var items = FindObjectsByType<InteractableItemBase>(FindObjectsSortMode.None);
+            var items = FindObjectsByType<InteractableObjBase>(FindObjectsSortMode.None);
             foreach (var item in items) Container.Inject(item);
             Debug.Log("InteractableItemBase objects found and injected: " + items.Length);
         }

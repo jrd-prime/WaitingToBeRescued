@@ -10,5 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c10663da55ad4cbc89752ae1722b48a8, type: 3}
-  m_Name: stick
+  m_Name: 1102_CooperOre
   m_EditorClassIdentifier: 
+  nameIdForLocalization: cooper_ore
+  itemId: 1102

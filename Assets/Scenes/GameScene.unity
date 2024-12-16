@@ -3395,6 +3395,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
+      propertyPath: objSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a347af5e10ef5d43808a2918305aa29, type: 2}
     - target: {fileID: 3855373855472955655, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
       propertyPath: m_Name
       value: Stick
@@ -4779,6 +4783,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5028194569697626874, guid: 3d163a55ae5409e4d96577a6b0e01035, type: 3}
+      propertyPath: objSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fddaeb4d2a170e4eaaa4c2a1309a80b, type: 2}
     - target: {fileID: 6345694204050835544, guid: 3d163a55ae5409e4d96577a6b0e01035, type: 3}
       propertyPath: m_Name
       value: Cooper

@@ -2,6 +2,5 @@
 {
     public abstract class InGameObjectSettings : SettingsSO
     {
-        public abstract string ItemNameId { get; }
     }
 }

@@ -10,5 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acf5b620087943f9a28156147a3d6cf9, type: 3}
-  m_Name: shelter
+  m_Name: 5501_Shelter
   m_EditorClassIdentifier: 
+  itemId: 5501

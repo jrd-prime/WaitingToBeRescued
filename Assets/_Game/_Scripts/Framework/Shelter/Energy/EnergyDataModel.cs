@@ -56,7 +56,7 @@ namespace _Game._Scripts.Framework.Shelter.Energy
                 : _previousTimeRemaining - timeRemaining;
 
             float energyConsumed = _consumptionPerSecond * timePassed;
-            Debug.LogWarning("consumption: " + _consumptionPerSecond);
+            // Debug.LogWarning("consumption: " + _consumptionPerSecond);
             DecreaseEnergy(energyConsumed);
             _previousTimeRemaining = timeRemaining;
             OnModelDataUpdated();

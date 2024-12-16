@@ -7,7 +7,7 @@ namespace _Game._Scripts.Item._Base
     }
 
     [RequireComponent(typeof(Collider))]
-    public abstract class InteractableItemBase : MonoBehaviour, IInteractableItem
+    public abstract class InteractableObjBase : MonoBehaviour, IInteractableItem
     {
         private void Awake() => GetComponent<Collider>().isTrigger = true;
     }

@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5862ce42974e37a9d97bc1ffd13918, type: 3}
-  m_Name: axe
+  m_Script: {fileID: 11500000, guid: 4636c661934a41e9a0e988767ddb736c, type: 3}
+  m_Name: def_backpack_settings
   m_EditorClassIdentifier: 
+  baseDailyTemperatureDrop: 1
+  startDay: 0
