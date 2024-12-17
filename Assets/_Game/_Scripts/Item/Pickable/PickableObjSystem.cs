@@ -13,7 +13,7 @@ namespace _Game._Scripts.Item.Pickable
 
             var a = new Dictionary<int, float>();
 
-            foreach (var resource in Settings.objReturns.resources)
+            foreach (var resource in Settings.objReturnsDto.resources)
             {
                 Debug.LogWarning($"Returns: {resource.value} {resource.itemSettings.name} ");
 
