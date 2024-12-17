@@ -1,6 +1,6 @@
-﻿using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
+﻿using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
 using UnityEngine.UIElements;

@@ -1,6 +1,6 @@
-﻿using _Game._Scripts.Framework.Shelter.DayTimer;
+﻿using _Game._Scripts.Framework.Tickers.DayTimer;
 
-namespace _Game._Scripts.Framework.Shelter.Temperature
+namespace _Game._Scripts.Framework.Tickers.Temperature
 {
     public class PreparedTemperatureData
     {

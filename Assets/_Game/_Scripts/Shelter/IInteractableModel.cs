@@ -1,4 +1,4 @@
-﻿namespace _Game._Scripts.Item._Base
+﻿namespace _Game._Scripts.Shelter
 {
     public interface IInteractableModel
     {

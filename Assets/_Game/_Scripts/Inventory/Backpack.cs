@@ -2,14 +2,14 @@
 using System.Linq;
 using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.SO.Game;
-using _Game._Scripts.Framework.Shelter;
 using _Game._Scripts.Framework.Systems.SaveLoad;
+using _Game._Scripts.Framework.Tickers;
 using MessagePack;
 using UnityEngine;
 
 namespace _Game._Scripts.Inventory
 {
-    public sealed class Backpack : SavableDataModelBase<BackpackSettings, BackpackData>
+    public sealed class Backpack : SavableDataModelBase<BackpackSettings, BackpackData>, IBackpack
     {
         protected override void InitModel()
         {
@@ -20,7 +20,7 @@ namespace _Game._Scripts.Inventory
         protected override string GetDebugLine()
         {
             var a = CachedModelData.Items.Aggregate("--- Items in backpack: ",
-                (current, item) => current + $"/ {GameItemTypes.getEnumName(item.Key)}({item.Key}) : {item.Value} /");
+                (current, item) => current + $"/ {GameItemTypes.GetEnumName(item.Key)}({item.Key}) : {item.Value} /");
             return a;
         }
 
@@ -32,17 +32,17 @@ namespace _Game._Scripts.Inventory
                 {
                     CachedModelData.Items[item.Key] += item.Value;
                     Debug.LogWarning(
-                        $"Item in backpack {item.Key} : {GameItemTypes.getEnumName(item.Key)} already exists. Was {CachedModelData.Items[item.Key]}, added {item.Value}. Now {CachedModelData.Items[item.Key]}");
+                        $"Item in backpack {item.Key} : {GameItemTypes.GetEnumName(item.Key)} already exists. Was {CachedModelData.Items[item.Key]}, added {item.Value}. Now {CachedModelData.Items[item.Key]}");
                 }
                 else if (!CachedModelData.Items.ContainsKey(item.Key))
                 {
                     CachedModelData.Items.TryAdd(item.Key, item.Value);
-                    Debug.LogWarning($" Added new {item.Key} {GameItemTypes.getEnumName(item.Key)} :  {item.Value}");
+                    Debug.LogWarning($" Added new {item.Key} {GameItemTypes.GetEnumName(item.Key)} :  {item.Value}");
                 }
                 else
                 {
                     Debug.LogWarning(
-                        $"<color=red>No item in backpack {item.Key}  {GameItemTypes.getEnumName(item.Key)}  and not added</color>");
+                        $"<color=red>No item in backpack {item.Key}  {GameItemTypes.GetEnumName(item.Key)}  and not added</color>");
                 }
             }
 
@@ -53,6 +53,12 @@ namespace _Game._Scripts.Inventory
         {
             Debug.LogWarning(GetDebugLine());
         }
+    }
+
+    public interface IBackpack
+    {
+        public void AddItems(Dictionary<int, float> dictionary);
+        public void RemoveItems(Dictionary<int, float> dictionary);
     }
 
     [MessagePackObject]

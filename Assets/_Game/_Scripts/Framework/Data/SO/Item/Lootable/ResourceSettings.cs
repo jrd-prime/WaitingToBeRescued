@@ -11,6 +11,7 @@ namespace _Game._Scripts.Framework.Data.SO.Item.Lootable
         order = 100)]
     public class ResourceSettings : LootableItemSettings<GameItemTypes.EResourceItem>
     {
+
         public override void ShowDebug()
         {
             Debug.LogWarning("ResourceSettings / " + name);

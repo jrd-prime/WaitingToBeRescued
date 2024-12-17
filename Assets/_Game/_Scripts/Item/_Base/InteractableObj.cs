@@ -24,7 +24,7 @@ namespace _Game._Scripts.Item._Base
         private void OnTriggerEnter(Collider other)
         {
             if (!other.IsRightLayer(layerForTrigger)) return;
-            Inter(_objectData);
+            StartInteract(_objectData);
         }
 
         private void OnTriggerStay(Collider other)
@@ -36,9 +36,8 @@ namespace _Game._Scripts.Item._Base
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.IsRightLayer(layerForTrigger))
-            {
-            }
+            if (!other.IsRightLayer(layerForTrigger)) return;
+            // FinishInteract(_objectData);
         }
     }
 }

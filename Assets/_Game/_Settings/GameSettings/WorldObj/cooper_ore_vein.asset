@@ -12,8 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62db68d00994087b0b4cab399054eea, type: 3}
   m_Name: cooper_ore_vein
   m_EditorClassIdentifier: 
-  nameIdForLocalization: cooper_ore_vein
-  objReturns:
-    resources: []
+  objReturnsDto:
+    resources:
+    - itemSettings: {fileID: 11400000, guid: ad1032c3c6071ef4c81c1b35375bb1de, type: 2}
+      value: 1
     tools: []
-    stuff: []
+    stuff:
+    - itemSettings: {fileID: 11400000, guid: 575909721b92346498862f2779a075c6, type: 2}
+      value: 1
+  objRequirementsDto:
+    resources: []
+    buildings: []
+    skills:
+    - itemSettings: {fileID: 11400000, guid: 5a31544a383d1ec48a68326671450ead, type: 2}
+      value: 1
+    tools:
+    - itemSettings: {fileID: 11400000, guid: 8c916abaa18a02f4bbf3d8c8cb09caa7, type: 2}
+      value: 1

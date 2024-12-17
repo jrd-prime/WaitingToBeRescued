@@ -1,8 +1,8 @@
 ﻿using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Tickers.DayTimer;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Shelter.Energy
+namespace _Game._Scripts.Framework.Tickers.Energy
 {
     public class PreparedEnergyData
     {

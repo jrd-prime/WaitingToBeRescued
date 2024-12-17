@@ -2,7 +2,7 @@
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Shelter.Energy
+namespace _Game._Scripts.Framework.Tickers.Energy
 {
     public class EnergyDataModel : SavableDataModelBase<EnergySettings, EnergyData>
     {

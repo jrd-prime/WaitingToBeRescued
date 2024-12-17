@@ -2,7 +2,6 @@
 using _Game._Scripts.Framework.Data.DTO;
 using _Game._Scripts.Framework.Data.SO._Base;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Game._Scripts.Framework.Data.SO.Item
 {
@@ -12,11 +11,11 @@ namespace _Game._Scripts.Framework.Data.SO.Item
         order = 100)]
     public class PickableObjSettings : InGameObjectSettings
     {
-        [FormerlySerializedAs("objReturnsData")] [FormerlySerializedAs("objReturns")] public LootableObjReturnsDto objReturnsDto;
+        public LootableObjReturnsDto objReturnsDto;
 
         public override void ShowDebug()
         {
-            Debug.LogWarning("PickableObjSettings / " + name);
+            objReturnsDto.ShowDebug();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+﻿using UnityEngine;
+#if UNITY_EDITOR
 using System;
 using System.IO;
 using UnityEditor;
@@ -8,6 +9,7 @@ namespace _Game._Scripts.Framework.Data.SO._Base
 {
     public abstract class InGameObjectSettings : SettingsSO
     {
+        public Sprite icon;
         public abstract void ShowDebug();
 
 #if UNITY_EDITOR

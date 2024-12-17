@@ -30,7 +30,7 @@ namespace _Game._Scripts.Framework.Data.Enums
             };
         }
 
-        public static string getEnumName(int id)
+        public static string GetEnumName(int id)
         {
             string idString = id.ToString();
 

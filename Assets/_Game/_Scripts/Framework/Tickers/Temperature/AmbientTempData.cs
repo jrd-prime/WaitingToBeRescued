@@ -1,6 +1,6 @@
 ﻿using MessagePack;
 
-namespace _Game._Scripts.Framework.Shelter.Temperature
+namespace _Game._Scripts.Framework.Tickers.Temperature
 {
     [MessagePackObject]
     public sealed class AmbientTempData : IDataComponent

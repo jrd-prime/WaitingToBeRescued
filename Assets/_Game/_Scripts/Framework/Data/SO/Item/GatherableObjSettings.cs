@@ -12,12 +12,13 @@ namespace _Game._Scripts.Framework.Data.SO.Item
         order = 100)]
     public class GatherableObjSettings : InGameObjectSettings
     {
-        [FormerlySerializedAs("objReturnsData")] [FormerlySerializedAs("objReturns")] public LootableObjReturnsDto objReturnsDto;
-        [FormerlySerializedAs("objRequirements")] public LootableObjRequirementsDto objRequirementsDto;
+        public LootableObjReturnsDto objReturnsDto;
+        public LootableObjRequirementsDto objRequirementsDto;
 
         public override void ShowDebug()
         {
-            Debug.LogWarning("GatherableObjSettings / " + name);
+            objReturnsDto.ShowDebug();
+            objRequirementsDto.ShowDebug();
         }
     }
 }

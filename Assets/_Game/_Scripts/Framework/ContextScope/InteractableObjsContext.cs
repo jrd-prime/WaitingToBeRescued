@@ -18,6 +18,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShowDebugProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<PickUpProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<GatherProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<ShowCharHUDInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
 
         private void Start()

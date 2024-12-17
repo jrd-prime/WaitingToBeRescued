@@ -1,7 +1,7 @@
 ﻿using MessagePack;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Shelter.DayTimer
+namespace _Game._Scripts.Framework.Tickers.DayTimer
 {
     [MessagePackObject]
     public sealed class DayTimerData : IDataComponent

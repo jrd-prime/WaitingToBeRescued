@@ -1,7 +1,7 @@
 ﻿using _Game._Scripts.Framework.Data.SO.Game;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 
-namespace _Game._Scripts.Framework.Shelter.Temperature
+namespace _Game._Scripts.Framework.Tickers.Temperature
 {
     public class AmbientTempDataModel : SavableDataModelBase<TemperatureSettings, AmbientTempData>
     {

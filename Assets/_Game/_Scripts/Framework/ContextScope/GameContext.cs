@@ -1,16 +1,17 @@
 ﻿using System;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
+using _Game._Scripts.Framework.Interact.Character.Processors;
 using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
-using _Game._Scripts.Framework.Shelter;
-using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.Framework.Systems;
+using _Game._Scripts.Framework.Tickers;
+using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using _Game._Scripts.GameStates.Gameover;
 using _Game._Scripts.GameStates.Gameplay.State;
 using _Game._Scripts.GameStates.Gameplay.UI;
@@ -47,6 +48,8 @@ namespace _Game._Scripts.Framework.ContextScope
         [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
         private UIManagerBase uiManager;
 
+        [RequiredField, SerializeField] private CharacterHUDController characterHUDController;
+
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("<color=cyan>Game context</color>");
@@ -63,6 +66,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
             builder.RegisterComponent(movementController).AsSelf();
+            builder.RegisterComponent(characterHUDController).AsSelf().AsImplementedInterfaces();
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
@@ -105,8 +109,8 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
-            
-            
+
+
             builder.Register<Backpack>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }

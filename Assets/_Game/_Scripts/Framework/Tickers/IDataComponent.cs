@@ -1,4 +1,4 @@
-﻿namespace _Game._Scripts.Framework.Shelter
+﻿namespace _Game._Scripts.Framework.Tickers
 {
     public interface IDataComponent
     {

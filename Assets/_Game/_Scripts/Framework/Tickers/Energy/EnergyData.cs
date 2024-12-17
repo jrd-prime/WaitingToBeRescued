@@ -1,7 +1,7 @@
 ﻿using MessagePack;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Shelter.Energy
+namespace _Game._Scripts.Framework.Tickers.Energy
 {
     [MessagePackObject]
     public sealed class EnergyData : IDataComponent

@@ -1,13 +1,13 @@
 ﻿using System;
-using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
+using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using R3;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace _Game._Scripts.Framework.Shelter
+namespace _Game._Scripts.Framework.Tickers
 {
     public sealed class GameCountdownsController : IGameCountdownsController, IInitializable, IDisposable
     {
