@@ -35,7 +35,7 @@ namespace _Game._Scripts.Player
         {
             if (_viewModel == null) throw new NullReferenceException("PlayerViewModel is null");
 
-            var hud = GetComponentInChildren<CharacterHUDController>();
+            var hud = GetComponentInChildren<CharacterHUDManager>();
             if (hud == null) throw new NullReferenceException("CharacterHUDController is null");
 
             _rb = GetComponent<Rigidbody>();

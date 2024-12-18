@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.JCamera;
+using _Game._Scripts.GameStates.Gameplay.UI;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,7 +12,7 @@ using VContainer;
 namespace _Game._Scripts.Framework.Interact.Character.Processors
 {
     [RequireComponent(typeof(UIDocument))]
-    public class CharacterHUDController : MonoBehaviour
+    public class CharacterHUDManager : MonoBehaviour
     {
         [RequiredField, SerializeField] private string startPointName;
         [RequiredField, SerializeField] private string endPointName;
@@ -37,10 +38,12 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
         private readonly Queue<VisualElement> _itemTemplateQueue = new();
         private float _elementWidth;
         private float _elementHeight;
+        private IGameplayModel _gameplayModel;
 
         [Inject]
-        private void Construct(ICameraManager cameraManager)
+        private void Construct(IGameplayModel gameplayModel)
         {
+            _gameplayModel = gameplayModel;
         }
 
         private void Awake()
@@ -112,7 +115,7 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
                 )
                 .SetEase(Ease.InQuad));
 
-            sequence.OnKill(() => ResetPosition(element));
+            sequence.OnKill(() => OnAnimationComplete(element));
         }
 
         private void InitItemTemplates(VisualElement root)
@@ -140,7 +143,18 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
         }
 
 
-        private void ResetPosition(VisualElement go)
+        private void OnAnimationComplete(VisualElement go)
+        {
+            ResetElement(go);
+            ShakeBackpackButton();
+        }
+
+        private void ShakeBackpackButton()
+        {
+            _gameplayModel.ShakeBackpack();
+        }
+
+        private void ResetElement(VisualElement go)
         {
             go.style.display = DisplayStyle.None;
             go.style.left = 0;

@@ -1,4 +1,5 @@
-﻿using _Game._Scripts.Framework.Data.DTO.InteractableObj;
+﻿using System;
+using _Game._Scripts.Framework.Data.DTO.InteractableObj;
 using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Interact.Character._Base;
 using Cysharp.Threading.Tasks;
@@ -11,31 +12,31 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
     [UsedImplicitly]
     public class ShowCharHUDInfoProcessor : CharacterInteractProcessorBase
     {
-        private CharacterHUDController _characterHUDController;
+        private CharacterHUDManager _characterHUDManager;
 
         [Inject]
-        private void Construct(CharacterHUDController characterHUDController)
+        private void Construct(CharacterHUDManager characterHUDManager)
         {
-            Debug.LogWarning("con ShowCharHUDInfoProcessor");
-            _characterHUDController = characterHUDController;
+            _characterHUDManager = characterHUDManager;
         }
 
         public override async void Process(IInteractObjectDto objDto)
         {
+            if (_characterHUDManager == null) throw new NullReferenceException("CharHud is null");
+
             if (objDto is PickableObjDto)
             {
                 Debug.LogWarning("obj is Pickable!!");
                 var a = (PickableObjSettings)objDto.Settings;
 
-
                 foreach (var resource in a.objReturnsDto.resources)
                 {
-                    _characterHUDController.NewObjToBackpack(resource.itemSettings.icon, resource.itemSettings.name, resource.value);
+                    _characterHUDManager.NewObjToBackpack(resource.itemSettings.icon, resource.itemSettings.name,
+                        resource.value);
 
                     await UniTask.Delay(500);
                 }
             }
-
 
             base.Process(objDto);
         }

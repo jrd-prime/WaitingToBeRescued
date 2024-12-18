@@ -48,7 +48,7 @@ namespace _Game._Scripts.Framework.ContextScope
         [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
         private UIManagerBase uiManager;
 
-        [RequiredField, SerializeField] private CharacterHUDController characterHUDController;
+        [FormerlySerializedAs("characterHUDController")] [RequiredField, SerializeField] private CharacterHUDManager characterHUDManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -66,7 +66,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
             builder.RegisterComponent(movementController).AsSelf();
-            builder.RegisterComponent(characterHUDController).AsSelf().AsImplementedInterfaces();
+            builder.RegisterComponent(characterHUDManager).AsSelf().AsImplementedInterfaces();
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();

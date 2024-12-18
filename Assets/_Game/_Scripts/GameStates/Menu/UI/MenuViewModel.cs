@@ -1,5 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Data.SO.State;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.Base.ViewModel;
@@ -25,7 +26,11 @@ namespace _Game._Scripts.GameStates.Menu.UI
                 .AddTo(Disposables);
 
             ExitButtonClicked
-                .Subscribe(_ => Model.SetGameState(new StateData(EGameState.Exit)))
+                .Subscribe(_ =>
+                {
+                    Model.SetGameState(new StateData(EGameState.Exit));
+                    ExitHelp.ExitGame();
+                })
                 .AddTo(Disposables);
 
             BackButtonClicked
