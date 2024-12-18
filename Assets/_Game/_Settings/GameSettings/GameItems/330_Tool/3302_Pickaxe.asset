@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5862ce42974e37a9d97bc1ffd13918, type: 3}
   m_Name: 3302_Pickaxe
   m_EditorClassIdentifier: 
-  nameIdForLocalization: not_set
+  icon: {fileID: 21300000, guid: 9c3bacf8573ed444dbe96c7a43841fa6, type: 3}
   itemId: 3302

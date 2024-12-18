@@ -1,10 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
-        <engine:VisualElement picking-mode="Ignore" name="start-point" style="flex-grow: 0; position: relative; top: 150px; left: auto; width: 2px; height: 2px; background-color: rgb(255, 0, 0); align-items: center; justify-content: center; align-self: center;" />
-        <engine:VisualElement picking-mode="Ignore" name="end-point" style="flex-grow: 1; position: absolute; left: 36px; bottom: 36px; width: 2px; height: 2px; background-color: rgb(0, 255, 10);" />
-        <engine:VisualElement name="go" style="flex-grow: 0; width: 100px; height: 30px; position: absolute;">
-            <engine:VisualElement name="icon" style="flex-grow: 1; position: absolute; top: 0; left: 0; bottom: 0; width: 30px; background-image: url(&quot;project://database/Assets/_Game/Res/Textures/y.png?fileID=21300000&amp;guid=7f56274a6dffe284ba845c5120b6d942&amp;type=3#y&quot;);" />
-            <engine:Label text="Label" name="label" style="position: absolute; top: 0; right: 0; bottom: 0; width: 70px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: center; justify-content: center; align-self: center; -unity-text-align: middle-center; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 10px; overflow: hidden;" />
-        </engine:VisualElement>
+        <engine:VisualElement picking-mode="Ignore" name="start-point" style="flex-grow: 0; position: relative; top: 150px; left: auto; width: 2px; height: 2px; background-color: rgb(255, 0, 0); align-items: center; justify-content: center; align-self: center; visibility: hidden;" />
+        <engine:VisualElement picking-mode="Ignore" name="end-point" style="flex-grow: 1; position: absolute; left: 36px; bottom: 36px; width: 2px; height: 2px; background-color: rgb(0, 255, 10); visibility: hidden;" />
     </engine:VisualElement>
 </engine:UXML>

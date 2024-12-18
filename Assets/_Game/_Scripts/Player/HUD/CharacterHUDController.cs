@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Manager.JCamera;
 using DG.Tweening;
@@ -8,150 +10,144 @@ using VContainer;
 
 namespace _Game._Scripts.Framework.Interact.Character.Processors
 {
+    [RequireComponent(typeof(UIDocument))]
     public class CharacterHUDController : MonoBehaviour
     {
-        private ICameraManager _cameraManager;
         [RequiredField, SerializeField] private string startPointName;
         [RequiredField, SerializeField] private string endPointName;
-        private VisualElement startPoint;
-        private VisualElement endPoint;
-        private Vector2 starttPosition;
-        private Vector2 endPosition;
-        private VisualElement go;
-        private VisualElement icon;
-        private Label lab;
-        private Vector2 defStartPosition;
-        private Vector2 defEndPosition;
+        [RequiredField, SerializeField] private VisualTreeAsset itemTemplate;
+        [SerializeField] private Vector2 itemTemplateWidthAndHeight;
 
+        private const int ItemTemplatesPoolCount = 10;
+        private const float Duration = 2f;
+        private const float FinalScale = 0.2f;
+        private const string ItemTemplateContainerNameId = "go";
+        private const string ItemTemplateIconNameId = "icon";
+        private const string ItemTemplateLabelNameId = "label";
+
+        private readonly Vector2 _point1Offset = new(0, -300f);
+        private readonly Vector2 _point2Offset = new(0, -100f);
+
+
+        private VisualElement _startPoint;
+        private VisualElement _endPoint;
+        private Vector2 _startPosition;
+        private Vector2 _endPosition;
+
+        private readonly Queue<VisualElement> _itemTemplateQueue = new();
+        private float _elementWidth;
+        private float _elementHeight;
 
         [Inject]
         private void Construct(ICameraManager cameraManager)
         {
-            _cameraManager = cameraManager;
         }
 
         private void Awake()
         {
+            if (itemTemplateWidthAndHeight == Vector2.zero)
+                throw new NullReferenceException("itemTemplateWidthAndHeight not set!");
+
+            _elementWidth = itemTemplateWidthAndHeight.x;
+            _elementHeight = itemTemplateWidthAndHeight.y;
+
             var root = GetComponent<UIDocument>().rootVisualElement;
 
-            startPoint = root.Q<VisualElement>(startPointName);
-            endPoint = root.Q<VisualElement>(endPointName);
-            go = root.Q<VisualElement>("go");
+            _startPoint = root.Q<VisualElement>(startPointName);
+            _endPoint = root.Q<VisualElement>(endPointName);
 
-            icon = root.Q<VisualElement>("icon");
-            lab = root.Q<Label>("label");
-
-            startPoint.RegisterCallback<GeometryChangedEvent>(SetStartPoint);
-            endPoint.RegisterCallback<GeometryChangedEvent>(SetEndPoint);
+            _startPoint.RegisterCallback<GeometryChangedEvent>(SetStartPoint);
+            _endPoint.RegisterCallback<GeometryChangedEvent>(SetEndPoint);
+            InitItemTemplates(root);
         }
+
 
         private void SetStartPoint(GeometryChangedEvent evt)
         {
-            starttPosition = startPoint.worldBound.center;
-            defStartPosition = starttPosition;
-            Debug.LogWarning($"startPoint: {starttPosition}");
-
-            startPoint.UnregisterCallback<GeometryChangedEvent>(SetStartPoint);
+            _startPosition = _startPoint.worldBound.center;
+            _startPoint.UnregisterCallback<GeometryChangedEvent>(SetStartPoint);
         }
 
         private void SetEndPoint(GeometryChangedEvent evt)
         {
-            endPosition = endPoint.worldBound.center;
-            defEndPosition = endPosition;
-            Debug.LogWarning($" endPoint: {endPosition}");
-            endPoint.UnregisterCallback<GeometryChangedEvent>(SetEndPoint);
+            _endPosition = _endPoint.worldBound.center;
+            _endPoint.UnregisterCallback<GeometryChangedEvent>(SetEndPoint);
         }
 
-        public void NewObjToBackpack(Sprite sprite, string name, float count)
+        public void NewObjToBackpack(Sprite sprite, string itemName, float count)
         {
-            icon.style.backgroundImage = new StyleBackground(sprite);
-            lab.text = $"{name} x {count}";
-            go.style.display = DisplayStyle.Flex;
+            var element = PrepareItemTemplate(sprite, itemName, count);
 
-
-            Anim();
+            AnimateElement(element);
         }
 
-
-        private void Anim()
+        private void AnimateElement(VisualElement element)
         {
-            // Сохраняем начальные позиции
-            Vector2 initialPosition = new Vector2(go.style.left.value.value, go.style.top.value.value);
-            Vector2 initialScale = go.resolvedStyle.scale.value;
+            element.style.left = _startPosition.x - _elementWidth / 2;
+            element.style.top = _startPosition.y - _elementHeight / 2;
+            element.style.scale = new StyleScale(Vector3.one);
 
-            // Получаем размеры элемента
-            float elementWidth = go.resolvedStyle.width;
-            float elementHeight = go.resolvedStyle.height;
+            Vector2 p1 = _startPosition + _point1Offset;
+            Vector2 p2 = _endPosition + _point2Offset;
 
-            // Устанавливаем начальную позицию
-            go.style.left = starttPosition.x - elementWidth / 2; // Начало анимации, сдвигаем влево на половину ширины
-            go.style.top = starttPosition.y - elementHeight / 2; // Начало анимации, сдвигаем вверх на половину высоты
-
-            // Определяем контрольные точки для кривой
-            Vector2 controlPoint1 = starttPosition + new Vector2(0, -300); // Резкий подъем вверх
-            Vector2 controlPoint2 = endPosition + new Vector2(0, -100); // Плавный спуск вниз
-
-            // Время анимации
-            float duration = 2f;
-
-            // Анимация перемещения
-            DOTween.To(
-                    () => 0f, // Начальное значение параметра t
+            var sequence = DOTween.Sequence();
+            sequence.Append(DOTween.To(
+                    () => 0f,
                     t =>
                     {
-                        // Интерполяция через кубическую кривую Безье
-                        Vector2 currentPos = CalculateCubicBezierPoint(t, starttPosition, controlPoint1, controlPoint2,
-                            endPosition);
-
-                        // Сдвигаем конечную позицию на половину ширины и высоты элемента
-                        go.style.left = currentPos.x - elementWidth / 2;
-                        go.style.top = currentPos.y - elementHeight / 2;
+                        var currentPos = Formulas.CalculateCubicBezierPoint(t, _startPosition, p1, p2, _endPosition);
+                        element.style.left = currentPos.x - _elementWidth / 2;
+                        element.style.top = currentPos.y - _elementHeight / 2;
                     },
-                    1f, // Конечное значение параметра t (t=1)
-                    duration // Длительность анимации
+                    1f,
+                    Duration
                 )
-                .SetEase(Ease.InQuad) // Ускорение к концу
-                .OnKill(() =>
-                    ResetPosition(initialPosition,
-                        initialScale)); // Сбрасываем позицию и масштаб после завершения анимации
+                .SetEase(Ease.InQuad));
 
-            // Анимация изменения масштаба
-            DOTween.To(
-                    () => go.resolvedStyle.scale.value.x, // Начальный масштаб по оси X (и Y, так как X и Y одинаковы)
-                    scale =>
-                    {
-                        go.style.scale = new StyleScale(new Vector3(scale, scale, 1)); // Применяем новый масштаб
-                    },
-                    0.2f, // Конечный масштаб
-                    duration // Длительность анимации
+            sequence.Join(DOTween.To(
+                    () => element.resolvedStyle.scale.value.x,
+                    scale => element.style.scale = new StyleScale(new Vector3(scale, scale, 1)),
+                    FinalScale,
+                    Duration
                 )
-                .SetEase(Ease.InQuad); // Ускорение к концу
+                .SetEase(Ease.InQuad));
+
+            sequence.OnKill(() => ResetPosition(element));
         }
 
-        private void ResetPosition(Vector2 initialPosition, Vector2 initialScale)
+        private void InitItemTemplates(VisualElement root)
         {
-            // Сбросить позицию и масштаб элемента
-            go.style.left = initialPosition.x;
-            go.style.top = initialPosition.y;
-            go.style.scale = new StyleScale(new Vector3(initialScale.x, initialScale.y, 1));
+            for (var i = 0; i < ItemTemplatesPoolCount; i++)
+            {
+                var itemTemplateInstance = itemTemplate.Instantiate();
+                root.Add(itemTemplateInstance);
+                _itemTemplateQueue.Enqueue(itemTemplateInstance.Q<VisualElement>(ItemTemplateContainerNameId));
+            }
         }
 
-        private Vector2 CalculateCubicBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
+        private VisualElement PrepareItemTemplate(Sprite sprite, string itemName, float count)
         {
-            // Формула кубической кривой Безье: 
-            // B(t) = (1-t)^3 * P0 + 3*(1-t)^2*t*P1 + 3*(1-t)*t^2*P2 + t^3*P3
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-            float uuu = uu * u;
-            float ttt = tt * t;
+            var container = _itemTemplateQueue.Dequeue();
+            var icon = container.Q<VisualElement>(ItemTemplateIconNameId);
+            var lab = container.Q<Label>(ItemTemplateLabelNameId);
 
-            return (uuu * p0) + (3 * uu * t * p1) + (3 * u * tt * p2) + (ttt * p3);
+            container.style.display = DisplayStyle.Flex;
+
+            icon.style.backgroundImage = new StyleBackground(sprite);
+            lab.text = count > 0 ? $"+{count}" : $"-{count}";
+
+            return container;
         }
 
 
-        private void Start()
+        private void ResetPosition(VisualElement go)
         {
+            go.style.display = DisplayStyle.None;
+            go.style.left = 0;
+            go.style.top = 0;
+            go.style.scale = new StyleScale(Vector3.one);
+
+            _itemTemplateQueue.Enqueue(go);
         }
     }
 }

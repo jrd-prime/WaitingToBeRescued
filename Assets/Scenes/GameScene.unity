@@ -1226,6 +1226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPointName: start-point
   endPointName: end-point
+  itemTemplate: {fileID: 9197481963319205126, guid: fd56fb64e9304a645a7962b09f68117d, type: 3}
+  itemTemplateWidthAndHeight: {x: 80, y: 30}
 --- !u!114 &1268563632
 MonoBehaviour:
   m_ObjectHideFlags: 0
