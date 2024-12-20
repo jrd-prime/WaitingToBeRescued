@@ -9,7 +9,7 @@ using VContainer;
 namespace _Game._Scripts.Framework.Interact.Character.Processors
 {
     [UsedImplicitly]
-    public class PickUpProcessor : CharacterInteractProcessorBase
+    public class InteractionProcessor : CharacterInteractProcessorBase
     {
         private IBackpack _backpack;
 
@@ -21,16 +21,16 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
 
         public override void Process(IInteractObjectDto objDto)
         {
-            if (objDto is PickableObjDto)
+            if (objDto is CollectableObjDto)
             {
                 Debug.LogWarning("obj is Pickable!!");
-                PickItems((PickableObjSettings)objDto.Settings);
+                // PickItems((CollectableObjSettings)objDto.Settings);
             }
 
             base.Process(objDto);
         }
 
-        private void PickItems(PickableObjSettings settings)
+        private void PickItems(CollectableObjSettings settings)
         {
             var pickableItems = settings.objReturnsDto.GetAllItems();
 

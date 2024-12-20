@@ -72,7 +72,7 @@ MonoBehaviour:
   layerForTrigger:
     serializedVersion: 2
     m_Bits: 2147483648
-  objSettings: {fileID: 0}
+  objSettings: {fileID: 11400000, guid: 9a347af5e10ef5d43808a2918305aa29, type: 2}
 --- !u!1001 &1291664050303243274
 PrefabInstance:
   m_ObjectHideFlags: 0

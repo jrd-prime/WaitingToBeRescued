@@ -1,5 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data.DTO.InteractableObj;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Interact.Character;
 using _Game._Scripts.Framework.Interact.Character._Base;
 using _Game._Scripts.Framework.Interact.Character.Processors;
 using UnityEngine;
@@ -14,16 +15,20 @@ namespace _Game._Scripts.Item._Base
         private IInteractProcessor _finishChain;
 
         private ShowDebugProcessor _showDebugProcessor;
-        private PickUpProcessor _pickUpProcessor;
-        private GatherProcessor _gatherProcessor;
+        private CollectionProcessor _collectionProcessor;
+        private ConditionCollectionProcessor _conditionCollectionProcessor;
         private ShowCharHUDInfoProcessor _hudInfoProcessor;
+        private InteractionProcessor _interactionProcessor;
+        private ConditionInteractionProcessor _conditionInteractionProcessor;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
             _showDebugProcessor = ResolverHelp.ResolveAndCheck<ShowDebugProcessor>(resolver);
-            _pickUpProcessor = ResolverHelp.ResolveAndCheck<PickUpProcessor>(resolver);
-            _gatherProcessor = ResolverHelp.ResolveAndCheck<GatherProcessor>(resolver);
+            _collectionProcessor = ResolverHelp.ResolveAndCheck<CollectionProcessor>(resolver);
+            _conditionCollectionProcessor = ResolverHelp.ResolveAndCheck<ConditionCollectionProcessor>(resolver);
+            _interactionProcessor = ResolverHelp.ResolveAndCheck<InteractionProcessor>(resolver);
+            _conditionInteractionProcessor = ResolverHelp.ResolveAndCheck<ConditionInteractionProcessor>(resolver);
             _hudInfoProcessor = ResolverHelp.ResolveAndCheck<ShowCharHUDInfoProcessor>(resolver);
         }
 
@@ -31,8 +36,8 @@ namespace _Game._Scripts.Item._Base
         {
             GetComponent<Collider>().isTrigger = true;
             _startChain = _showDebugProcessor;
-            _startChain.SetNext(_pickUpProcessor)
-                .SetNext(_gatherProcessor)
+            _startChain.SetNext(_collectionProcessor)
+                .SetNext(_conditionCollectionProcessor)
                 .SetNext(_hudInfoProcessor);
 
             OnStartInitialization();

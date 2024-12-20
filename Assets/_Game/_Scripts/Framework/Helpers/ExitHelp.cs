@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace _Game._Scripts.Framework.Helpers
+﻿namespace _Game._Scripts.Framework.Helpers
 {
     //TODO remove
     public static class ExitHelp
@@ -10,7 +8,7 @@ namespace _Game._Scripts.Framework.Helpers
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit();
+        UnityEngine.Application.Quit();
 #endif
         }
     }

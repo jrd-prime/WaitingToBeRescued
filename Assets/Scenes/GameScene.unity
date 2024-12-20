@@ -174,7 +174,7 @@ MonoBehaviour:
   popUpTextManager: {fileID: 606542800}
   movementController: {fileID: 77715192}
   uiManager: {fileID: 1588323777}
-  characterHUDController: {fileID: 1268563631}
+  characterHUDManager: {fileID: 1268563631}
 --- !u!1 &77715189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,10 +3464,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3808548588083733078, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
-      propertyPath: objSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: 9a347af5e10ef5d43808a2918305aa29, type: 2}
     - target: {fileID: 3855373855472955655, guid: 816a41b601f664a47a64d9801f7ee6c2, type: 3}
       propertyPath: m_Name
       value: Stick

@@ -6,10 +6,10 @@ using UnityEngine;
 namespace _Game._Scripts.Framework.Data.SO.Item
 {
     [CreateAssetMenu(
-        fileName = "newPickableObjSettings",
-        menuName = SOPathConst.InGameItem + "New Pickable Obj Settings",
+        fileName = "Collectable",
+        menuName = SOPathConst.InGameItem + "New Collectable Obj Settings",
         order = 100)]
-    public class PickableObjSettings : InGameObjectSettings
+    public class CollectableObjSettings : InGameObjectSettings
     {
         public LootableObjReturnsDto objReturnsDto;
 

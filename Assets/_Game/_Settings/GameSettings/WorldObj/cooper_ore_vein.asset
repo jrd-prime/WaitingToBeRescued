@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62db68d00994087b0b4cab399054eea, type: 3}
   m_Name: cooper_ore_vein
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 108a8d9b797c13244b4c6d208fd2f957, type: 3}
   objReturnsDto:
     resources:
     - itemSettings: {fileID: 11400000, guid: ad1032c3c6071ef4c81c1b35375bb1de, type: 2}
-      value: 1
+      value: 5
     tools: []
-    stuff:
-    - itemSettings: {fileID: 11400000, guid: 575909721b92346498862f2779a075c6, type: 2}
-      value: 1
+    stuff: []
   objRequirementsDto:
     resources: []
     buildings: []

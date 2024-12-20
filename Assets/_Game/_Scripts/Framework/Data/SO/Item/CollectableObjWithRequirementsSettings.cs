@@ -7,17 +7,16 @@ using UnityEngine.Serialization;
 namespace _Game._Scripts.Framework.Data.SO.Item
 {
     [CreateAssetMenu(
-        fileName = "newGatherableObjSettings",
-        menuName = SOPathConst.InGameItem + "New Gatherable Obj Settings",
+        fileName = "CollectableObjWithRequirements",
+        menuName = SOPathConst.InGameItem + "New Collectable With Requirements Settings",
         order = 100)]
-    public class GatherableObjSettings : InGameObjectSettings
+    public class CollectableObjWithRequirementsSettings : CollectableObjSettings
     {
-        public LootableObjReturnsDto objReturnsDto;
         public LootableObjRequirementsDto objRequirementsDto;
 
         public override void ShowDebug()
         {
-            objReturnsDto.ShowDebug();
+            base.ShowDebug();
             objRequirementsDto.ShowDebug();
         }
     }

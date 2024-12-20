@@ -2,6 +2,7 @@
 using _Game._Scripts.Framework.Data.DTO.InteractableObj;
 using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Helpers.Extensions;
+using _Game._Scripts.Framework.Interact.Character;
 using UnityEngine;
 
 namespace _Game._Scripts.Item._Base
@@ -18,7 +19,7 @@ namespace _Game._Scripts.Item._Base
         private void Awake()
         {
             if (objSettings == null) throw new NullReferenceException($"ObjSettings is null. {name}");
-            _objectData = new TObjectData { Settings = objSettings };
+            _objectData = (TObjectData)Activator.CreateInstance(typeof(TObjectData), args: objSettings);
         }
 
         private void OnTriggerEnter(Collider other)

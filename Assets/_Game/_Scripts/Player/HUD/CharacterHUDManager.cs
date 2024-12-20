@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.GameStates.Gameplay.UI;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
 
-namespace _Game._Scripts.Framework.Interact.Character.Processors
+namespace _Game._Scripts.Player.HUD
 {
     [RequireComponent(typeof(UIDocument))]
     public class CharacterHUDManager : MonoBehaviour

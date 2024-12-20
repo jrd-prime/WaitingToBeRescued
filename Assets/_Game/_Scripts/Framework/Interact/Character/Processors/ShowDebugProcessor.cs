@@ -2,6 +2,7 @@
 using _Game._Scripts.Framework.Data.DTO.InteractableObj;
 using _Game._Scripts.Framework.Interact.Character._Base;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace _Game._Scripts.Framework.Interact.Character.Processors
 {
@@ -13,6 +14,8 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
             if (objDto is null) throw new ArgumentNullException(nameof(objDto));
 
             //objDto.Settings.ShowDebug();
+
+            Debug.LogWarning($"obj: {objDto.GetType().Name}");
 
             base.Process(objDto);
         }

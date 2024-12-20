@@ -24,6 +24,7 @@ using _Game._Scripts.GameStates.Win;
 using _Game._Scripts.Inventory;
 using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player;
+using _Game._Scripts.Player.HUD;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.Shelter;
 using _Game._Scripts.UI.Base.Model;

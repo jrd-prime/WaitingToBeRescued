@@ -6,11 +6,11 @@ using UnityEngine;
 namespace _Game._Scripts.Framework.Interact.Character.Processors
 {
     [UsedImplicitly]
-    public class GatherProcessor : CharacterInteractProcessorBase
+    public class ConditionCollectionProcessor : CharacterInteractProcessorBase
     {
         public override void Process(IInteractObjectDto objDto)
         {
-            if (objDto is GatherableObjDto)
+            if (objDto is CollectableObjWithRequirementsDto)
             {
                 Debug.LogWarning("obj is Gatherable!!");
             }

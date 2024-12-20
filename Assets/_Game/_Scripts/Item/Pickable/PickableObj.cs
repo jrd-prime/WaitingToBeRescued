@@ -4,7 +4,7 @@ using _Game._Scripts.Item._Base;
 
 namespace _Game._Scripts.Item.Pickable
 {
-    public class PickableObj : InteractableObj<PickableObjDto, PickableObjSettings>
+    public class PickableObj : InteractableObj<CollectableObjDto, CollectableObjSettings>
     {
     }
 }

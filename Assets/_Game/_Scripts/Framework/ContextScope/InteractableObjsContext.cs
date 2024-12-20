@@ -12,12 +12,14 @@ namespace _Game._Scripts.Framework.ContextScope
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<PickableObjSystem>(Lifetime.Singleton).AsSelf();
             builder.Register<GatherableObjSystem>(Lifetime.Singleton).AsSelf();
 
             builder.Register<ShowDebugProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<PickUpProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<GatherProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<CollectionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<InteractionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<ConditionCollectionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<ConditionInteractionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
             builder.Register<ShowCharHUDInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
 
