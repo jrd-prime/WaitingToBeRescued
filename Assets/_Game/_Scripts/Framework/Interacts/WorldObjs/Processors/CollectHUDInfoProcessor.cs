@@ -1,17 +1,18 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.DTO.InteractableObj;
+using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Data.SO.Item;
-using _Game._Scripts.Framework.Interact.Character._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.DTO.InteractableObj;
 using _Game._Scripts.Player.HUD;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.Framework.Interact.Character.Processors
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 {
     [UsedImplicitly]
-    public class ShowCharHUDInfoProcessor : CharacterInteractProcessorBase
+    public class CollectHUDInfoProcessor : CharacterInteractProcessorBase
     {
         private CharacterHUDManager _characterHUDManager;
 
@@ -21,19 +22,18 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
             _characterHUDManager = characterHUDManager;
         }
 
-        public override async void Process(IInteractObjectDto objDto)
+        public override async void Process(InGameObjectSettings settings)
         {
             if (_characterHUDManager == null) throw new NullReferenceException("CharHud is null");
 
-            if (objDto is CollectableObjDto)
+            if (settings is CollectableObjSettings or CollectableObjWithRequirementsSettings)
             {
-                Debug.LogWarning("obj is Pickable!!");
-                
-                var b = objDto as IReturns;
-                
-                var a = b.Returns;
+                Debug.LogWarning("ShowCharHUDInfo for collectable Processor");
 
-                foreach (var resource in a.resources)
+
+                var a = (CollectableObjSettings)settings;
+
+                foreach (var resource in a.collectibles.resources)
                 {
                     _characterHUDManager.NewObjToBackpack(resource.itemSettings.icon, resource.itemSettings.name,
                         resource.value);
@@ -42,7 +42,7 @@ namespace _Game._Scripts.Framework.Interact.Character.Processors
                 }
             }
 
-            base.Process(objDto);
+            base.Process(settings);
         }
     }
 }

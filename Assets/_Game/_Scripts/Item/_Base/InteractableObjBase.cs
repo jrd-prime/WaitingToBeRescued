@@ -1,8 +1,7 @@
-﻿using _Game._Scripts.Framework.Data.DTO.InteractableObj;
+﻿using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Interact.Character;
-using _Game._Scripts.Framework.Interact.Character._Base;
-using _Game._Scripts.Framework.Interact.Character.Processors;
+using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Processors;
 using UnityEngine;
 using VContainer;
 
@@ -15,30 +14,33 @@ namespace _Game._Scripts.Item._Base
         private IInteractProcessor _finishChain;
 
         private ShowDebugProcessor _showDebugProcessor;
-        private CollectionProcessor _collectionProcessor;
-        private ConditionCollectionProcessor _conditionCollectionProcessor;
-        private ShowCharHUDInfoProcessor _hudInfoProcessor;
-        private InteractionProcessor _interactionProcessor;
-        private ConditionInteractionProcessor _conditionInteractionProcessor;
+        private CollectProcessor _collectProcessor;
+        private CollectWithConditionProcessor _collectWithConditionProcessor;
+        private CollectHUDInfoProcessor _collectHUDInfoProcessor;
+        private InteractProcessor _interactProcessor;
+        private InteractWithConditionProcessor _interactWithConditionProcessor;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
             _showDebugProcessor = ResolverHelp.ResolveAndCheck<ShowDebugProcessor>(resolver);
-            _collectionProcessor = ResolverHelp.ResolveAndCheck<CollectionProcessor>(resolver);
-            _conditionCollectionProcessor = ResolverHelp.ResolveAndCheck<ConditionCollectionProcessor>(resolver);
-            _interactionProcessor = ResolverHelp.ResolveAndCheck<InteractionProcessor>(resolver);
-            _conditionInteractionProcessor = ResolverHelp.ResolveAndCheck<ConditionInteractionProcessor>(resolver);
-            _hudInfoProcessor = ResolverHelp.ResolveAndCheck<ShowCharHUDInfoProcessor>(resolver);
+            _collectProcessor = ResolverHelp.ResolveAndCheck<CollectProcessor>(resolver);
+            _collectWithConditionProcessor = ResolverHelp.ResolveAndCheck<CollectWithConditionProcessor>(resolver);
+            _interactProcessor = ResolverHelp.ResolveAndCheck<InteractProcessor>(resolver);
+            _interactWithConditionProcessor = ResolverHelp.ResolveAndCheck<InteractWithConditionProcessor>(resolver);
+            _collectHUDInfoProcessor = ResolverHelp.ResolveAndCheck<CollectHUDInfoProcessor>(resolver);
         }
 
         private void Start()
         {
             GetComponent<Collider>().isTrigger = true;
             _startChain = _showDebugProcessor;
-            _startChain.SetNext(_collectionProcessor)
-                .SetNext(_conditionCollectionProcessor)
-                .SetNext(_hudInfoProcessor);
+            _startChain
+                .SetNext(_interactWithConditionProcessor)
+                .SetNext(_interactProcessor)
+                .SetNext(_collectWithConditionProcessor)
+                .SetNext(_collectProcessor)
+                .SetNext(_collectHUDInfoProcessor);
 
             OnStartInitialization();
         }
@@ -47,8 +49,8 @@ namespace _Game._Scripts.Item._Base
         {
         }
 
-        protected void StartInteract(IInteractObjectDto obj) => _startChain?.Process(obj);
+        protected void StartInteract(InGameObjectSettings obj) => _startChain?.Process(obj);
 
-        protected void FinishInteract(IInteractObjectDto obj) => _finishChain.Process(obj);
+        protected void FinishInteract(InGameObjectSettings obj) => _finishChain.Process(obj);
     }
 }

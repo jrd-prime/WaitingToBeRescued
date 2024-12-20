@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: cooper_ore_vein
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 108a8d9b797c13244b4c6d208fd2f957, type: 3}
-  objReturnsDto:
-    resources:
-    - itemSettings: {fileID: 11400000, guid: ad1032c3c6071ef4c81c1b35375bb1de, type: 2}
-      value: 5
+  collectibles:
+    resources: []
     tools: []
     stuff: []
-  objRequirementsDto:
+  collectionConditions:
     resources: []
     buildings: []
-    skills:
-    - itemSettings: {fileID: 11400000, guid: 5a31544a383d1ec48a68326671450ead, type: 2}
-      value: 1
-    tools:
-    - itemSettings: {fileID: 11400000, guid: 8c916abaa18a02f4bbf3d8c8cb09caa7, type: 2}
-      value: 1
+    skills: []
+    tools: []

@@ -1,11 +1,9 @@
-﻿using _Game._Scripts.Framework.Data.Enums;
-using _Game._Scripts.Framework.Data.SO.Item;
-using _Game._Scripts.Framework.Interact.Character;
+﻿using _Game._Scripts.Framework.Data.SO.Item;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Data.DTO.InteractableObj
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.DTO.InteractableObj
 {
-    public struct InteractableObjDto : IInteracts
+    public struct InteractableObjDto : IInteractable
     {
         public EInteract Interact { get; }
 

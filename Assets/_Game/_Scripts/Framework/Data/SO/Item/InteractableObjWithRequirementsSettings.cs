@@ -1,6 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.Data.DTO;
-using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.DTO;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,12 +11,10 @@ namespace _Game._Scripts.Framework.Data.SO.Item
         order = 100)]
     public class InteractableObjWithRequirementsSettings : InteractableObjSettings
     {
-        public LootableObjRequirementsDto objRequirementsDto;
-
+       
         public override void ShowDebug()
         {
             base.ShowDebug();
-            objRequirementsDto.ShowDebug();
         }
     }
 }

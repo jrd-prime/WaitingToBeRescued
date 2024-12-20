@@ -1,7 +1,6 @@
-﻿using _Game._Scripts.Framework.Interact.Character.Processors;
+﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Processors;
 using _Game._Scripts.Item._Base;
 using _Game._Scripts.Item.Gatherable;
-using _Game._Scripts.Item.Pickable;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -15,12 +14,12 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<GatherableObjSystem>(Lifetime.Singleton).AsSelf();
 
             builder.Register<ShowDebugProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<CollectionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<InteractionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<ConditionCollectionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<ConditionInteractionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<CollectProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<InteractProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<CollectWithConditionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<InteractWithConditionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
-            builder.Register<ShowCharHUDInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<CollectHUDInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
 
         private void Start()

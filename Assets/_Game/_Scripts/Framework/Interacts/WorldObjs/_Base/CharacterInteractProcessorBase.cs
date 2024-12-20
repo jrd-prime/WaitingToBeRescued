@@ -1,12 +1,12 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.DTO.InteractableObj;
+using _Game._Scripts.Framework.Data.SO._Base;
 
-namespace _Game._Scripts.Framework.Interact.Character._Base
+namespace _Game._Scripts.Framework.Interacts.WorldObjs._Base
 {
     public interface IInteractProcessor
     {
         public IInteractProcessor SetNext(IInteractProcessor processor);
-        public void Process(IInteractObjectDto objDto);
+        public void Process(InGameObjectSettings settings);
     }
 
     public abstract class CharacterInteractProcessorBase : IInteractProcessor
@@ -16,6 +16,6 @@ namespace _Game._Scripts.Framework.Interact.Character._Base
         public IInteractProcessor SetNext(IInteractProcessor processor) =>
             _next = processor ?? throw new ArgumentNullException(nameof(processor));
 
-        public virtual void Process(IInteractObjectDto objDto) => _next?.Process(objDto);
+        public virtual void Process(InGameObjectSettings settings) => _next?.Process(settings);
     }
 }

@@ -1,6 +1,4 @@
-﻿using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.Framework.Interact.Character.Processors;
-using UnityEngine;
+﻿using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 

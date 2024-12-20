@@ -1,8 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.Data.DTO;
-using _Game._Scripts.Framework.Data.DTO.InteractableObj;
-using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Data.SO.Item

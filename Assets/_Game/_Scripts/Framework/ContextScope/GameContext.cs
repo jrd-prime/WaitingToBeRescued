@@ -1,6 +1,5 @@
 ﻿using System;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.Framework.Interact.Character.Processors;
 using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.JCamera;
@@ -22,7 +21,6 @@ using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
 using _Game._Scripts.Inventory;
-using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player;
 using _Game._Scripts.Player.HUD;
 using _Game._Scripts.Player.Interfaces;
