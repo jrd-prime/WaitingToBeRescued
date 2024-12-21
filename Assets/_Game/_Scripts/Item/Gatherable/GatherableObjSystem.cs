@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Game._Scripts.Item.Gatherable
 {
-    public class GatherableObjSystem : LootableObjSystem<CollectableObjWithRequirementsSettings>
+    public class GatherableObjSystem : LootableObjSystem<CollectableObjWithConditionsSettings>
     {
         protected override void Enter()
         {

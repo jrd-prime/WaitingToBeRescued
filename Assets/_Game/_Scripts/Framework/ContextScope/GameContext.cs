@@ -22,6 +22,7 @@ using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
 using _Game._Scripts.Inventory;
 using _Game._Scripts.Player;
+using _Game._Scripts.Player.Data;
 using _Game._Scripts.Player.HUD;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.Shelter;
@@ -47,7 +48,8 @@ namespace _Game._Scripts.Framework.ContextScope
         [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
         private UIManagerBase uiManager;
 
-        [FormerlySerializedAs("characterHUDController")] [RequiredField, SerializeField] private CharacterHUDManager characterHUDManager;
+        [FormerlySerializedAs("characterHUDController")] [RequiredField, SerializeField]
+        private CharacterHUDManager characterHUDManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -66,6 +68,8 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
             builder.RegisterComponent(movementController).AsSelf();
             builder.RegisterComponent(characterHUDManager).AsSelf().AsImplementedInterfaces();
+
+            builder.Register<IPlayerDataManager, PlayerDataManager>(Lifetime.Singleton);
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();

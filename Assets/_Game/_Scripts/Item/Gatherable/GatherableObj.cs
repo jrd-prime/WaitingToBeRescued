@@ -4,7 +4,7 @@ using _Game._Scripts.Item._Base;
 
 namespace _Game._Scripts.Item.Gatherable
 {
-    public class GatherableObj : InteractableObj<CollectableWithConditionsDto, CollectableObjWithRequirementsSettings>
+    public class GatherableObj : InteractableObj<CollectableWithConditionsDto, CollectableObjWithConditionsSettings>
     {
     }
 }

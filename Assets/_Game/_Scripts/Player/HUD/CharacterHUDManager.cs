@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using _Game._Scripts.Framework.Data.SO.Item._Base;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.GameStates.Gameplay.UI;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -74,13 +77,6 @@ namespace _Game._Scripts.Player.HUD
         {
             _endPosition = _endPoint.worldBound.center;
             _endPoint.UnregisterCallback<GeometryChangedEvent>(SetEndPoint);
-        }
-
-        public void NewObjToBackpack(Sprite sprite, string itemName, float count)
-        {
-            var element = PrepareItemTemplate(sprite, itemName, count);
-
-            AnimateElement(element);
         }
 
         private void AnimateElement(VisualElement element)
@@ -161,6 +157,20 @@ namespace _Game._Scripts.Player.HUD
             go.style.scale = new StyleScale(Vector3.one);
 
             _itemTemplateQueue.Enqueue(go);
+        }
+
+        public async void NewObjToBackpackAsync(IDictionary<LootableItemSettingsBase, float> items)
+        {
+            foreach (var (key, value) in items)
+            {
+                var sprite = key.icon;
+                var itemName = key.name;
+
+                var element = PrepareItemTemplate(sprite, itemName, value);
+
+                AnimateElement(element);
+                await UniTask.Delay(500);
+            }
         }
     }
 }

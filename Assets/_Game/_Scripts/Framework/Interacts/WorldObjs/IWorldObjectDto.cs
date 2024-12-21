@@ -15,7 +15,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs
         public EInteract Interact { get; }
     }
 
-    public interface IInteractableWithConditions : IInteractable, IConditions<CollectableObjWithRequirementsSettings>
+    public interface IInteractableWithConditions : IInteractable, IConditions<CollectableObjWithConditionsSettings>
     {
     }
 
@@ -29,7 +29,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs
         CollectableObjSettings Collectables { get; }
     }
 
-    public interface ICollectableWithConditions : ICollectable, IConditions<CollectableObjWithRequirementsSettings>
+    public interface ICollectableWithConditions : ICollectable, IConditions<CollectableObjWithConditionsSettings>
     {
     }
 

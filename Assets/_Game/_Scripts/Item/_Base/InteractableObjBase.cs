@@ -16,9 +16,12 @@ namespace _Game._Scripts.Item._Base
         private ShowDebugProcessor _showDebugProcessor;
         private CollectProcessor _collectProcessor;
         private CollectWithConditionProcessor _collectWithConditionProcessor;
-        private CollectHUDInfoProcessor _collectHUDInfoProcessor;
+        private EnoughForCollectUIInfoProcessor _enoughForEnoughForCollectUIProcessor;
         private InteractProcessor _interactProcessor;
         private InteractWithConditionProcessor _interactWithConditionProcessor;
+        private NotEnoughForCollectProcessor _notEnoughForCollectUIProcessor;
+        private NotEnoughForInteractProcessor _notEnoughForInteractUIProcessor;
+        private EnoughForInteractUIInfoProcessor _enoughForEnoughForInteractUIProcessor;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
@@ -28,7 +31,12 @@ namespace _Game._Scripts.Item._Base
             _collectWithConditionProcessor = ResolverHelp.ResolveAndCheck<CollectWithConditionProcessor>(resolver);
             _interactProcessor = ResolverHelp.ResolveAndCheck<InteractProcessor>(resolver);
             _interactWithConditionProcessor = ResolverHelp.ResolveAndCheck<InteractWithConditionProcessor>(resolver);
-            _collectHUDInfoProcessor = ResolverHelp.ResolveAndCheck<CollectHUDInfoProcessor>(resolver);
+
+            _notEnoughForCollectUIProcessor = ResolverHelp.ResolveAndCheck<NotEnoughForCollectProcessor>(resolver);
+            _notEnoughForInteractUIProcessor = ResolverHelp.ResolveAndCheck<NotEnoughForInteractProcessor>(resolver);
+
+            _enoughForEnoughForCollectUIProcessor = ResolverHelp.ResolveAndCheck<EnoughForCollectUIInfoProcessor>(resolver);
+            _enoughForEnoughForInteractUIProcessor = ResolverHelp.ResolveAndCheck<EnoughForInteractUIInfoProcessor>(resolver);
         }
 
         private void Start()
@@ -40,7 +48,10 @@ namespace _Game._Scripts.Item._Base
                 .SetNext(_interactProcessor)
                 .SetNext(_collectWithConditionProcessor)
                 .SetNext(_collectProcessor)
-                .SetNext(_collectHUDInfoProcessor);
+                .SetNext(_notEnoughForCollectUIProcessor)
+                .SetNext(_notEnoughForInteractUIProcessor)
+                .SetNext(_enoughForEnoughForCollectUIProcessor)
+                .SetNext(_enoughForEnoughForInteractUIProcessor);
 
             OnStartInitialization();
         }
@@ -49,8 +60,17 @@ namespace _Game._Scripts.Item._Base
         {
         }
 
-        protected void StartInteract(InGameObjectSettings obj) => _startChain?.Process(obj);
+        protected void StartInteract(InGameObjectSettings obj) => _startChain?.Process(obj, EInteractState.Start);
 
-        protected void FinishInteract(InGameObjectSettings obj) => _finishChain.Process(obj);
+        protected void FinishInteract(InGameObjectSettings obj) => _finishChain.Process(obj, EInteractState.Start);
+    }
+
+    public enum EInteractState
+    {
+        Start = 0,
+        EnoughForCollect,
+        NotEnoughForCollect,
+        NotEnoughForInteract,
+        EnoughForInteract
     }
 }

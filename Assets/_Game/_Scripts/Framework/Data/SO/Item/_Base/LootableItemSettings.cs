@@ -4,7 +4,11 @@ using _Game._Scripts.Framework.Data.SO._Base;
 
 namespace _Game._Scripts.Framework.Data.SO.Item._Base
 {
-    public abstract class LootableItemSettings<TItemTypeEnum> : InGameObjectSettings
+    public abstract class LootableItemSettingsBase : InGameObjectSettings
+    {
+    }
+
+    public abstract class LootableItemSettings<TItemTypeEnum> : LootableItemSettingsBase
         where TItemTypeEnum : Enum
     {
         public TItemTypeEnum itemId;

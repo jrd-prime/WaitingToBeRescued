@@ -5,9 +5,9 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.DTO.InteractableObj
     public struct CollectableWithConditionsDto : ICollectableWithConditions
     {
         public CollectableObjSettings Collectables { get; }
-        public CollectableObjWithRequirementsSettings Conditions { get; }
+        public CollectableObjWithConditionsSettings Conditions { get; }
 
-        public CollectableWithConditionsDto(CollectableObjWithRequirementsSettings settings)
+        public CollectableWithConditionsDto(CollectableObjWithConditionsSettings settings)
         {
             Collectables = null;
             Conditions = null;

@@ -19,6 +19,6 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.DTO.InteractableObj
             // Conditions.ShowDebug();
         }
 
-        public CollectableObjWithRequirementsSettings Conditions { get; }
+        public CollectableObjWithConditionsSettings Conditions { get; }
     }
 }

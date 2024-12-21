@@ -3,6 +3,7 @@ using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.DTO.InteractableObj;
 using _Game._Scripts.Inventory;
+using _Game._Scripts.Item._Base;
 using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
@@ -20,16 +21,16 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
             _backpack = backpack;
         }
 
-        public override void Process(InGameObjectSettings objDto)
+        public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
         {
-            if (objDto is InteractableObjDto)
+            if (objSettings is InteractableObjDto)
             {
                 Debug.LogWarning("Interact Processor");
                 Debug.LogWarning("obj is Pickable!!");
                 // PickItems((CollectableObjSettings)objDto.Settings);
             }
 
-            base.Process(objDto);
+            base.Process(objSettings, interactState);
         }
 
         private void PickItems(CollectableObjSettings settings)

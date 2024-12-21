@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Framework.Data.SO.Item._Base;
 using _Game._Scripts.Framework.Data.SO.Item.Lootable;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Interacts.WorldObjs.DTO;
@@ -12,7 +13,7 @@ namespace _Game._Scripts.Framework.Data.SO.Item
         fileName = "CollectableObjWithRequirements",
         menuName = SOPathConst.InGameItem + "New Collectable With Requirements Settings",
         order = 100)]
-    public class CollectableObjWithRequirementsSettings : CollectableObjSettings
+    public class CollectableObjWithConditionsSettings : CollectableObjSettings
     {
         public CollectionConditionsData collectionConditions;
 
@@ -35,15 +36,8 @@ namespace _Game._Scripts.Framework.Data.SO.Item
         public List<CustomItemValue<ToolSettings>> tools;
         public List<CustomItemValue<StuffSettings>> stuff;
 
-        public Dictionary<int, float> GetAllItems()
-        {
-            var dict = new Dictionary<int, float>();
+     
 
-            foreach (var item in resources) dict.TryAdd((int)item.itemSettings.itemId, item.value);
-            foreach (var item in tools) dict.TryAdd((int)item.itemSettings.itemId, item.value);
-            foreach (var item in stuff) dict.TryAdd((int)item.itemSettings.itemId, item.value);
-
-            return dict;
-        }
+       
     }
 }

@@ -1,23 +1,37 @@
 ﻿using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.DTO.InteractableObj;
+using _Game._Scripts.Item._Base;
+using _Game._Scripts.Player.Data;
 using JetBrains.Annotations;
 using UnityEngine;
+using VContainer;
 
 namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 {
     [UsedImplicitly]
     public class CollectWithConditionProcessor : CharacterInteractProcessorBase
     {
-        public override void Process(InGameObjectSettings objDto)
+        private IPlayerDataManager _playerDataManager;
+
+        [Inject]
+        private void Construct(IPlayerDataManager playerDataManager)
         {
-            if (objDto is CollectableWithConditionsDto)
+            _playerDataManager = playerDataManager;
+        }
+
+        public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
+        {
+            if (objSettings is CollectableObjWithConditionsSettings settings &&
+                interactState == EInteractState.Start)
             {
                 Debug.LogWarning("Collect With Condition Processor");
-                Debug.LogWarning("obj is Gatherable!!");
+                bool conditions = _playerDataManager.CheckCollectConditions(settings.collectionConditions);
+                Debug.LogWarning($"conditions: {conditions}");
+                interactState = conditions ? EInteractState.EnoughForCollect : EInteractState.NotEnoughForCollect;
             }
 
-            base.Process(objDto);
+            base.Process(objSettings, interactState);
         }
     }
 }

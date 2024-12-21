@@ -19,7 +19,11 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<CollectWithConditionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<InteractWithConditionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
-            builder.Register<CollectHUDInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<EnoughForCollectUIInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<EnoughForInteractUIInfoProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+            builder.Register<NotEnoughForCollectProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<NotEnoughForInteractProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
 
         private void Start()
