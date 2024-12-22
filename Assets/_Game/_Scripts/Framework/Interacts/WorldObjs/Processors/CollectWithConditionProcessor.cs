@@ -1,6 +1,8 @@
 ﻿using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
+using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings;
 using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player.Data;
 using JetBrains.Annotations;
@@ -22,7 +24,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 
         public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
         {
-            if (objSettings is CollectableObjWithConditionsSettings settings &&
+            if (objSettings is CollectableWithConditionsSettings settings &&
                 interactState == EInteractState.Start)
             {
                 Debug.LogWarning("Collect With Condition Processor");

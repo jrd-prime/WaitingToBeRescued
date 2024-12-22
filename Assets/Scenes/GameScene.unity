@@ -2303,6 +2303,7 @@ GameObject:
   - component: {fileID: 1963503438}
   - component: {fileID: 1963503437}
   - component: {fileID: 1963503441}
+  - component: {fileID: 1963503442}
   m_Layer: 0
   m_Name: ShelterTriggerZone
   m_TagString: Untagged
@@ -2414,6 +2415,22 @@ MonoBehaviour:
   layerForTrigger:
     serializedVersion: 2
     m_Bits: 2147483648
+--- !u!114 &1963503442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963503436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb6397770524a958b7e993698c76911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerForTrigger:
+    serializedVersion: 2
+    m_Bits: 2147483648
+  objSettings: {fileID: 0}
 --- !u!1 &1970709118
 GameObject:
   m_ObjectHideFlags: 0
@@ -5444,8 +5461,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 513776413}
   - {fileID: 577948081}
-  - {fileID: 1963503440}
   - {fileID: 1218809754}
   - {fileID: 3159616466111969320}
   - {fileID: 7777909932550828399}
   - {fileID: 1200018564}
+  - {fileID: 1963503440}

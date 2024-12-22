@@ -12,7 +12,7 @@ using VContainer;
 namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 {
     [UsedImplicitly]
-    public class CollectProcessor : CharacterInteractProcessorBase
+    public class UseProcessor : CharacterInteractProcessorBase
     {
         private IBackpack _backpack;
 
@@ -24,24 +24,23 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 
         public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
         {
-            if (objSettings is CollectableSettings settings &&
-                interactState is EInteractState.Start or EInteractState.EnoughForCollect)
-            {
-                Debug.LogWarning("Collect Processor");
-                interactState = EInteractState.EnoughForCollect;
-                PickItems(settings);
-            }
+            // if (objSettings is InteractableObjDto)
+            // {
+            //     Debug.LogWarning("Interact Processor");
+            //     Debug.LogWarning("obj is Pickable!!");
+            //     // PickItems((CollectableObjSettings)objDto.Settings);
+            // }
 
             base.Process(objSettings, interactState);
         }
 
         private void PickItems(CollectableSettings settings)
         {
-            var pickableItems = settings.GetCollectiblesWithId();
+            // var pickableItems = settings.objReturns.GetAllItems();
 
-            foreach (var resource in pickableItems) Debug.LogWarning($"Pick: {resource.Key} {resource.Value} ");
+            // foreach (var resource in pickableItems) Debug.LogWarning($"Pick: {resource.Key} {resource.Value} ");
 
-            _backpack.AddItems(pickableItems);
+            // _backpack.AddItems(pickableItems);
         }
     }
 }
