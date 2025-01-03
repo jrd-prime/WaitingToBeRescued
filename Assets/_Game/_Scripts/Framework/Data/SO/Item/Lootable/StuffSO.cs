@@ -6,15 +6,14 @@ using UnityEngine;
 namespace _Game._Scripts.Framework.Data.SO.Item.Lootable
 {
     [CreateAssetMenu(
-        fileName = "newResourceSettings",
-        menuName = SOPathConst.InGameItem + "New Resource Settings",
+        fileName = "newStuffSettings",
+        menuName = SOPathConst.InGameItem + "New Stuff Settings",
         order = 100)]
-    public class ResourceSettings : LootableItemSettings<GameItemTypes.EResourceItem>
+    public class StuffSO : LootableItemSO<GameItemTypes.EStuffItem>
     {
-
         public override void ShowDebug()
         {
-            Debug.LogWarning("ResourceSettings / " + name);
+            Debug.LogWarning("StuffSO / " + name);
         }
     }
 }

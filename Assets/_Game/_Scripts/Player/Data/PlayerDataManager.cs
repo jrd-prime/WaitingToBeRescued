@@ -1,5 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.SO.Item;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 
 namespace _Game._Scripts.Player.Data
 {

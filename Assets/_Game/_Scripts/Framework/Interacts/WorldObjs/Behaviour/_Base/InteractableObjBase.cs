@@ -5,7 +5,7 @@ using _Game._Scripts.Framework.Interacts.WorldObjs.Processors;
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base
 {
     [RequireComponent(typeof(Collider))]
     public abstract class InteractableObjBase : MonoBehaviour
@@ -60,9 +60,9 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour
         {
         }
 
-        protected void StartInteract(InGameObjectSettings obj) => _startChain?.Process(obj, EInteractState.Start);
+        protected void StartInteract(InGameObjectSO obj) => _startChain?.Process(obj, EInteractState.Start);
 
-        protected void FinishInteract(InGameObjectSettings obj) => _finishChain.Process(obj, EInteractState.Start);
+        protected void FinishInteract(InGameObjectSO obj) => _finishChain.Process(obj, EInteractState.Start);
     }
 
     public enum EInteractState

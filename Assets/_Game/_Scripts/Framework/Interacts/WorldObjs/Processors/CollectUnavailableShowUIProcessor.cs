@@ -1,7 +1,7 @@
 ﻿using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -13,15 +13,15 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
     [UsedImplicitly]
     public class CollectUnavailableShowUIProcessor : CharacterInteractProcessorBase
     {
-        public override void Process(InGameObjectSettings objSettings, EInteractState state)
+        public override void Process(InGameObjectSO objSO, EInteractState state)
         {
-            if (objSettings is CollectableSettings settings && state == EInteractState.NotEnoughForCollect)
+            if (objSO is CollectableSO settings && state == EInteractState.NotEnoughForCollect)
             {
                 Debug.LogWarning("NOT ENOUGH FOR COLLECT UI INFO");
                 return;
             }
 
-            base.Process(objSettings, state);
+            base.Process(objSO, state);
         }
     }
 }

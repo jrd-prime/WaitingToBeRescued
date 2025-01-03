@@ -5,13 +5,13 @@ using _Game._Scripts.Framework.Data.SO.Item._Base;
 using _Game._Scripts.Framework.Helpers;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.Settings
 {
     [CreateAssetMenu(
         fileName = "Collectable",
         menuName = SOPathConst.InWorldItem + "New Collectable",
         order = 100)]
-    public class CollectableSettings : InGameObjectSettings
+    public class CollectableSO : InGameObjectSO
     {
         public CollectiblesData collectibles;
 
@@ -35,9 +35,9 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings
             return dict;
         }
 
-        public Dictionary<LootableItemSettingsBase, float> GetCollectiblesWithSettings()
+        public Dictionary<LootableItemSOBase, float> GetCollectiblesWithSettings()
         {
-            var dict = new Dictionary<LootableItemSettingsBase, float>();
+            var dict = new Dictionary<LootableItemSOBase, float>();
 
             foreach (var item in collectibles.resources) dict.TryAdd(item.itemSettings, item.value);
             foreach (var item in collectibles.tools) dict.TryAdd(item.itemSettings, item.value);

@@ -6,14 +6,14 @@ using UnityEngine;
 namespace _Game._Scripts.Framework.Data.SO.Item.NonLootable
 {
     [CreateAssetMenu(
-        fileName = "newSkillSettings",
-        menuName = SOPathConst.InGameItem + "New Skill",
+        fileName = "newBuildingSettings",
+        menuName = SOPathConst.InGameItem + "New Building Settings",
         order = 100)]
-    public class SkillSettings : NonLootableItemSettings<GameItemTypes.ESkillItem>
+    public class BuildingSO : NonLootableItemSO<GameItemTypes.EBuildingItem>
     {
         public override void ShowDebug()
         {
-            Debug.LogWarning("SkillSettings / " + name);
+            Debug.LogWarning("BuildingSO / " + name);
         }
     }
 }

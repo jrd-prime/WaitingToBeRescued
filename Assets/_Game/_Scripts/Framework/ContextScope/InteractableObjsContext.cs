@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
+﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Processors;
 using _Game._Scripts.Item._Base;
 using UnityEngine;

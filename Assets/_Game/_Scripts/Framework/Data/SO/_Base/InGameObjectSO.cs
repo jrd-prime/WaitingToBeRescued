@@ -7,7 +7,7 @@ using UnityEditor;
 
 namespace _Game._Scripts.Framework.Data.SO._Base
 {
-    public abstract class InGameObjectSettings : SettingsSO
+    public abstract class InGameObjectSO : SettingsSO
     {
         public Sprite icon;
         public abstract void ShowDebug();

@@ -1,7 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Item._Base;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -11,15 +11,15 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
     [UsedImplicitly]
     public class ShowDebugProcessor : CharacterInteractProcessorBase
     {
-        public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
+        public override void Process(InGameObjectSO objSO, EInteractState interactState)
         {
-            if (objSettings is null) throw new ArgumentNullException(nameof(objSettings));
+            if (objSO is null) throw new ArgumentNullException(nameof(objSO));
 
-            Debug.LogWarning($"dbg: {objSettings.GetType().Name}");
-            objSettings.ShowDebug();
+            Debug.LogWarning($"dbg: {objSO.GetType().Name}");
+            objSO.ShowDebug();
 
 
-            base.Process(objSettings, interactState);
+            base.Process(objSO, interactState);
         }
     }
 }

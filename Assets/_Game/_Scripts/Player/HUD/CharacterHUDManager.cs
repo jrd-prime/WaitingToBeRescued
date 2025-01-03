@@ -159,7 +159,7 @@ namespace _Game._Scripts.Player.HUD
             _itemTemplateQueue.Enqueue(go);
         }
 
-        public async void NewObjToBackpackAsync(IDictionary<LootableItemSettingsBase, float> items)
+        public async void NewObjToBackpackAsync(IDictionary<LootableItemSOBase, float> items)
         {
             foreach (var (key, value) in items)
             {

@@ -1,6 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Item._Base;
 
 namespace _Game._Scripts.Framework.Interacts.WorldObjs._Base
@@ -8,7 +8,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs._Base
     public interface IInteractProcessor
     {
         public IInteractProcessor SetNext(IInteractProcessor processor);
-        public void Process(InGameObjectSettings objSettings, EInteractState interactState);
+        public void Process(InGameObjectSO objSO, EInteractState interactState);
     }
 
     public abstract class CharacterInteractProcessorBase : IInteractProcessor
@@ -18,7 +18,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs._Base
         public IInteractProcessor SetNext(IInteractProcessor processor) =>
             _next = processor ?? throw new ArgumentNullException(nameof(processor));
 
-        public virtual void Process(InGameObjectSettings objSettings, EInteractState interactState) =>
-            _next?.Process(objSettings, interactState);
+        public virtual void Process(InGameObjectSO objSO, EInteractState interactState) =>
+            _next?.Process(objSO, interactState);
     }
 }

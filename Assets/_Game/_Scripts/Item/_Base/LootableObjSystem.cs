@@ -6,7 +6,7 @@ using VContainer;
 namespace _Game._Scripts.Item._Base
 {
     public abstract class LootableObjSystem<TObjectSettings> //: ILootableObjSystem<TObjectSettings>
-        where TObjectSettings : InGameObjectSettings
+        where TObjectSettings : InGameObjectSO
     {
         protected TObjectSettings Settings;
         protected Backpack Backpack;

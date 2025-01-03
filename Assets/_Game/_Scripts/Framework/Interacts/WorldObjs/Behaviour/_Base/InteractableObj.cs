@@ -3,10 +3,10 @@ using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Helpers.Extensions;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base
 {
     public abstract class InteractableObj<TObjSettings> : InteractableObjBase
-        where TObjSettings : InGameObjectSettings
+        where TObjSettings : InGameObjectSO
     {
         [SerializeField] protected LayerMask layerForTrigger;
         [SerializeField] protected TObjSettings objSettings;

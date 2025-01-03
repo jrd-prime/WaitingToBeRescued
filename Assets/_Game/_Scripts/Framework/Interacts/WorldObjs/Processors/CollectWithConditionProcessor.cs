@@ -1,8 +1,8 @@
 ﻿using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player.Data;
 using JetBrains.Annotations;
@@ -22,9 +22,9 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
             _playerDataManager = playerDataManager;
         }
 
-        public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
+        public override void Process(InGameObjectSO objSO, EInteractState interactState)
         {
-            if (objSettings is CollectableWithConditionsSettings settings &&
+            if (objSO is CollectableWithConditionsSO settings &&
                 interactState == EInteractState.Start)
             {
                 Debug.LogWarning("Collect With Condition Processor");
@@ -33,7 +33,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
                 interactState = conditions ? EInteractState.EnoughForCollect : EInteractState.NotEnoughForCollect;
             }
 
-            base.Process(objSettings, interactState);
+            base.Process(objSO, interactState);
         }
     }
 }

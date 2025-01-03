@@ -2,8 +2,8 @@
 using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Data.SO.Item;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsBehaviour;
-using _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player.HUD;
 using JetBrains.Annotations;
@@ -26,13 +26,13 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
             _characterHUDManager = characterHUDManager;
         }
 
-        public override void Process(InGameObjectSettings objSettings, EInteractState interactState)
+        public override void Process(InGameObjectSO objSO, EInteractState interactState)
         {
             if (_characterHUDManager == null) throw new NullReferenceException("CharHud is null");
 
             Debug.LogWarning("interactState: " + interactState);
 
-            if (objSettings is CollectableSettings settings && interactState == EInteractState.EnoughForCollect)
+            if (objSO is CollectableSO settings && interactState == EInteractState.EnoughForCollect)
             {
                 Debug.LogWarning("ENOUGH FOR COLLECT UI INFO");
                 Debug.LogWarning("ShowCharHUDInfo for collectable Processor");
@@ -41,7 +41,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
                 _characterHUDManager.NewObjToBackpackAsync(collectiblesWithSettings);
             }
 
-            base.Process(objSettings, interactState);
+            base.Process(objSO, interactState);
         }
     }
 }

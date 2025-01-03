@@ -1,7 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO._Base;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.DTO
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.Data
 {
     [Serializable]
     public struct CustomItemValue<T> where T : SettingsSO

@@ -2,13 +2,13 @@
 using _Game._Scripts.Framework.Data.SO._Base;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.ObjsSettings
+namespace _Game._Scripts.Framework.Interacts.WorldObjs.Settings
 {
     [CreateAssetMenu(
         fileName = "UsableObj",
         menuName = SOPathConst.InWorldItem + "New Usable",
         order = 100)]
-    public class UsableSettings : InGameObjectSettings
+    public class UsableSO : InGameObjectSO
     {
         public EInteract interact;
 
