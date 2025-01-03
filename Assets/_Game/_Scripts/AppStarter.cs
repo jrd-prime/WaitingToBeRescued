@@ -50,7 +50,7 @@ namespace _Game._Scripts
             // TODO FadeOut loading screen view 
             SceneManager.SetActiveScene(gameScene.Scene);
 
-            Debug.Log("App started.");
+            Debug.LogWarning("<color=green><b>=== APP STARTED! ===</b></color>");
         }
     }
 }

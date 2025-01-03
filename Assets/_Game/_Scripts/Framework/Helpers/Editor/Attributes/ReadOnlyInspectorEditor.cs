@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿#if UNITY_EDITOR
+
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,3 +43,4 @@ namespace _Game._Scripts.Framework.Helpers.Editor.Attributes
         }
     }
 }
+#endif

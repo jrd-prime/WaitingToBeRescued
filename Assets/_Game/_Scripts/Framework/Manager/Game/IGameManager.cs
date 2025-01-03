@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.Shelter.DayTimer;
+﻿using _Game._Scripts.Framework.Tickers.DayTimer;
 using R3;
 using VContainer.Unity;
 

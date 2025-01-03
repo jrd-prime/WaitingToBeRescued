@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Player.HUD;
 using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
@@ -33,6 +34,9 @@ namespace _Game._Scripts.Player
         private void Awake()
         {
             if (_viewModel == null) throw new NullReferenceException("PlayerViewModel is null");
+
+            var hud = GetComponentInChildren<CharacterHUDManager>();
+            if (hud == null) throw new NullReferenceException("CharacterHUDController is null");
 
             _rb = GetComponent<Rigidbody>();
             _animator = gameObject.GetComponent<Animator>();

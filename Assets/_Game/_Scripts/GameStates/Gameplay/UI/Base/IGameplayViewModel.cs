@@ -1,6 +1,6 @@
-﻿using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
+﻿using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
 using UnityEngine.UIElements;
@@ -12,6 +12,11 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
         public Subject<Unit> MenuBtnClicked { get; }
         public Subject<Unit> CloseBtnClicked { get; }
         public Subject<Unit> AddEnergyBtnClicked { get; }
+        public Subject<Unit> BackpackBtnClicked { get; }
+
+
+        public Subject<Unit> ShakeBackpackButton { get; }
+
         public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData { get; }
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }

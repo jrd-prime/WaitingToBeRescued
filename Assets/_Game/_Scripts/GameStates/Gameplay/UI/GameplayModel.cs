@@ -1,11 +1,13 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.MovementControl;
-using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
+using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using _Game._Scripts.UI.Base.Model;
+using JetBrains.Annotations;
 using R3;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI
@@ -16,22 +18,25 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
         public ReadOnlyReactiveProperty<DayTimerData> CountdownData { get; }
+        public Subject<Unit> ShakeBackpackButton { get; }
+
         public void OnDownEvent(PointerDownEvent evt);
         public void OnMoveEvent(PointerMoveEvent evt);
         public void OnUpEvent(PointerUpEvent _);
         public void OnOutEvent(PointerOutEvent _);
         public void AddEnergy();
+        public void OpenBackpack();
+        public void ShakeBackpack();
     }
 
+    [UsedImplicitly]
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
+        public Subject<Unit> ShakeBackpackButton { get; } = new();
+        public ReadOnlyReactiveProperty<DayTimerData> CountdownData => _dayTimerDataModel.ModelData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
         public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData => _ambientTempDataModel.ModelData;
-        public ReadOnlyReactiveProperty<DayTimerData> CountdownData => _dayTimerDataModel.ModelData;
         public ReadOnlyReactiveProperty<EnergyData> EnergyData => _energyDataModel.ModelData;
-
-        public void AddEnergy() => _energyDataModel.IncreaseEnergy(30);
-
 
         private IMovementControlModel _movementModel;
         private EnergyDataModel _energyDataModel;
@@ -46,7 +51,15 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
             _dayTimerDataModel = ResolverHelp.ResolveAndCheck<DayTimerDataModel>(Resolver);
         }
 
+        public void AddEnergy() => _energyDataModel.IncreaseEnergy(30);
 
+        public void OpenBackpack()
+        {
+            Debug.LogWarning("OPEN BACKPACK11");
+        }
+
+        public void ShakeBackpack() => ShakeBackpackButton.OnNext(Unit.Default);
+        
         public void OnDownEvent(PointerDownEvent evt) => _movementModel.OnDownEvent(evt);
         public void OnMoveEvent(PointerMoveEvent evt) => _movementModel.OnMoveEvent(evt);
         public void OnUpEvent(PointerUpEvent _) => _movementModel.OnUpEvent(_);

@@ -1,12 +1,11 @@
 ﻿using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Extensions;
-using _Game._Scripts.Framework.Shelter.DayTimer;
+using _Game._Scripts.Framework.Tickers.DayTimer;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.Component;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace _Game._Scripts.GameStates.Gameplay.UI.Components
@@ -38,7 +37,6 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
             _countDown = Root.Q<Label>("countdown-label").CheckOnNull();
             _day = Root.Q<Label>("day-label").CheckOnNull();
             _dayBar = Root.Q<VisualElement>("day-countdown-slider").CheckOnNull();
-            Debug.LogWarning("init day bar");
         }
 
 
@@ -55,14 +53,13 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Components
         private void InitDayCountdownBar(float width)
         {
             if (_isDayBarWidthSet) return;
-            Debug.LogWarning("Init day bar width of bar");
             _dayBar.UnregisterCallback(_dayBarCallback);
             _isDayBarWidthSet = true;
             _currentWidth = width;
             _visualElementWidth = width;
 
             _dayCountdownBarTween = new JTweenAnim(_dayBar, width, AnimationDuration);
-            
+
             UpdateDayBar(ViewModel.PreparedDayTimerData.CurrentValue);
         }
 

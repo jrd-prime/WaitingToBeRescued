@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Helpers.Extensions;
+using _Game._Scripts.Shelter;
 using UnityEngine;
 using VContainer;
 

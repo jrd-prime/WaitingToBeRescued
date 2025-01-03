@@ -6,11 +6,11 @@ using _Game._Scripts.Framework.Manager.JCamera;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.MovementControl.FullScreen;
-using _Game._Scripts.Framework.Shelter;
-using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
 using _Game._Scripts.Framework.Systems;
+using _Game._Scripts.Framework.Tickers;
+using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using _Game._Scripts.GameStates.Gameover;
 using _Game._Scripts.GameStates.Gameplay.State;
 using _Game._Scripts.GameStates.Gameplay.UI;
@@ -21,8 +21,9 @@ using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
 using _Game._Scripts.Inventory;
-using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player;
+using _Game._Scripts.Player.Data;
+using _Game._Scripts.Player.HUD;
 using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.Shelter;
 using _Game._Scripts.UI.Base.Model;
@@ -47,6 +48,9 @@ namespace _Game._Scripts.Framework.ContextScope
         [FormerlySerializedAs("uiController")] [RequiredField, SerializeField]
         private UIManagerBase uiManager;
 
+        [FormerlySerializedAs("characterHUDController")] [RequiredField, SerializeField]
+        private CharacterHUDManager characterHUDManager;
+
         protected override void Configure(IContainerBuilder builder)
         {
             Debug.Log("<color=cyan>Game context</color>");
@@ -63,6 +67,9 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
             builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
             builder.RegisterComponent(movementController).AsSelf();
+            builder.RegisterComponent(characterHUDManager).AsSelf().AsImplementedInterfaces();
+
+            builder.Register<IPlayerDataManager, PlayerDataManager>(Lifetime.Singleton);
 
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
@@ -105,8 +112,8 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
-            
-            
+
+
             builder.Register<Backpack>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }
     }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10663da55ad4cbc89752ae1722b48a8, type: 3}
   m_Name: 1101_WoodenStick
   m_EditorClassIdentifier: 
-  nameIdForLocalization: wooden_stick
+  icon: {fileID: 21300000, guid: 1511e35934ea2444cba32f5ed2f1f5dc, type: 3}
   itemId: 1101

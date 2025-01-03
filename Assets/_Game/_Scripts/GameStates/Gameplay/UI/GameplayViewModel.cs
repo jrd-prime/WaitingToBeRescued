@@ -1,9 +1,9 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
 using _Game._Scripts.Framework.Data.SO.State;
 using _Game._Scripts.Framework.Helpers.Extensions;
-using _Game._Scripts.Framework.Shelter.DayTimer;
-using _Game._Scripts.Framework.Shelter.Energy;
-using _Game._Scripts.Framework.Shelter.Temperature;
+using _Game._Scripts.Framework.Tickers.DayTimer;
+using _Game._Scripts.Framework.Tickers.Energy;
+using _Game._Scripts.Framework.Tickers.Temperature;
 using _Game._Scripts.GameStates.Gameplay.UI.Base;
 using _Game._Scripts.UI.Base.ViewModel;
 using R3;
@@ -18,6 +18,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public Subject<Unit> MenuBtnClicked { get; } = new();
         public Subject<Unit> CloseBtnClicked { get; } = new();
         public Subject<Unit> AddEnergyBtnClicked { get; } = new();
+        public Subject<Unit> BackpackBtnClicked { get; } = new();
 
         #endregion
 
@@ -27,6 +28,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
         public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; } = new();
         public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; } = new();
         public ReactiveProperty<PreparedTemperatureData> PreparedTemperatureData { get; } = new();
+        public Subject<Unit> ShakeBackpackButton => Model.ShakeBackpackButton;
 
         private DayCountdownUpdater _dayCountdownUpdater;
         private EnergyUpdater _energyUpdater;
@@ -46,6 +48,7 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
             MenuBtnClicked.Subscribe(_ => Model.SetGameState(new StateData(EGameState.Menu))).AddTo(Disposables);
             CloseBtnClicked.Subscribe(_ => Model.SetPreviousState()).AddTo(Disposables);
             AddEnergyBtnClicked.Subscribe(_ => Model.AddEnergy()).AddTo(Disposables);
+            BackpackBtnClicked.Subscribe(_ => Model.OpenBackpack()).AddTo(Disposables);
         }
 
         private void UpdateDayTimerData(DayTimerData data)
@@ -75,5 +78,4 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 
         #endregion
     }
-
 }

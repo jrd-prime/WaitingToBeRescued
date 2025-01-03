@@ -37,3 +37,30 @@
     margin-bottom: 4px;
     margin-left: 4px;
 }
+
+.btn {
+    width: 48px;
+    height: 48px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/_Game/Font/Adventa/AdventPro-Bold.ttf?fileID=12800000&guid=0d47bb515e96e1445aa61b460e6a15b4&type=3#AdventPro-Bold");
+    font-size: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-left-color: rgba(0, 0, 0, 0.15);
+    border-right-color: rgba(0, 0, 0, 0.15);
+    border-top-color: rgba(0, 0, 0, 0.15);
+    border-bottom-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(163, 205, 69, 0.5);
+    color: rgb(40, 51, 17);
+    position: absolute;
+    -unity-text-align: middle-center;
+}
