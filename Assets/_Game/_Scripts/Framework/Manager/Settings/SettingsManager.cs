@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Data.SO.Game;
 using UnityEngine;
 using VContainer;

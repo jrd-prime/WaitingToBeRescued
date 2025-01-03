@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game._Scripts.Bootstrap;
-using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Data.SO;
 
 namespace _Game._Scripts.Framework.Manager.Settings
 {

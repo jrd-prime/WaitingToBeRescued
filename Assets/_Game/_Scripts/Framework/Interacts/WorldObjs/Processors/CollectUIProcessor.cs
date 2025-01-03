@@ -1,10 +1,8 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.SO._Base;
-using _Game._Scripts.Framework.Data.SO.Item;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
-using _Game._Scripts.Item._Base;
 using _Game._Scripts.Player.HUD;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -16,8 +14,10 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
     /// If conditions are met, show collect UI
     /// </summary>
     [UsedImplicitly]
-    public class CollectAvailableShowUIProcessor : CharacterInteractProcessorBase
+    public class CollectUIProcessor : CharacterInteractProcessorBase
     {
+        protected override string Description => "Collect UI Processor";
+
         private CharacterHUDManager _characterHUDManager;
 
         [Inject]
@@ -30,15 +30,19 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
         {
             if (_characterHUDManager == null) throw new NullReferenceException("CharHud is null");
 
-            Debug.LogWarning("interactState: " + interactState);
-
-            if (objSO is CollectableSO settings && interactState == EInteractState.EnoughForCollect)
+            if (objSO is CollectableSO settings)
             {
-                Debug.LogWarning("ENOUGH FOR COLLECT UI INFO");
-                Debug.LogWarning("ShowCharHUDInfo for collectable Processor");
-                var collectiblesWithSettings = settings.GetCollectiblesWithSettings();
+                if (interactState == EInteractState.EnoughForCollect)
+                {
+                    Debug.LogWarning("COLLECT UI - ENOUGH");
+                    var collectiblesWithSettings = settings.GetCollectiblesWithSettings();
 
-                _characterHUDManager.NewObjToBackpackAsync(collectiblesWithSettings);
+                    _characterHUDManager.NewObjToBackpackAsync(collectiblesWithSettings);
+                }
+                else if (interactState == EInteractState.NotEnoughForCollect)
+                {
+                    Debug.LogWarning("COLLECT UI - NOT ENOUGH");
+                }
             }
 
             base.Process(objSO, interactState);

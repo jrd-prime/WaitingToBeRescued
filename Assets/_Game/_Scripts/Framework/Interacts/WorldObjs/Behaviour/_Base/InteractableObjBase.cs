@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.Data.SO._Base;
+﻿using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Processors;
@@ -13,45 +13,41 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base
         private IInteractProcessor _startChain;
         private IInteractProcessor _finishChain;
 
-        private ShowDebugProcessor _showDebugProcessor;
-        private CollectProcessor _collectProcessor;
-        private CollectWithConditionProcessor _collectWithConditionProcessor;
-        private CollectAvailableShowUIProcessor _collectAvailableShowUIProcessor;
-        private UseProcessor _useProcessor;
-        private UseWithConditionProcessor _useWithConditionProcessor;
-        private CollectUnavailableShowUIProcessor _collectUnavailableShowUIUIProcessor;
-        private InteractUnavaiableShowUIProcessor _interactUnavaiableShowUIUIProcessor;
-        private InteractAvailableShowUIProcessor _interactAvailableShowUIProcessor;
+        private ShowDebugProcessor _showDebug;
+
+        private CollectProcessor _collect;
+        private CollectWithConditionProcessor _collectWithCondition;
+        private CollectUIProcessor _collectUI;
+
+        private UseProcessor _use;
+        private UseWithConditionProcessor _useWithCondition;
+        private UseUIProcessor _useUI;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
-            _showDebugProcessor = ResolverHelp.ResolveAndCheck<ShowDebugProcessor>(resolver);
-            _collectProcessor = ResolverHelp.ResolveAndCheck<CollectProcessor>(resolver);
-            _collectWithConditionProcessor = ResolverHelp.ResolveAndCheck<CollectWithConditionProcessor>(resolver);
-            _useProcessor = ResolverHelp.ResolveAndCheck<UseProcessor>(resolver);
-            _useWithConditionProcessor = ResolverHelp.ResolveAndCheck<UseWithConditionProcessor>(resolver);
+            _showDebug = ResolverHelp.ResolveAndCheck<ShowDebugProcessor>(resolver);
 
-            _collectUnavailableShowUIUIProcessor = ResolverHelp.ResolveAndCheck<CollectUnavailableShowUIProcessor>(resolver);
-            _interactUnavaiableShowUIUIProcessor = ResolverHelp.ResolveAndCheck<InteractUnavaiableShowUIProcessor>(resolver);
+            _collect = ResolverHelp.ResolveAndCheck<CollectProcessor>(resolver);
+            _collectWithCondition = ResolverHelp.ResolveAndCheck<CollectWithConditionProcessor>(resolver);
+            _collectUI = ResolverHelp.ResolveAndCheck<CollectUIProcessor>(resolver);
 
-            _collectAvailableShowUIProcessor = ResolverHelp.ResolveAndCheck<CollectAvailableShowUIProcessor>(resolver);
-            _interactAvailableShowUIProcessor = ResolverHelp.ResolveAndCheck<InteractAvailableShowUIProcessor>(resolver);
+            _use = ResolverHelp.ResolveAndCheck<UseProcessor>(resolver);
+            _useWithCondition = ResolverHelp.ResolveAndCheck<UseWithConditionProcessor>(resolver);
+            _useUI = ResolverHelp.ResolveAndCheck<UseUIProcessor>(resolver);
         }
 
         private void Start()
         {
             GetComponent<Collider>().isTrigger = true;
-            _startChain = _showDebugProcessor;
+            _startChain = _showDebug;
             _startChain
-                .SetNext(_useWithConditionProcessor)
-                .SetNext(_useProcessor)
-                .SetNext(_collectWithConditionProcessor)
-                .SetNext(_collectProcessor)
-                .SetNext(_collectUnavailableShowUIUIProcessor)
-                .SetNext(_interactUnavaiableShowUIUIProcessor)
-                .SetNext(_collectAvailableShowUIProcessor)
-                .SetNext(_interactAvailableShowUIProcessor);
+                .SetNext(_useWithCondition)
+                .SetNext(_use)
+                .SetNext(_useUI)
+                .SetNext(_collectWithCondition)
+                .SetNext(_collect)
+                .SetNext(_collectUI);
 
             OnStartInitialization();
         }
@@ -70,7 +66,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base
         Start = 0,
         EnoughForCollect,
         NotEnoughForCollect,
-        NotEnoughForInteract,
-        EnoughForInteract
+        NotEnoughForUse,
+        EnoughForUse
     }
 }
