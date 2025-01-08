@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.JrdStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
@@ -55,7 +56,36 @@ namespace _Game._Scripts.Framework.ContextScope
         {
             Debug.Log("<color=cyan>Game context</color>");
 
-            if (uiManager == null) throw new NullReferenceException("UIController is null");
+            Optional<CameraManagerBase>.Some(cameraManager)
+                .Match(
+                    component => builder.RegisterComponent(component).As<ICameraManager>().As<IInitializable>(),
+                    () => throw new NullReferenceException("CameraManager is null"));
+
+            Optional<GameManager>.Some(gameManager)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf().AsImplementedInterfaces(),
+                    () => throw new NullReferenceException("GameManager is null"));
+
+            Optional<PopUpTextManager>.Some(popUpTextManager)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf().AsImplementedInterfaces(),
+                    () => throw new NullReferenceException("PopUpTextManager is null"));
+
+            Optional<MovementUIController>.Some(movementController)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf(),
+                    () => throw new NullReferenceException("MovementUIController is null"));
+
+            Optional<UIManagerBase>.Some(uiManager)
+                .Match(
+                    component => builder.RegisterComponent(component).As<IUIManager>().As<IInitializable>(),
+                    () => throw new NullReferenceException("UIManager is null"));
+
+            Optional<CharacterHUDManager>.Some(characterHUDManager)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf().AsImplementedInterfaces(),
+                    () => throw new NullReferenceException("CharacterHUDManager is null"));
+
 
             builder.Register<GameCountdownsController>(Lifetime.Singleton)
                 .As<IGameCountdownsController, IInitializable, IDisposable>();
@@ -64,13 +94,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<DayTimerDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
 
-            builder.RegisterComponent(uiManager).As<IUIManager>().As<IInitializable>();
-            builder.RegisterComponent(cameraManager).As<ICameraManager>().As<IInitializable>();
-            builder.RegisterComponent(movementController).AsSelf();
-            builder.RegisterComponent(characterHUDManager).AsSelf().AsImplementedInterfaces();
-
             builder.Register<IPlayerDataManager, PlayerDataManager>(Lifetime.Singleton);
-
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
             builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton).As<IDisposable>();
@@ -81,11 +105,6 @@ namespace _Game._Scripts.Framework.ContextScope
                 .As<IMovementControlViewModel, IDisposable>();
 
             builder.Register<CameraFollowSystem>(Lifetime.Singleton);
-
-
-            builder.RegisterComponent(gameManager).AsSelf().AsImplementedInterfaces();
-            builder.RegisterComponent(popUpTextManager).AsSelf().AsImplementedInterfaces();
-
 
             // State models
             builder.Register<IMenuModel, MenuModel>(Lifetime.Singleton).As<IInitializable>();
@@ -108,11 +127,9 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<PauseState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<WinState>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
-
             builder.Register<ShelterModel>(Lifetime.Singleton).AsSelf().As<IInteractableModel, IInitializable>();
 
             builder.Register<IStateMachineReactiveAdapter, StateMachineReactiveAdapter>(Lifetime.Singleton);
-
 
             builder.Register<Backpack>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
         }

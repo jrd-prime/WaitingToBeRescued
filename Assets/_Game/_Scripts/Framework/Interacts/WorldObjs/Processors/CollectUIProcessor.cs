@@ -1,11 +1,14 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Player.HUD;
 using JetBrains.Annotations;
+using R3;
 using UnityEngine;
+using UnityEngine.UI;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
@@ -28,16 +31,21 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 
         public override void Process(InGameObjectSO objSO, EInteractState interactState)
         {
-            if (_characterHUDManager == null) throw new NullReferenceException("CharHud is null");
-
             if (objSO is CollectableSO settings)
             {
                 if (interactState == EInteractState.EnoughForCollect)
                 {
                     Debug.LogWarning("COLLECT UI - ENOUGH");
-                    var collectiblesWithSettings = settings.GetCollectiblesWithSettings();
 
-                    _characterHUDManager.NewObjToBackpackAsync(collectiblesWithSettings);
+                    Optional<CharacterHUDManager>.Some(_characterHUDManager)
+                        .Match(
+                            manager =>
+                            {
+                                var collectiblesWithSettings = settings.GetCollectiblesWithSettings();
+                                manager.NewObjToBackpackAsync(collectiblesWithSettings);
+                                return Unit.Default;
+                            },
+                            () => throw new NullReferenceException("CharacterHUDManager is null"));
                 }
                 else if (interactState == EInteractState.NotEnoughForCollect)
                 {
