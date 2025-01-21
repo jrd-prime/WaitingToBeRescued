@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-#if UNITY_EDITOR
-using System;
+﻿using System;
 using System.IO;
 using UnityEditor;
-#endif
+using UnityEngine;
 
-namespace _Game._Scripts.Framework.Data.SO._Base
+namespace _Game._Scripts.Framework.Data.SO
 {
     public abstract class InGameObjectSO : SettingsSO
     {

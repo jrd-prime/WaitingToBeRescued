@@ -1,5 +1,5 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Data.SO;
 
 namespace _Game._Scripts.Framework.Interacts.WorldObjs.Data
 {

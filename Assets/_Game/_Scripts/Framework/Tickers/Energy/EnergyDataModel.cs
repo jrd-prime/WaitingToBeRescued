@@ -12,7 +12,7 @@ namespace _Game._Scripts.Framework.Tickers.Energy
         private float _multiplier;
         private float _dayDuration;
 
-        protected override void InitModel()
+        protected override void InitializeDataModel()
         {
             _max = ModelSettings.energyLimit;
             _multiplier = ModelSettings.dailyEnergyExpenditureMultiplier;

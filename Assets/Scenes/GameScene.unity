@@ -2407,7 +2407,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963503436}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8de9ad60727046a484008c455f068665, type: 3}
   m_Name: 
@@ -2430,7 +2430,7 @@ MonoBehaviour:
   layerForTrigger:
     serializedVersion: 2
     m_Bits: 2147483648
-  objSettings: {fileID: 0}
+  objSettings: {fileID: 11400000, guid: 3cc41827204e1434fb028d2129c530ee, type: 2}
 --- !u!1 &1970709118
 GameObject:
   m_ObjectHideFlags: 0

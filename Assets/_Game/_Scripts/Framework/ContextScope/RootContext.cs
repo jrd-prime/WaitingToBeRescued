@@ -1,5 +1,6 @@
 using System;
 using _Game._Scripts.Framework.Data.SO.Game;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.Framework.Input;
@@ -24,15 +25,24 @@ namespace _Game._Scripts.Framework.ContextScope
         {
             Debug.Log("<color=cyan>Root context</color>");
 
-            if (mainSettings == null) throw new NullReferenceException("MainSettings is null");
-            if (eventSystem == null) throw new NullReferenceException("EventSystem is null");
 
-            var input = gameObject.AddComponent(typeof(MobileInput)) ??
-                        throw new NullReferenceException("MobileInput is null");
-            builder.RegisterComponent(input).AsSelf();
+            Optional<MainSettings>.Some(mainSettings)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf(),
+                    () => throw new NullReferenceException("MainSettings is null")
+                );
 
-            builder.RegisterComponent(eventSystem).AsSelf();
-            builder.RegisterComponent(mainSettings).AsSelf();
+            Optional<EventSystem>.Some(eventSystem)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf(),
+                    () => throw new NullReferenceException("EventSystem is null"));
+
+            Optional<MobileInput>.Some(gameObject.AddComponent<MobileInput>())
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf(),
+                    () => throw new NullReferenceException("MobileInput is null")
+                );
+
 
             builder.Register<ISaveSystem, MessagePackISaveSystem>(Lifetime.Singleton)
                 .As<IInitializable, IDisposable>();

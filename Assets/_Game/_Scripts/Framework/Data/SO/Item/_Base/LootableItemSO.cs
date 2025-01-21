@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Data.SO._Base;
 
 namespace _Game._Scripts.Framework.Data.SO.Item._Base
 {

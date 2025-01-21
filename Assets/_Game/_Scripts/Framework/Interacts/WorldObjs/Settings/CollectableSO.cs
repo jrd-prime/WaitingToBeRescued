@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.Data.SO._Base;
+using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Data.SO.Item._Base;
 using _Game._Scripts.Framework.Helpers;
 using UnityEngine;

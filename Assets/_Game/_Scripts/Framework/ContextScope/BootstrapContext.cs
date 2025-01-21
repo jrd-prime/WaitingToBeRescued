@@ -1,4 +1,6 @@
-﻿using _Game._Scripts.Bootstrap;
+﻿using System;
+using _Game._Scripts.Bootstrap;
+using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.UI.Bootstrap;
 using UnityEngine;
@@ -18,7 +20,11 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<ILoadingScreenModel, LoadingScreenModel>(Lifetime.Singleton);
             builder.Register<ILoadingScreenViewModel, LoadingScreenViewModel>(Lifetime.Singleton);
 
-            builder.RegisterComponent(loadingScreenView);
+            Optional<LoadingScreenView>.Some(loadingScreenView)
+                .Match(
+                    component => builder.RegisterComponent(component).AsSelf(),
+                    () => throw new NullReferenceException("LoadingScreenView is null"));
+
             builder.Register<ILoader, Loader>(Lifetime.Singleton);
 
             builder.RegisterEntryPoint<AppStarter>();

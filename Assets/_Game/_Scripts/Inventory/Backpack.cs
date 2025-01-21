@@ -11,7 +11,7 @@ namespace _Game._Scripts.Inventory
 {
     public sealed class Backpack : SavableDataModelBase<BackpackSettings, BackpackData>, IBackpack
     {
-        protected override void InitModel()
+        protected override void InitializeDataModel()
         {
         }
 

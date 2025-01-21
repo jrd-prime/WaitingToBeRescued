@@ -1,5 +1,4 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.Data.SO._Base;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using UnityEngine;
 
