@@ -49,7 +49,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
             GameTimerSettings = _settingsManager.GetConfig<GameTimerSettings>();
 
-            InitModel();
+            InitializeDataModel();
             _defaultModelData = GetDefaultModelData();
             _saveSystem.LoadDataAsync(OnModelDataLoaded, _defaultModelData).Forget();
         }
@@ -106,7 +106,7 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             }
         }
 
-        protected abstract void InitModel();
+        protected abstract void InitializeDataModel();
         protected abstract TSavableDto GetDefaultModelData();
         protected abstract string GetDebugLine();
     }

@@ -8,7 +8,7 @@ namespace _Game._Scripts.Framework.Tickers.Temperature
         private float _current;
         private float _nextChange;
 
-        protected override void InitModel()
+        protected override void InitializeDataModel()
         {
             _current = ModelSettings.startTempInCelsius;
             _nextChange = ModelSettings.baseDailyTemperatureDrop;

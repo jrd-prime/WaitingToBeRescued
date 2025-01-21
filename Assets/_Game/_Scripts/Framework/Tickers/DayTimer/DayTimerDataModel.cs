@@ -10,7 +10,7 @@ namespace _Game._Scripts.Framework.Tickers.DayTimer
         private int _startDay;
         private float _dayDuration;
 
-        protected override void InitModel()
+        protected override void InitializeDataModel()
         {
             _startDay = GameplaySettings.startDay;
             _dayDuration = ModelSettings.gameDayInSeconds;
