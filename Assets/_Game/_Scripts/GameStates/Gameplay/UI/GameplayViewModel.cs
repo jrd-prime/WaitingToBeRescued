@@ -22,8 +22,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 
         #endregion
 
-        public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData => Model.EnergyData;
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData => Model.AmbientTempData;
+        public ReadOnlyReactiveProperty<EnergySavableData> ShelterEnergyData => Model.EnergyData;
+        public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTemperatureData => Model.AmbientTempData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => Model.IsGameRunning;
         public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; } = new();
         public ReactiveProperty<PreparedEnergyData> PreparedEnergyData { get; } = new();
@@ -51,21 +51,21 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
             BackpackBtnClicked.Subscribe(_ => Model.OpenBackpack()).AddTo(Disposables);
         }
 
-        private void UpdateDayTimerData(DayTimerData data)
+        private void UpdateDayTimerData(DayTimerSavableData savableData)
         {
-            PreparedDayTimerData.Value = _dayCountdownUpdater.Update(data);
+            PreparedDayTimerData.Value = _dayCountdownUpdater.Update(savableData);
             PreparedDayTimerData.NotifyIfDataIsClass();
         }
 
-        private void UpdateEnergyData(EnergyData data)
+        private void UpdateEnergyData(EnergySavableData savableData)
         {
-            PreparedEnergyData.Value = _energyUpdater.Update(data);
+            PreparedEnergyData.Value = _energyUpdater.Update(savableData);
             PreparedEnergyData.NotifyIfDataIsClass();
         }
 
-        private void UpdateTemperatureData(AmbientTempData data)
+        private void UpdateTemperatureData(AmbientTempSavableData savableData)
         {
-            PreparedTemperatureData.Value = _temperatureUpdater.Update(data);
+            PreparedTemperatureData.Value = _temperatureUpdater.Update(savableData);
             PreparedTemperatureData.NotifyIfDataIsClass();
         }
 

@@ -53,13 +53,11 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             _saveSystem.LoadDataAsync(OnModelDataLoaded, _defaultModelData).Forget();
         }
 
-
         protected void OnModelDataUpdated()
         {
             ModelData.Value = CachedModelData;
 
-            ModelData.NotifyIfDataIsClass();
-            // notify if it is a class
+            ModelData.NotifyIfDataIsClass(); // notify if it is a class
 
             AutoSave();
         }

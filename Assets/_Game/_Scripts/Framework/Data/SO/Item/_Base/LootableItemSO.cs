@@ -11,6 +11,9 @@ namespace _Game._Scripts.Framework.Data.SO.Item._Base
         where TItemTypeEnum : Enum
     {
         public TItemTypeEnum itemId;
+
+        public int GetID() => Convert.ToInt32(itemId);
+
 #if UNITY_EDITOR
         private void OnValidate()
         {

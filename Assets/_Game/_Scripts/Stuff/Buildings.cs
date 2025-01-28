@@ -5,15 +5,15 @@ using MessagePack;
 
 namespace _Game._Scripts.Stuff
 {
-    public class Buildings : StuffBase<BuildingsSO, BuildingsData>
+    public class Buildings : StuffBase<BuildingsSO, BuildingsSavableData>
     {
         protected override void InitializeDataModel()
         {
         }
 
-        protected override BuildingsData GetDefaultModelData()
+        protected override BuildingsSavableData GetDefaultModelData()
         {
-            return new BuildingsData();
+            return new BuildingsSavableData();
         }
 
         protected override string GetDebugLine()
@@ -23,7 +23,7 @@ namespace _Game._Scripts.Stuff
     }
 
     [MessagePackObject]
-    public sealed class BuildingsData : IDataComponent
+    public sealed class BuildingsSavableData : ISavableData
     {
     }
 }

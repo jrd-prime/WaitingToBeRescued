@@ -44,12 +44,12 @@ namespace _Game._Scripts.Framework.Tickers
         public void SetDayRemainingTime(float value) => _dayTimerDataModel.SetRemainingTime(value);
 
 
-        private void OnDayTimerDataChanged(DayTimerData timerData)
+        private void OnDayTimerDataChanged(DayTimerSavableData timerSavableData)
         {
-            if (!Mathf.Approximately(DayDuration.CurrentValue, timerData.DayDuration))
-                DayDuration.Value = timerData.DayDuration;
+            if (!Mathf.Approximately(DayDuration.CurrentValue, timerSavableData.DayDuration))
+                DayDuration.Value = timerSavableData.DayDuration;
 
-            OnRemainingTimeUpdate(timerData.RemainingTime);
+            OnRemainingTimeUpdate(timerSavableData.RemainingTime);
         }
 
         private void OnNewDay()

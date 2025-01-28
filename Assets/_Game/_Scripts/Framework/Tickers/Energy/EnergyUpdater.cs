@@ -11,13 +11,13 @@ namespace _Game._Scripts.Framework.Tickers.Energy
         public float EnergyMax { get; set; }
     }
 
-    public class EnergyUpdater : UpdaterBase<EnergyData, PreparedEnergyData>
+    public class EnergyUpdater : UpdaterBase<EnergySavableData, PreparedEnergyData>
     {
 
-        public override PreparedEnergyData Update(EnergyData data)
+        public override PreparedEnergyData Update(EnergySavableData savableData)
         {
-            var current = data.Current;
-            var max = data.Max;
+            var current = savableData.Current;
+            var max = savableData.Max;
 
             SetEnergyValueText(current, max);
 

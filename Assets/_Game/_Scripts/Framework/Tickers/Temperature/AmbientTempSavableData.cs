@@ -3,12 +3,12 @@
 namespace _Game._Scripts.Framework.Tickers.Temperature
 {
     [MessagePackObject]
-    public sealed class AmbientTempData : IDataComponent
+    public sealed class AmbientTempSavableData : ISavableData
     {
         [Key(0)] public float Current { get; private set; }
         [Key(1)] public float NextChange { get; private set; }
 
-        public AmbientTempData(float current, float nextChange)
+        public AmbientTempSavableData(float current, float nextChange)
         {
             Current = current;
             NextChange = nextChange;

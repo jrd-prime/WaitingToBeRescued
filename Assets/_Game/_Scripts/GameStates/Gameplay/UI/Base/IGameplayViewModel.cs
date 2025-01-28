@@ -17,8 +17,8 @@ namespace _Game._Scripts.GameStates.Gameplay.UI.Base
 
         public Subject<Unit> ShakeBackpackButton { get; }
 
-        public ReadOnlyReactiveProperty<EnergyData> ShelterEnergyData { get; }
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTemperatureData { get; }
+        public ReadOnlyReactiveProperty<EnergySavableData> ShelterEnergyData { get; }
+        public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTemperatureData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
 
         public ReactiveProperty<PreparedDayTimerData> PreparedDayTimerData { get; }

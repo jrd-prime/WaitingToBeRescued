@@ -8,11 +8,11 @@ namespace _Game._Scripts.Framework.Tickers.Temperature
         public string NextChange { get; set; }
     }
 
-    public class TemperatureUpdater : UpdaterBase<AmbientTempData, PreparedTemperatureData>
+    public class TemperatureUpdater : UpdaterBase<AmbientTempSavableData, PreparedTemperatureData>
     {
-        public override PreparedTemperatureData Update(AmbientTempData rawData)
+        public override PreparedTemperatureData Update(AmbientTempSavableData rawSavableData)
         {
-            var temp = rawData.Current;
+            var temp = rawSavableData.Current;
             var curr = temp switch
             {
                 > 0 => $"+{temp}",
@@ -20,7 +20,7 @@ namespace _Game._Scripts.Framework.Tickers.Temperature
                 _ => $"{temp}"
             };
             PreparedData.Current = curr;
-            PreparedData.NextChange = $"{rawData.NextChange}";
+            PreparedData.NextChange = $"{rawSavableData.NextChange}";
             return PreparedData;
         }
     }

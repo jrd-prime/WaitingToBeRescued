@@ -1,24 +1,42 @@
-﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
+﻿using System.Collections.Generic;
+using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Item.Lootable;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using JetBrains.Annotations;
+using VContainer;
 
 namespace _Game._Scripts.Stuff._Base
 {
     public interface IStuffDataManager
     {
-        public bool CheckCollectConditions(CollectionConditionsData settingsCollectionConditions);
+        public bool CheckCollectConditions(CollectionConditionsData collectionConditionsData);
         public bool CheckUseConditions(UsingConditionsData usingConditions);
     }
 
-    // TODO TEMPORARY!!
     /// <summary>
     /// TEMPORARY STUB
     /// </summary>
     [UsedImplicitly]
     public class StuffDataManager : IStuffDataManager
     {
-        public bool CheckCollectConditions(CollectionConditionsData settingsCollectionConditions)
+        private IBackpack backpack;
+
+        [Inject]
+        private void Construct(IObjectResolver resolver)
         {
-            settingsCollectionConditions.ShowDebug(); // TODO remove
+            backpack = resolver.Resolve<IBackpack>();
+        }
+
+        public bool CheckCollectConditions(CollectionConditionsData collectionConditionsData)
+        {
+            List<SettingsSO> missingStuff = new List<SettingsSO>();
+            if (!backpack.IsResourcesEnough(collectionConditionsData.resources,
+                    out Dictionary<int, float> missingResources))
+            {
+            }
+
+
+            collectionConditionsData.ShowDebug(); // TODO remove
             return true;
         }
 

@@ -14,10 +14,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
 {
     public interface IGameplayModel : IUIModel<EGameplaySubState>
     {
-        public ReadOnlyReactiveProperty<EnergyData> EnergyData { get; }
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData { get; }
+        public ReadOnlyReactiveProperty<EnergySavableData> EnergyData { get; }
+        public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTempData { get; }
         public ReadOnlyReactiveProperty<bool> IsGameRunning { get; }
-        public ReadOnlyReactiveProperty<DayTimerData> CountdownData { get; }
+        public ReadOnlyReactiveProperty<DayTimerSavableData> CountdownData { get; }
         public Subject<Unit> ShakeBackpackButton { get; }
 
         public void OnDownEvent(PointerDownEvent evt);
@@ -33,10 +33,10 @@ namespace _Game._Scripts.GameStates.Gameplay.UI
     public class GameplayModel : CustomUIModelBase<EGameplaySubState>, IGameplayModel
     {
         public Subject<Unit> ShakeBackpackButton { get; } = new();
-        public ReadOnlyReactiveProperty<DayTimerData> CountdownData => _dayTimerDataModel.ModelData;
+        public ReadOnlyReactiveProperty<DayTimerSavableData> CountdownData => _dayTimerDataModel.ModelData;
         public ReadOnlyReactiveProperty<bool> IsGameRunning => GameManager.IsGameRunning;
-        public ReadOnlyReactiveProperty<AmbientTempData> AmbientTempData => _ambientTempDataModel.ModelData;
-        public ReadOnlyReactiveProperty<EnergyData> EnergyData => _energyDataModel.ModelData;
+        public ReadOnlyReactiveProperty<AmbientTempSavableData> AmbientTempData => _ambientTempDataModel.ModelData;
+        public ReadOnlyReactiveProperty<EnergySavableData> EnergyData => _energyDataModel.ModelData;
 
         private IMovementControlModel _movementModel;
         private EnergyDataModel _energyDataModel;

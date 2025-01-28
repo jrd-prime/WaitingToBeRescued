@@ -5,15 +5,15 @@ using MessagePack;
 
 namespace _Game._Scripts.Stuff
 {
-    public class Skills : StuffBase<SkillsSO, SkillsData>
+    public class Skills : StuffBase<SkillsSO, SkillsSavableData>
     {
         protected override void InitializeDataModel()
         {
         }
 
-        protected override SkillsData GetDefaultModelData()
+        protected override SkillsSavableData GetDefaultModelData()
         {
-            return new SkillsData();
+            return new SkillsSavableData();
         }
 
         protected override string GetDebugLine()
@@ -23,7 +23,7 @@ namespace _Game._Scripts.Stuff
     }
 
     [MessagePackObject]
-    public sealed class SkillsData : IDataComponent
+    public sealed class SkillsSavableData : ISavableData
     {
     }
 }

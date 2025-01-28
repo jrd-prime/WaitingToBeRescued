@@ -5,7 +5,7 @@ using _Game._Scripts.Framework.Systems.SaveLoad;
 
 namespace _Game._Scripts.Framework.Tickers.DayTimer
 {
-    public class DayTimerDataModel : SavableDataModelBase<GameTimerSettings, DayTimerData>
+    public class DayTimerDataModel : SavableDataModelBase<GameTimerSettings, DayTimerSavableData>
     {
         private int _startDay;
         private float _dayDuration;
@@ -43,6 +43,6 @@ namespace _Game._Scripts.Framework.Tickers.DayTimer
         }
 
         public float GetRemainingTime() => CachedModelData.RemainingTime;
-        protected override DayTimerData GetDefaultModelData() => new(_startDay, _dayDuration, _dayDuration);
+        protected override DayTimerSavableData GetDefaultModelData() => new(_startDay, _dayDuration, _dayDuration);
     }
 }

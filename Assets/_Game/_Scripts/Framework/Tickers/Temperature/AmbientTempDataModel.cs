@@ -3,7 +3,7 @@ using _Game._Scripts.Framework.Systems.SaveLoad;
 
 namespace _Game._Scripts.Framework.Tickers.Temperature
 {
-    public class AmbientTempDataModel : SavableDataModelBase<TemperatureSettings, AmbientTempData>
+    public class AmbientTempDataModel : SavableDataModelBase<TemperatureSettings, AmbientTempSavableData>
     {
         private float _current;
         private float _nextChange;
@@ -14,7 +14,7 @@ namespace _Game._Scripts.Framework.Tickers.Temperature
             _nextChange = ModelSettings.baseDailyTemperatureDrop;
         }
 
-        protected override AmbientTempData GetDefaultModelData() => new(_current, _nextChange);
+        protected override AmbientTempSavableData GetDefaultModelData() => new(_current, _nextChange);
 
 
         protected override string GetDebugLine()

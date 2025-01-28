@@ -5,7 +5,7 @@ using _Game._Scripts.Framework.Tickers;
 namespace _Game._Scripts.Stuff._Base
 {
     public abstract class StuffBase<TSettings, TSavableDto> : SavableDataModelBase<TSettings, TSavableDto>
-        where TSettings : SettingsSO where TSavableDto : IDataComponent
+        where TSettings : SettingsSO where TSavableDto : ISavableData
     {
     }
 }

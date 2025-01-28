@@ -5,15 +5,15 @@ using MessagePack;
 
 namespace _Game._Scripts.Stuff
 {
-    public class Storage : StuffBase<StorageSO, StorageData>
+    public class Storage : StuffBase<StorageSO, StorageSavableData>
     {
         protected override void InitializeDataModel()
         {
         }
 
-        protected override StorageData GetDefaultModelData()
+        protected override StorageSavableData GetDefaultModelData()
         {
-            return new StorageData();
+            return new StorageSavableData();
         }
 
         protected override string GetDebugLine()
@@ -23,7 +23,7 @@ namespace _Game._Scripts.Stuff
     }
 
     [MessagePackObject]
-    public sealed class StorageData : IDataComponent
+    public sealed class StorageSavableData : ISavableData
     {
     }
 }

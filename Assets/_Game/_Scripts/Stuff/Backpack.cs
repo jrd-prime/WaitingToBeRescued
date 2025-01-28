@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using _Game._Scripts.Framework.Data.Enums;
-using _Game._Scripts.Framework.Data.SO.Game;
+using _Game._Scripts.Framework.Data.SO.Item.Lootable;
 using _Game._Scripts.Framework.Data.SO.Stuff;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.Framework.Tickers;
 using MessagePack;
@@ -10,13 +11,22 @@ using UnityEngine;
 
 namespace _Game._Scripts.Stuff
 {
-    public sealed class Backpack : SavableDataModelBase<BackpackSO, BackpackData>, IBackpack
+    public interface IBackpack
+    {
+        public void AddItems(Dictionary<int, float> dictionary);
+        public void RemoveItems(Dictionary<int, float> dictionary);
+
+        public bool IsResourcesEnough(List<CustomItemValue<ResourceSO>> settingsCollectionConditions,
+            out Dictionary<int, float> resourceSos);
+    }
+
+    public sealed class Backpack : SavableDataModelBase<BackpackSO, BackpackSavableData>, IBackpack
     {
         protected override void InitializeDataModel()
         {
         }
 
-        protected override BackpackData GetDefaultModelData() => new(new Dictionary<int, float>());
+        protected override BackpackSavableData GetDefaultModelData() => new(new Dictionary<int, float>());
 
         protected override string GetDebugLine()
         {
@@ -54,20 +64,47 @@ namespace _Game._Scripts.Stuff
         {
             Debug.LogWarning(GetDebugLine());
         }
-    }
 
-    public interface IBackpack
-    {
-        public void AddItems(Dictionary<int, float> dictionary);
-        public void RemoveItems(Dictionary<int, float> dictionary);
+        public bool IsResourcesEnough(List<CustomItemValue<ResourceSO>> settingsCollectionConditions,
+            out Dictionary<int, float> resourceSos)
+        {
+            resourceSos = new Dictionary<int, float>();
+            foreach (var requiredResource in settingsCollectionConditions)
+            {
+                var requiredResourceId = requiredResource.itemSettings.GetID();
+
+                if (CachedModelData.Items.ContainsKey(requiredResourceId))
+                {
+                    // if key exists
+
+                    if (CachedModelData.Items[requiredResourceId] < requiredResource.value)
+                    {
+                        resourceSos.Add(requiredResourceId, CachedModelData.Items[requiredResourceId]);
+                    }
+                }
+                else
+                {
+                    // if key doesn't exist
+                }
+
+                if (CachedModelData.Items.ContainsKey(requiredResourceId) &&
+                    CachedModelData.Items[requiredResourceId] >= requiredResource.value)
+                {
+                    continue;
+                }
+            }
+
+            resourceSos = null;
+            return false;
+        }
     }
 
     [MessagePackObject]
-    public class BackpackData : IDataComponent
+    public class BackpackSavableData : ISavableData
     {
-        [Key(0)] public Dictionary<int, float> Items { get; private set; }
+        [Key(0)] public Dictionary<int, float> Items { get; }
 
-        public BackpackData(Dictionary<int, float> items)
+        public BackpackSavableData(Dictionary<int, float> items)
         {
             Items = items;
         }

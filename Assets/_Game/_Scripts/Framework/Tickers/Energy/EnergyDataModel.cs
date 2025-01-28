@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Game._Scripts.Framework.Tickers.Energy
 {
-    public class EnergyDataModel : SavableDataModelBase<EnergySettings, EnergyData>
+    public class EnergyDataModel : SavableDataModelBase<EnergySettings, EnergySavableData>
     {
         private float _lastTimeRemaining;
         private float _max;
@@ -23,7 +23,7 @@ namespace _Game._Scripts.Framework.Tickers.Energy
             _previousTimeRemaining = _dayDuration;
         }
 
-        protected override EnergyData GetDefaultModelData() => new(_max, _max, _consumptionPerSecond);
+        protected override EnergySavableData GetDefaultModelData() => new(_max, _max, _consumptionPerSecond);
 
         public void IncreaseEnergy(float amount)
         {

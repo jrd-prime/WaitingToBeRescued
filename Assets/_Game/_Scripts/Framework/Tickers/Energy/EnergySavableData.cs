@@ -4,14 +4,14 @@ using UnityEngine;
 namespace _Game._Scripts.Framework.Tickers.Energy
 {
     [MessagePackObject]
-    public sealed class EnergyData : IDataComponent
+    public sealed class EnergySavableData : ISavableData
     {
         [Key(0)] public float Max { get; private set; }
         [Key(1)] public float Current { get; private set; }
         [Key(2)] public float ConsumptionPerSecond { get; private set; }
         [Key(3)] public bool OutOfEnergy { get; private set; }
 
-        public EnergyData(float max, float current, float consumptionPerSecond, bool outOfEnergy = false)
+        public EnergySavableData(float max, float current, float consumptionPerSecond, bool outOfEnergy = false)
         {
             Max = max;
             Current = current;

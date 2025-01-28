@@ -12,15 +12,15 @@ namespace _Game._Scripts.Framework.Tickers.DayTimer
         public string RemainingTimeFormatted { get; set; }
     }
 
-    public class DayCountdownUpdater : UpdaterBase<DayTimerData, PreparedDayTimerData>
+    public class DayCountdownUpdater : UpdaterBase<DayTimerSavableData, PreparedDayTimerData>
     {
-        public override PreparedDayTimerData Update(DayTimerData rawData)
+        public override PreparedDayTimerData Update(DayTimerSavableData rawSavableData)
         {
-            if (rawData == null) throw new ArgumentNullException(nameof(rawData));
+            if (rawSavableData == null) throw new ArgumentNullException(nameof(rawSavableData));
 
-            var day = rawData.Day;
-            var dayDuration = rawData.DayDuration;
-            var remainingTime = rawData.RemainingTime;
+            var day = rawSavableData.Day;
+            var dayDuration = rawSavableData.DayDuration;
+            var remainingTime = rawSavableData.RemainingTime;
 
             if (PreparedData.Day != day) PreparedData.Day = day;
 
@@ -37,13 +37,13 @@ namespace _Game._Scripts.Framework.Tickers.DayTimer
     }
 
     public abstract class UpdaterBase<TRawData, TPreparedData> : IDataUpdater<TRawData, TPreparedData>
-        where TRawData : IDataComponent where TPreparedData : new()
+        where TRawData : ISavableData where TPreparedData : new()
     {
         protected readonly TPreparedData PreparedData = new();
         public abstract TPreparedData Update(TRawData rawData);
     }
 
-    public interface IDataUpdater<in TRawData, out TPreparedData> where TRawData : IDataComponent
+    public interface IDataUpdater<in TRawData, out TPreparedData> where TRawData : ISavableData
     {
         public TPreparedData Update(TRawData rawData);
     }
