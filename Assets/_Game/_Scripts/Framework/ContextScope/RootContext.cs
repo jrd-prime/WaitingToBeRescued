@@ -73,7 +73,8 @@ namespace _Game._Scripts.Framework.ContextScope
             Debug.Log($"Total Reserved: {Profiler.GetTotalReservedMemoryLong() / (1024 * 1024)} MB");
             Debug.Log($"Total Unused Reserved: {Profiler.GetTotalUnusedReservedMemoryLong() / (1024 * 1024)} MB");
             Debug.Log("<color=darkblue><b>=======================</b></color>");
-            DeleteSavesMenu.DeleteSaves();
+
+            // DeleteSavesMenu.DeleteSaves();
         }
     }
 }

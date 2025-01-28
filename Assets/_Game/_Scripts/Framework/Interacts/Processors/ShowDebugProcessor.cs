@@ -1,11 +1,11 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
+namespace _Game._Scripts.Framework.Interacts.Processors
 {
     [UsedImplicitly]
     public class ShowDebugProcessor : CharacterInteractProcessorBase

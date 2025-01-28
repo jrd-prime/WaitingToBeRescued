@@ -5,7 +5,7 @@ using _Game._Scripts.Player.Data;
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs._Base
+namespace _Game._Scripts.Framework.Interacts.Processors._Base
 {
     public interface IInteractProcessor
     {
@@ -33,7 +33,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs._Base
         {
             if (PlayerDataManager == null) throw new NullReferenceException("PlayerDataManager is null");
 
-            Debug.LogWarning("<color=green>^^^ " + Description + " ^^^</color>");
+            Debug.LogWarning("<color=blue>" + Description + "</color>");
 
             _next?.Process(objSO, interactState);
         }
