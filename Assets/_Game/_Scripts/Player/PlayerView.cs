@@ -1,7 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Player.HUD;
-using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
 using VContainer;

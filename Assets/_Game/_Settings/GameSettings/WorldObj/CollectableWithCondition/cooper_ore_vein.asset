@@ -14,11 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 108a8d9b797c13244b4c6d208fd2f957, type: 3}
   collectibles:
-    resources: []
+    resources:
+    - itemSettings: {fileID: 11400000, guid: ad1032c3c6071ef4c81c1b35375bb1de, type: 2}
+      value: 3
     tools: []
     stuff: []
   collectionConditions:
-    resources: []
-    buildings: []
-    skills: []
-    tools: []
+    resources:
+    - itemSettings: {fileID: 11400000, guid: fc8865fe715eb2b4bb9a17098e07962d, type: 2}
+      value: 4
+    buildings:
+    - itemSettings: {fileID: 11400000, guid: 588c3661b110c364988724c2beb533d9, type: 2}
+      value: 2
+    skills:
+    - itemSettings: {fileID: 11400000, guid: 5a31544a383d1ec48a68326671450ead, type: 2}
+      value: 1
+    tools:
+    - itemSettings: {fileID: 11400000, guid: 8c916abaa18a02f4bbf3d8c8cb09caa7, type: 2}
+      value: 1

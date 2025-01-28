@@ -22,7 +22,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
         {
             if (objSO is UsableSO && interactState is EInteractState.EnoughForUse)
             {
-                Debug.LogWarning("Usable Settings and EnoughForUse");
+                Debug.LogWarning("Use!");
             }
 
             base.Process(objSO, interactState);

@@ -14,11 +14,6 @@ namespace _Game._Scripts.Framework.Interacts.Processors
     {
         protected override string Description => "Collect With Condition Processor";
 
-        [Inject]
-        private void Construct()
-        {
-        }
-
         public override void Process(InGameObjectSO objSO, EInteractState interactState)
         {
             Debug.LogWarning("--- Check Interact Conditions Processor");
@@ -39,7 +34,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
 
         private EInteractState CheckCollectConditions(CollectableWithConditionsSO collectSettings)
         {
-            var conditions = PlayerDataManager.CheckCollectConditions(collectSettings.collectionConditions);
+            var conditions = StuffDataManager.CheckCollectConditions(collectSettings.collectionConditions);
             Debug.LogWarning($"USE conditions: {conditions}");
 
             return conditions ? EInteractState.EnoughForCollect : EInteractState.NotEnoughForCollect;
@@ -47,7 +42,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
 
         private EInteractState CheckUseConditions(UsableWithConditionsSO useSettings)
         {
-            var conditions = PlayerDataManager.CheckUseConditions(useSettings.useConditions);
+            var conditions = StuffDataManager.CheckUseConditions(useSettings.useConditions);
             Debug.LogWarning($"COLLECT conditions: {conditions}");
 
             return conditions ? EInteractState.EnoughForUse : EInteractState.NotEnoughForUse;

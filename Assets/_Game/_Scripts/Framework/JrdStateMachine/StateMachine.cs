@@ -10,7 +10,7 @@ using _Game._Scripts.GameStates.Gameplay.State;
 using _Game._Scripts.GameStates.Menu.State;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
-using _Game._Scripts.Player.Interfaces;
+using _Game._Scripts.Player;
 using R3;
 using UnityEngine;
 using VContainer;

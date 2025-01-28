@@ -7,7 +7,7 @@ using _Game._Scripts.Framework.Tickers;
 using MessagePack;
 using UnityEngine;
 
-namespace _Game._Scripts.Inventory
+namespace _Game._Scripts.Stuff
 {
     public sealed class Backpack : SavableDataModelBase<BackpackSettings, BackpackData>, IBackpack
     {

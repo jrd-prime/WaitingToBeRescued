@@ -21,12 +21,10 @@ using _Game._Scripts.GameStates.Menu.UI;
 using _Game._Scripts.GameStates.Menu.UI.Base;
 using _Game._Scripts.GameStates.Pause;
 using _Game._Scripts.GameStates.Win;
-using _Game._Scripts.Inventory;
 using _Game._Scripts.Player;
-using _Game._Scripts.Player.Data;
 using _Game._Scripts.Player.HUD;
-using _Game._Scripts.Player.Interfaces;
 using _Game._Scripts.Shelter;
+using _Game._Scripts.Stuff;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.GameOver;
 using _Game._Scripts.UI.Pause;
@@ -94,7 +92,7 @@ namespace _Game._Scripts.Framework.ContextScope
             builder.Register<DayTimerDataModel>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
 
-            builder.Register<IPlayerDataManager, PlayerDataManager>(Lifetime.Singleton);
+            builder.Register<IStuffDataManager, StuffDataManager>(Lifetime.Singleton);
 
             builder.Register<IPlayerModel, PlayerModel>(Lifetime.Singleton).As<IInitializable, IDisposable>();
             builder.Register<IPlayerViewModel, PlayerViewModel>(Lifetime.Singleton).As<IDisposable>();

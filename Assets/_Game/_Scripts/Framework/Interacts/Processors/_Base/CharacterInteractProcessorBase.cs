@@ -1,7 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Player.Data;
+using _Game._Scripts.Stuff;
 using UnityEngine;
 using VContainer;
 
@@ -16,14 +16,14 @@ namespace _Game._Scripts.Framework.Interacts.Processors._Base
     public abstract class CharacterInteractProcessorBase : IInteractProcessor
     {
         protected abstract string Description { get; }
-        protected IPlayerDataManager PlayerDataManager { get; private set; }
+        protected IStuffDataManager StuffDataManager { get; private set; }
 
         private IInteractProcessor _next;
 
         [Inject]
-        private void Construct(IPlayerDataManager playerDataManager)
+        private void Construct(IStuffDataManager stuffDataManager)
         {
-            PlayerDataManager = playerDataManager;
+            StuffDataManager = stuffDataManager;
         }
 
         public IInteractProcessor SetNext(IInteractProcessor processor) =>
@@ -31,9 +31,9 @@ namespace _Game._Scripts.Framework.Interacts.Processors._Base
 
         public virtual void Process(InGameObjectSO objSO, EInteractState interactState)
         {
-            if (PlayerDataManager == null) throw new NullReferenceException("PlayerDataManager is null");
+            if (StuffDataManager == null) throw new NullReferenceException("StuffDataManager is null");
 
-            Debug.LogWarning("<color=blue>" + Description + "</color>");
+            // Debug.LogWarning("<color=blue>" + Description + "</color>");
 
             _next?.Process(objSO, interactState);
         }

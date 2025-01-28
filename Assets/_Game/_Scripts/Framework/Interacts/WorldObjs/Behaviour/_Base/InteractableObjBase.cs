@@ -2,6 +2,7 @@
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Interacts.Processors;
 using _Game._Scripts.Framework.Interacts.Processors._Base;
+using _Game._Scripts.Framework.Interacts.Processors._Base;
 using UnityEngine;
 using VContainer;
 

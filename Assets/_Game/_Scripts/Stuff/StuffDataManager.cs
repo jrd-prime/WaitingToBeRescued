@@ -1,28 +1,31 @@
 ﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using JetBrains.Annotations;
 
-namespace _Game._Scripts.Player.Data
+namespace _Game._Scripts.Stuff
 {
-    public interface IPlayerDataManager
+    public interface IStuffDataManager
     {
         public bool CheckCollectConditions(CollectionConditionsData settingsCollectionConditions);
         public bool CheckUseConditions(UsingConditionsData usingConditions);
     }
 
+    // TODO TEMPORARY!!
     /// <summary>
-    /// Временно
+    /// TEMPORARY STUB
     /// </summary>
     [UsedImplicitly]
-    public class PlayerDataManager : IPlayerDataManager
+    public class StuffDataManager : IStuffDataManager
     {
         public bool CheckCollectConditions(CollectionConditionsData settingsCollectionConditions)
         {
-            return false;
+            settingsCollectionConditions.ShowDebug(); // TODO remove
+            return true;
         }
 
         public bool CheckUseConditions(UsingConditionsData usingConditions)
         {
-            return false;
+            usingConditions.ShowDebug(); // TODO remove
+            return true;
         }
     }
 }

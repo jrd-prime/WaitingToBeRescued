@@ -4,7 +4,7 @@ using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Tickers;
 using _Game._Scripts.Framework.Tickers.DayTimer;
 using _Game._Scripts.Framework.Tickers.Timer;
-using _Game._Scripts.Player.Interfaces;
+using _Game._Scripts.Player;
 using R3;
 using UnityEngine;
 using VContainer;

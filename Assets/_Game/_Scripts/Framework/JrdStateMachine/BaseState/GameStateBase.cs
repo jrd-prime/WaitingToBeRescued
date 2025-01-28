@@ -4,7 +4,7 @@ using _Game._Scripts.Framework.JrdStateMachine.SubState;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
 using _Game._Scripts.Framework.MovementControl;
-using _Game._Scripts.Player.Interfaces;
+using _Game._Scripts.Player;
 using _Game._Scripts.UI.Base.Model;
 using R3;
 using UnityEngine;

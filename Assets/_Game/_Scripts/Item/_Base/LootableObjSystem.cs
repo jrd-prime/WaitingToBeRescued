@@ -1,6 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Inventory;
+using _Game._Scripts.Stuff;
 using VContainer;
 
 namespace _Game._Scripts.Item._Base

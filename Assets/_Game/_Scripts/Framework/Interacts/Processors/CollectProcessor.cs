@@ -2,7 +2,7 @@
 using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
-using _Game._Scripts.Inventory;
+using _Game._Scripts.Stuff;
 using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
@@ -26,7 +26,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
         {
             if (objSO is CollectableSO settings && interactState is EInteractState.EnoughForCollect)
             {
-                Debug.LogWarning("Collect Settings and EnoughForCollect");
+                Debug.LogWarning("Collect!");
                 PickUpItems(settings);
             }
 

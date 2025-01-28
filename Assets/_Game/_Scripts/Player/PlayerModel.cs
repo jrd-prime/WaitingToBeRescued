@@ -1,10 +1,10 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO.Game;
 using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Manager;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.MovementControl;
 using _Game._Scripts.Framework.Systems;
-using _Game._Scripts.Player.Interfaces;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -12,6 +12,18 @@ using VContainer.Unity;
 
 namespace _Game._Scripts.Player
 {
+    public interface IPlayerModel : IMovableModel, ITrackableModel
+    {
+        public ReactiveProperty<int> Health { get; }
+        public CharacterSettings CharSettings { get; }
+        public ReactiveProperty<bool> IsShooting { get; }
+        public void SetHealth(int health);
+        public void TakeDamage(int damage);
+        public void ResetPlayer();
+        public ReactiveProperty<bool> IsGameStarted { get; }
+        public void SetGameStarted(bool value);
+    }
+
     public struct CharacterActionDto
     {
         public int AnimationParamId;
