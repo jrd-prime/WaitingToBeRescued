@@ -25,6 +25,7 @@ using _Game._Scripts.Player;
 using _Game._Scripts.Player.HUD;
 using _Game._Scripts.Shelter;
 using _Game._Scripts.Stuff;
+using _Game._Scripts.Stuff._Base;
 using _Game._Scripts.UI.Base.Model;
 using _Game._Scripts.UI.GameOver;
 using _Game._Scripts.UI.Pause;

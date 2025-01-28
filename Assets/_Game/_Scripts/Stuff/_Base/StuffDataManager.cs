@@ -1,7 +1,7 @@
 ﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using JetBrains.Annotations;
 
-namespace _Game._Scripts.Stuff
+namespace _Game._Scripts.Stuff._Base
 {
     public interface IStuffDataManager
     {

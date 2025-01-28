@@ -2,6 +2,7 @@
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Stuff;
+using _Game._Scripts.Stuff._Base;
 using UnityEngine;
 using VContainer;
 

@@ -1,6 +1,8 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
+using _Game._Scripts.Framework.Data.SO.Stuff;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game._Scripts.Framework.Data.SO.Game
 {
@@ -24,6 +26,6 @@ namespace _Game._Scripts.Framework.Data.SO.Game
         [RequiredField] public TemperatureSettings temperatureSettings;
         [RequiredField] public GameTimerSettings GameTimerSettings;
         
-        [RequiredField] public BackpackSettings backpackSettings;
+        [FormerlySerializedAs("backpackSettings")] [RequiredField] public BackpackSO backpackSO;
     }
 }

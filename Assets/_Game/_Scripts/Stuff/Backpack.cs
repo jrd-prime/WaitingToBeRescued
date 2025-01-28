@@ -2,6 +2,7 @@
 using System.Linq;
 using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.SO.Game;
+using _Game._Scripts.Framework.Data.SO.Stuff;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using _Game._Scripts.Framework.Tickers;
 using MessagePack;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace _Game._Scripts.Stuff
 {
-    public sealed class Backpack : SavableDataModelBase<BackpackSettings, BackpackData>, IBackpack
+    public sealed class Backpack : SavableDataModelBase<BackpackSO, BackpackData>, IBackpack
     {
         protected override void InitializeDataModel()
         {
