@@ -1,17 +1,16 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Helpers;
-using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Player.HUD;
 using JetBrains.Annotations;
 using R3;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
+namespace _Game._Scripts.Framework.Interacts.Processors
 {
     /// <summary>
     /// If conditions are met, show collect UI

@@ -1,5 +1,5 @@
-﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.Processors;
+﻿using _Game._Scripts.Framework.Interacts.Processors;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,10 +11,11 @@ namespace _Game._Scripts.Framework.ContextScope
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<ShowDebugProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+            builder.Register<CheckInteractConditionsProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
             builder.Register<CollectProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<UseProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<CollectWithConditionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<UseWithConditionProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
             builder.Register<CollectUIProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
             builder.Register<UseUIProcessor>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();

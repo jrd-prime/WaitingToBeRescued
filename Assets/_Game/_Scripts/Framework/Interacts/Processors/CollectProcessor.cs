@@ -1,5 +1,5 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Inventory;
@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
+namespace _Game._Scripts.Framework.Interacts.Processors
 {
     [UsedImplicitly]
     public class CollectProcessor : CharacterInteractProcessorBase
@@ -24,18 +24,16 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
 
         public override void Process(InGameObjectSO objSO, EInteractState interactState)
         {
-            if (objSO is CollectableSO settings &&
-                interactState is EInteractState.Start or EInteractState.EnoughForCollect)
+            if (objSO is CollectableSO settings && interactState is EInteractState.EnoughForCollect)
             {
-                Debug.LogWarning("Collect Processor");
-                interactState = EInteractState.EnoughForCollect;
-                PickItems(settings);
+                Debug.LogWarning("Collect Settings and EnoughForCollect");
+                PickUpItems(settings);
             }
 
             base.Process(objSO, interactState);
         }
 
-        private void PickItems(CollectableSO so)
+        private void PickUpItems(CollectableSO so)
         {
             var pickableItems = so.GetCollectiblesWithId();
 

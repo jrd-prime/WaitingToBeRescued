@@ -1,11 +1,11 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Interacts.WorldObjs._Base;
+using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.Processors
+namespace _Game._Scripts.Framework.Interacts.Processors
 {
     /// <summary>
     /// If conditions are met, show use UI

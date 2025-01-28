@@ -17,18 +17,18 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
     {
         public ReactiveProperty<TSavableDto> ModelData { get; } = new();
         public ReactiveProperty<bool> IsModelLoaded { get; } = new(false);
+
         protected TSettings ModelSettings { get; private set; }
         protected GameplaySettings GameplaySettings { get; private set; }
         protected GameTimerSettings GameTimerSettings { get; private set; }
+
+        protected TSavableDto CachedModelData;
 
         private ISettingsManager _settingsManager;
         private ISaveSystem _saveSystem;
         private const float SaveDelay = 10f;
         private DateTime _lastSaveTime;
         private TSavableDto _defaultModelData;
-
-        protected TSavableDto CachedModelData;
-        private Type _modelDataType;
 
         [Inject]
         private void Construct(ISaveSystem iSaveSystem, ISettingsManager settingsManager)
@@ -43,7 +43,6 @@ namespace _Game._Scripts.Framework.Systems.SaveLoad
             if (_settingsManager == null) throw new NullReferenceException("SettingsManager is null");
 
             _lastSaveTime = DateTime.UtcNow;
-            _modelDataType = typeof(TSavableDto);
 
             ModelSettings = _settingsManager.GetConfig<TSettings>();
             GameplaySettings = _settingsManager.GetConfig<GameplaySettings>();
