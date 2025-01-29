@@ -1,5 +1,5 @@
 using System;
-using _Game._Scripts.Framework.Data.SO.Game;
+using _Game._Scripts.Framework.Data.SO.Main;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;

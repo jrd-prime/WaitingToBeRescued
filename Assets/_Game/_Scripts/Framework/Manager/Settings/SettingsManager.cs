@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Data.SO.Game;
+using _Game._Scripts.Framework.Data.SO.Main;
 using UnityEngine;
 using VContainer;
 

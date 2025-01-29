@@ -1,6 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Data.SO.Game;
+using _Game._Scripts.Framework.Data.SO.Main;
 using _Game._Scripts.Framework.Helpers.Extensions;
 using _Game._Scripts.Framework.Manager.Settings;
 using Cysharp.Threading.Tasks;

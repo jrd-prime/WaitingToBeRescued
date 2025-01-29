@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.Data.SO.Game;
+﻿using _Game._Scripts.Framework.Data.SO.Main;
 using _Game._Scripts.Framework.Systems.SaveLoad;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Stuff._Base;
+using _Game._Scripts.Framework.PlayerStuff._Base;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Interacts.Processors._Base

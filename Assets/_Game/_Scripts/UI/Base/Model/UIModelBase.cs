@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Framework.JrdStateMachine;
+﻿using _Game._Scripts.Framework.JStateMachine;
 using _Game._Scripts.Framework.Manager.Game;
 using _Game._Scripts.Framework.Manager.UI;
 using R3;

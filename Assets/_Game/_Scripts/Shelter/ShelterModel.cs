@@ -1,6 +1,6 @@
 ﻿using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.Data.SO.State;
-using _Game._Scripts.GameStates.Gameplay.UI;
+using _Game._Scripts.Framework.JStateMachine.Data;
+using _Game._Scripts.Framework.JStateMachine.State.Gameplay.UI;
 using R3;
 using VContainer;
 using VContainer.Unity;

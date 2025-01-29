@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
-using _Game._Scripts.GameStates.Gameplay.UI;
+using _Game._Scripts.Framework.JStateMachine.State.Gameplay.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;

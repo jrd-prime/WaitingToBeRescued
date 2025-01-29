@@ -1,4 +1,4 @@
-﻿using _Game._Scripts.Item._Base;
+﻿using _Game._Scripts.Shelter.Item._Base;
 
 namespace _Game._Scripts.Shelter
 {

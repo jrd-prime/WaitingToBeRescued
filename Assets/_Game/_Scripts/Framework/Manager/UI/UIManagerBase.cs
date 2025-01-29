@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Enums;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.Data.SO.State;
-using _Game._Scripts.Framework.Data.View;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
+using _Game._Scripts.Framework.JStateMachine.Data;
 using _Game._Scripts.Framework.Manager.Settings;
 using _Game._Scripts.Framework.Manager.UI.Viewer;
+using _Game._Scripts.UI.Base.Data;
 using _Game._Scripts.UI.Base.View;
 using UnityEngine;
 using VContainer;
