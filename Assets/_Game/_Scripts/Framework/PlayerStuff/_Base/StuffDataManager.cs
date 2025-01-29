@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
-using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.Enums;
+using _Game._Scripts.Framework.Helpers.Extensions;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using JetBrains.Annotations;
+using UnityEngine;
 using VContainer;
 
 namespace _Game._Scripts.Framework.PlayerStuff._Base
 {
     public interface IStuffDataManager
     {
-        public bool CheckCollectConditions(CollectionConditionsData collectionConditionsData);
-        public bool CheckUseConditions(UsingConditionsData usingConditions);
+        public bool CheckCollectConditions(CollectionConditionsData data, out List<int> missingStuffForCollect);
+        public bool CheckUseConditions(UsingConditionsData usingConditions, out List<int> missingStuffForUse);
     }
 
     /// <summary>
@@ -18,29 +20,35 @@ namespace _Game._Scripts.Framework.PlayerStuff._Base
     [UsedImplicitly]
     public class StuffDataManager : IStuffDataManager
     {
-        private IBackpack backpack;
+        private IBackpack _backpack;
 
         [Inject]
         private void Construct(IObjectResolver resolver)
         {
-            backpack = resolver.Resolve<IBackpack>();
+            _backpack = resolver.Resolve<IBackpack>();
         }
 
-        public bool CheckCollectConditions(CollectionConditionsData collectionConditionsData)
+        public bool CheckCollectConditions(CollectionConditionsData data, out List<int> missingStuffForCollect)
         {
-            List<SettingsSO> missingStuff = new List<SettingsSO>();
-            if (!backpack.IsResourcesEnough(collectionConditionsData.resources.ToIdValueDictionary(),
-                    out var missingResources))
+            missingStuffForCollect = new List<int>();
+
+            if (!_backpack.IsResourcesEnough(data.resources.ToIdValueDict(), out var missingResources))
             {
+                foreach (var resId in missingResources)
+                    Debug.LogWarning("Backpack: not enough " + GameItemTypes.GetEnumName(resId) +
+                                     " to collect"); // TODO remove
+
+                missingStuffForCollect.AddRange(missingResources);
             }
 
+            data.ShowDebug(); // TODO remove
 
-            collectionConditionsData.ShowDebug(); // TODO remove
-            return true;
+            return missingStuffForCollect.Count <= 0;
         }
 
-        public bool CheckUseConditions(UsingConditionsData usingConditions)
+        public bool CheckUseConditions(UsingConditionsData usingConditions, out List<int> missingStuffForUse)
         {
+            missingStuffForUse = new List<int>();
             usingConditions.ShowDebug(); // TODO remove
             return true;
         }

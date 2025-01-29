@@ -1,6 +1,7 @@
 ﻿using _Game._Scripts.Framework.Data.Constants;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game._Scripts.Framework.Data.SO.Obj.InWorld
 {
@@ -10,7 +11,7 @@ namespace _Game._Scripts.Framework.Data.SO.Obj.InWorld
         order = 100)]
     public class CollectableWithConditionsSO : CollectableSO
     {
-        public CollectionConditionsData collectionConditions;
+        [FormerlySerializedAs("collectionConditions")] public CollectionConditionsData collectConditions;
 
         public override void ShowDebug() => Debug.LogWarning("CollectableWithConditionsSO / " + name);
     }

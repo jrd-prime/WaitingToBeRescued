@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.SO;
 using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Interacts.Processors._Base;
@@ -32,18 +33,20 @@ namespace _Game._Scripts.Framework.Interacts.Processors
             base.Process(objSO, interactState);
         }
 
+//TODO refact
         private EInteractState CheckCollectConditions(CollectableWithConditionsSO collectSettings)
         {
-            var conditions = StuffDataManager.CheckCollectConditions(collectSettings.collectionConditions);
-            Debug.LogWarning($"USE conditions: {conditions}");
+            var conditions =
+                StuffDataManager.CheckCollectConditions(collectSettings.collectConditions, out var missingStuff);
+            Debug.LogWarning($"USE missingStuff count: {missingStuff.Count} / conditions: {conditions}");
 
             return conditions ? EInteractState.EnoughForCollect : EInteractState.NotEnoughForCollect;
         }
 
         private EInteractState CheckUseConditions(UsableWithConditionsSO useSettings)
         {
-            var conditions = StuffDataManager.CheckUseConditions(useSettings.useConditions);
-            Debug.LogWarning($"COLLECT conditions: {conditions}");
+            var conditions = StuffDataManager.CheckUseConditions(useSettings.useConditions, out var missingStuff);
+            Debug.LogWarning($"COLLECT missingStuff count: {missingStuff.Count} / conditions: {conditions}");
 
             return conditions ? EInteractState.EnoughForUse : EInteractState.NotEnoughForUse;
         }
