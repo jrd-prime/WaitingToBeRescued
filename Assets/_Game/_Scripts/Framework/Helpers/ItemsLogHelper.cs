@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 
 namespace _Game._Scripts.Framework.Helpers

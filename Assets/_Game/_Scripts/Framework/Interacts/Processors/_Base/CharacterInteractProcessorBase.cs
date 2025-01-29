@@ -1,9 +1,7 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Stuff;
 using _Game._Scripts.Stuff._Base;
-using UnityEngine;
 using VContainer;
 
 namespace _Game._Scripts.Framework.Interacts.Processors._Base
@@ -11,7 +9,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors._Base
     public interface IInteractProcessor
     {
         public IInteractProcessor SetNext(IInteractProcessor processor);
-        public void Process(InGameObjectSO objSO, EInteractState interactState);
+        public void Process(InWorldObjectSO objSO, EInteractState interactState);
     }
 
     public abstract class CharacterInteractProcessorBase : IInteractProcessor
@@ -30,7 +28,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors._Base
         public IInteractProcessor SetNext(IInteractProcessor processor) =>
             _next = processor ?? throw new ArgumentNullException(nameof(processor));
 
-        public virtual void Process(InGameObjectSO objSO, EInteractState interactState)
+        public virtual void Process(InWorldObjectSO objSO, EInteractState interactState)
         {
             if (StuffDataManager == null) throw new NullReferenceException("StuffDataManager is null");
 

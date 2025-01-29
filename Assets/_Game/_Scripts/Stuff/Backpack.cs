@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using _Game._Scripts.Framework.Data.Enums;
-using _Game._Scripts.Framework.Data.SO.Item.Lootable;
 using _Game._Scripts.Framework.Data.SO.Stuff;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using _Game._Scripts.Framework.Systems.SaveLoad;
@@ -16,8 +15,7 @@ namespace _Game._Scripts.Stuff
         public void AddItems(Dictionary<int, float> dictionary);
         public void RemoveItems(Dictionary<int, float> dictionary);
 
-        public bool IsResourcesEnough(List<CustomItemValue<ResourceSO>> settingsCollectionConditions,
-            out Dictionary<int, float> resourceSos);
+        public bool IsResourcesEnough(Dictionary<int, float> resourcesList, out List<int> insufficientResourcesId);
     }
 
     public sealed class Backpack : SavableDataModelBase<BackpackSO, BackpackSavableData>, IBackpack
@@ -65,37 +63,17 @@ namespace _Game._Scripts.Stuff
             Debug.LogWarning(GetDebugLine());
         }
 
-        public bool IsResourcesEnough(List<CustomItemValue<ResourceSO>> settingsCollectionConditions,
-            out Dictionary<int, float> resourceSos)
+        public bool IsResourcesEnough(Dictionary<int, float> resourcesList, out List<int> insufficientResourcesId)
         {
-            resourceSos = new Dictionary<int, float>();
-            foreach (var requiredResource in settingsCollectionConditions)
+            insufficientResourcesId = new List<int>();
+
+            foreach (var (resId, reqAmount) in resourcesList)
             {
-                var requiredResourceId = requiredResource.itemSettings.GetID();
-
-                if (CachedModelData.Items.ContainsKey(requiredResourceId))
-                {
-                    // if key exists
-
-                    if (CachedModelData.Items[requiredResourceId] < requiredResource.value)
-                    {
-                        resourceSos.Add(requiredResourceId, CachedModelData.Items[requiredResourceId]);
-                    }
-                }
-                else
-                {
-                    // if key doesn't exist
-                }
-
-                if (CachedModelData.Items.ContainsKey(requiredResourceId) &&
-                    CachedModelData.Items[requiredResourceId] >= requiredResource.value)
-                {
-                    continue;
-                }
+                if (!CachedModelData.Items.TryGetValue(resId, out var available) || available < reqAmount)
+                    insufficientResourcesId.Add(resId);
             }
 
-            resourceSos = null;
-            return false;
+            return insufficientResourcesId.Count == 0;
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _Game._Scripts.Framework.Data.SO.Item._Base
+namespace _Game._Scripts.Framework.Data.SO.Obj.InGame._Base
 {
     public abstract class NonLootableItemSO<TItemTypeEnum> : InGameObjectSO
         where TItemTypeEnum : Enum

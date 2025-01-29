@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Data.SO.Item._Base;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Helpers.Editor.Attributes;
 using _Game._Scripts.GameStates.Gameplay.UI;

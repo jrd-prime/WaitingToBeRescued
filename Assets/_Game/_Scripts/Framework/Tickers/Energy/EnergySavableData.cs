@@ -1,4 +1,5 @@
-﻿using MessagePack;
+﻿using _Game._Scripts.Framework.Systems.SaveLoad;
+using MessagePack;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Tickers.Energy

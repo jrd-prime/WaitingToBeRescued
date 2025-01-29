@@ -1,9 +1,10 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
+using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Player.HUD;
 using JetBrains.Annotations;
 using R3;
@@ -28,7 +29,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
             _characterHUDManager = characterHUDManager;
         }
 
-        public override void Process(InGameObjectSO objSO, EInteractState interactState)
+        public override void Process(InWorldObjectSO objSO, EInteractState interactState)
         {
             if (objSO is CollectableSO settings)
             {

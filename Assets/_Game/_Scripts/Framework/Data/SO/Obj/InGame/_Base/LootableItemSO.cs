@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _Game._Scripts.Framework.Data.SO.Item._Base
+namespace _Game._Scripts.Framework.Data.SO.Obj.InGame._Base
 {
     public abstract class LootableItemSOBase : InGameObjectSO
     {
     }
 
-    public abstract class LootableItemSO<TItemTypeEnum> : LootableItemSOBase
-        where TItemTypeEnum : Enum
+    public abstract class LootableItemSO<TItemTypeEnum> : LootableItemSOBase where TItemTypeEnum : Enum
     {
         public TItemTypeEnum itemId;
 
-        public int GetID() => Convert.ToInt32(itemId);
 
 #if UNITY_EDITOR
         private void OnValidate()

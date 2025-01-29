@@ -1,5 +1,5 @@
-﻿using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
+﻿using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
 
 namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour
 {

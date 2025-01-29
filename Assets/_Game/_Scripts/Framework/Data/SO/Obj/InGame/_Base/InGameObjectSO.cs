@@ -3,11 +3,12 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Data.SO
+namespace _Game._Scripts.Framework.Data.SO.Obj.InGame._Base
 {
     public abstract class InGameObjectSO : SettingsSO
     {
         public Sprite icon;
+        public abstract int GetID();
         public abstract void ShowDebug();
 
 #if UNITY_EDITOR

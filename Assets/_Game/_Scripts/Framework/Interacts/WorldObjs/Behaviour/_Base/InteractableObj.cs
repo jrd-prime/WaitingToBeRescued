@@ -1,15 +1,16 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Helpers.Extensions;
 using UnityEngine;
 
 namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base
 {
-    public abstract class InteractableObj<TObjSettings> : InteractableObjBase
-        where TObjSettings : InGameObjectSO
+    public abstract class InteractableObj<TInWorldObjSettings> : InteractableObjBase
+        where TInWorldObjSettings : InWorldObjectSO
     {
         [SerializeField] protected LayerMask layerForTrigger;
-        [SerializeField] protected TObjSettings objSettings;
+        [SerializeField] protected TInWorldObjSettings objSettings;
 
 
         private void Awake()

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Data.SO.Item.Lootable;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using JetBrains.Annotations;
 using VContainer;
@@ -30,8 +29,8 @@ namespace _Game._Scripts.Stuff._Base
         public bool CheckCollectConditions(CollectionConditionsData collectionConditionsData)
         {
             List<SettingsSO> missingStuff = new List<SettingsSO>();
-            if (!backpack.IsResourcesEnough(collectionConditionsData.resources,
-                    out Dictionary<int, float> missingResources))
+            if (!backpack.IsResourcesEnough(collectionConditionsData.resources.ToIdValueDictionary(),
+                    out var missingResources))
             {
             }
 

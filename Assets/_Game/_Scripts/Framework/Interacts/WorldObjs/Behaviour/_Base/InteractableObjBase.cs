@@ -1,7 +1,6 @@
-﻿using _Game._Scripts.Framework.Data.SO;
+﻿using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Helpers;
 using _Game._Scripts.Framework.Interacts.Processors;
-using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.Processors._Base;
 using UnityEngine;
 using VContainer;
@@ -53,8 +52,8 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base
         {
         }
 
-        protected void StartInteract(InGameObjectSO obj) => _startChain?.Process(obj, EInteractState.Start);
+        protected void StartInteract(InWorldObjectSO obj) => _startChain?.Process(obj, EInteractState.Start);
 
-        protected void FinishInteract(InGameObjectSO obj) => _finishChain.Process(obj, EInteractState.Start);
+        protected void FinishInteract(InWorldObjectSO obj) => _finishChain.Process(obj, EInteractState.Start);
     }
 }

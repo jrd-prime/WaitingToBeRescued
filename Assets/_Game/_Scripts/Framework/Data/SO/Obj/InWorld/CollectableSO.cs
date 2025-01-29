@@ -1,28 +1,15 @@
 ﻿using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Constants;
-using _Game._Scripts.Framework.Data.SO;
-using _Game._Scripts.Framework.Data.SO.Item._Base;
-using _Game._Scripts.Framework.Helpers;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
+using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.Settings
+namespace _Game._Scripts.Framework.Data.SO.Obj.InWorld
 {
-    [CreateAssetMenu(
-        fileName = "Collectable",
-        menuName = SOPathConst.InWorldItem + "New Collectable",
-        order = 100)]
-    public class CollectableSO : InGameObjectSO
+    [CreateAssetMenu(fileName = "Collectable", menuName = SOPathConst.InWorldItem + "New Collectable", order = 100)]
+    public class CollectableSO : InWorldObjectSO
     {
         public CollectiblesData collectibles;
-
-        public override void ShowDebug()
-        {
-            Debug.LogWarning("=== Returns ===");
-            collectibles.resources.LogItems("Resource");
-            collectibles.tools.LogItems("Tool");
-            collectibles.stuff.LogItems("Stuff");
-            Debug.LogWarning("===");
-        }
 
         public Dictionary<int, float> GetCollectiblesWithId()
         {
@@ -44,6 +31,11 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Settings
             foreach (var item in collectibles.stuff) dict.TryAdd(item.itemSettings, item.value);
 
             return dict;
+        }
+
+        public override void ShowDebug()
+        {
+            Debug.LogWarning("CollectableSO / " + name);
         }
     }
 }

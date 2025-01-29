@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game._Scripts.Framework.Data.Enums.States;
-using _Game._Scripts.Framework.Data.SO.View;
+using _Game._Scripts.Framework.Data.View;
 using UnityEngine;
 
 namespace _Game._Scripts.UI.Base.View

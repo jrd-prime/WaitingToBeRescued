@@ -2,7 +2,7 @@
 using _Game._Scripts.Framework.Interacts.WorldObjs.Data;
 using UnityEngine;
 
-namespace _Game._Scripts.Framework.Interacts.WorldObjs.Settings
+namespace _Game._Scripts.Framework.Data.SO.Obj.InWorld
 {
     [CreateAssetMenu(
         fileName = "UsableWithConditions",
@@ -11,10 +11,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Settings
     public class UsableWithConditionsSO : UsableSO
     {
         public UsingConditionsData useConditions;
-
-        public override void ShowDebug()
-        {
-            base.ShowDebug();
-        }
+        
+        public override void ShowDebug() => Debug.LogWarning("UsableWithConditionsSO / " + name);
     }
 }

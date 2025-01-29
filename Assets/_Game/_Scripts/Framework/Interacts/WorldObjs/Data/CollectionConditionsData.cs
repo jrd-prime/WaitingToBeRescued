@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Game._Scripts.Framework.Data.SO.Item.Lootable;
-using _Game._Scripts.Framework.Data.SO.Item.NonLootable;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame.Lootable;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame.NonLootable;
 using _Game._Scripts.Framework.Helpers;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ namespace _Game._Scripts.Framework.Interacts.WorldObjs.Data
         public List<CustomItemValue<BuildingSO>> buildings;
         public List<CustomItemValue<SkillSO>> skills;
         public List<CustomItemValue<ToolSO>> tools;
+
 
         public void ShowDebug()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
 using _Game._Scripts.Stuff;
 using VContainer;
 

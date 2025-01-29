@@ -1,7 +1,8 @@
 ﻿using _Game._Scripts.Framework.Data.SO;
+using _Game._Scripts.Framework.Data.SO.Obj.InGame._Base;
+using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using _Game._Scripts.Stuff;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
             _backpack = backpack;
         }
 
-        public override void Process(InGameObjectSO objSO, EInteractState interactState)
+        public override void Process(InWorldObjectSO objSO, EInteractState interactState)
         {
             if (objSO is CollectableSO settings && interactState is EInteractState.EnoughForCollect)
             {

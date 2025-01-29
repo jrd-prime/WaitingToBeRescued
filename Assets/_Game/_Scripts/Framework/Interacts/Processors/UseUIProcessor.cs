@@ -1,7 +1,6 @@
-﻿using _Game._Scripts.Framework.Data.SO;
+﻿using _Game._Scripts.Framework.Data.SO.Obj.InWorld;
 using _Game._Scripts.Framework.Interacts.Processors._Base;
 using _Game._Scripts.Framework.Interacts.WorldObjs.Behaviour._Base;
-using _Game._Scripts.Framework.Interacts.WorldObjs.Settings;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace _Game._Scripts.Framework.Interacts.Processors
     {
         protected override string Description => "Use UI Processor";
 
-        public override void Process(InGameObjectSO objSO, EInteractState interactState)
+        public override void Process(InWorldObjectSO objSO, EInteractState interactState)
         {
             if (objSO is UsableSO settings)
             {

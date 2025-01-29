@@ -1,5 +1,5 @@
 ﻿using System;
-using _Game._Scripts.Framework.Data.SO.View;
+using _Game._Scripts.Framework.Data.View;
 using _Game._Scripts.Framework.Helpers;
 using UnityEngine;
 using UnityEngine.UIElements;
